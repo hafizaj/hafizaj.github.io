@@ -1,0 +1,384 @@
+* {
+    text-decoration: none;
+}
+
+.title-text {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+}
+
+.body-text {
+    font-family: 'Quattrocento Sans', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+.body-text-light {
+    font-family: 'Quattrocento Sans', sans-serif;
+    letter-spacing: 0.8px;
+}
+
+#body-text-bold {
+    font-family: 'Lato', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+#body-text-bold-color {
+    font-family: 'Quattrocento Sans', sans-serif;
+    letter-spacing: 0.8px;
+    /* color: rgb(66, 43, 194); */
+}
+
+button:focus {outline:0;}
+.navbar-toggler {
+    border: none;
+}
+
+a{
+    color: rgb(80, 53, 230);
+}
+
+a:hover {
+    text-decoration: none;
+    opacity: 0.75;
+}
+
+body {
+    min-height: 100%;
+    background-color: white;
+}
+
+.my-container {
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    min-height: 100%;
+}
+
+.signature {
+    font-size: 1.8em;
+}
+
+.nav-item {
+    padding: 6px 0px;
+}
+
+.navbar {
+    padding-bottom: 20px;
+    padding-right: 0px;
+}
+
+.navbar-toggler-icon {
+    padding-right: 0px;
+    margin-right: 0px;
+    
+}
+
+
+.footer {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.gray-line {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 8px auto;
+    height: 0;
+    width: 100%;
+    max-height: 0;
+    font-size: 1px;
+    line-height: 0;
+    clear: both;
+    border: none;
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 3px;
+}
+
+.copyright {
+    margin: 1px auto 5px auto;
+}
+
+.footer-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.contact {
+    margin: 0 auto;
+}
+
+.contact a{
+    padding: 0.5em;
+}
+
+
+.middle {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 1em;
+    text-align: center;
+}
+
+.bio {
+    padding-top: 1em;
+    display: block;
+    margin: 0 auto;
+}
+
+.bio-title h1{
+    text-align: center;
+    font-size: 2.2em;
+}
+
+.profile-picture {
+    display: flex;
+    width: 100%;
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profile-picture-box {
+    display: block;
+    z-index: 1;
+    margin-top: .5em;
+    height: 12em;
+    width: 18em;
+    border: black 1px solid;
+}
+
+.profile-picture-img {
+    position: relative;
+    top: -.5em;
+    left: .8em;
+    z-index: 2;
+    height: 13em;
+    border: rgb(80, 53, 230) 2px solid;
+}
+
+/* -------------------------- projects -------------------------- */
+
+.projects-middle {
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.projects-middle-header {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3em;
+}
+
+.project-block {
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.project-title-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: 1px red solid; */
+}
+
+.project-title {
+    font-size: 1.8em;
+    color: rgb(80, 53, 230);
+}
+
+.project-date {
+    color: rgb(80,80,80);
+    margin-top: .7em;
+    /* border: 1px blue solid; */
+}
+
+.project-summary {
+    margin-bottom: 1em;
+}
+
+.connectra-prototype {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/* -------------------------- blog -------------------------- */
+
+.blog-middle {
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.blog-middle-header {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3em;
+}
+
+
+.blog-article-block {
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.blog-article-title {
+    font-size: 1.8em;
+    color: rgb(80, 53, 230);
+}
+
+.blog-article-subtitle {
+    color: rgb(80,80,80);
+    margin-bottom: 1em;
+}
+
+.blog-article-peak {
+    margin-bottom: 1em;
+}
+
+.blog-article-peak a{
+    margin-left: 0.2em;
+}
+
+.light-gray-line {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 15px auto 8px auto;
+    height: 0;
+    width: 100%;
+    max-height: 0;
+    font-size: 1px;
+    line-height: 0;
+    clear: both;
+    border: none;
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 3px;
+    opacity: .5;
+}
+
+.annotation {
+    font-size: 100%;
+    padding-left: 1em;
+    padding-bottom: 0.5em;
+    border-left: 4px solid rgb(211,211,211);
+    color: rgb(61, 61, 61);
+}
+
+
+
+
+.post-middle {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.post-title {
+    font-size: 2em;
+}
+
+.post-subtitle {
+    font-size: 1.2em;
+    color: rgb(80,80,80);
+}
+
+
+
+
+
+
+@media screen and (min-width:768px) {
+    .my-container {
+        width: 700px;
+    }
+    .signature {
+        font-size: 2em;
+    }
+    .nav-item {
+        padding: 0px 8px;
+    }
+    .copyright {
+        margin-left: 0;
+    }
+    .footer-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .contact {
+        margin-right: 0;
+    }
+    .contact a:last-child {
+        padding-right: 0;
+    }
+    .contact a{
+        color: rgb(80, 53, 230);
+    }
+    .middle {
+        margin: 0 0;
+        padding-bottom: 0.5em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .bio {
+        padding-top: 1em;
+        padding-left: 0em;
+    }
+
+    .bio-title h1{
+        padding-bottom: .1em;
+        text-align: left;
+        padding-left: 1em;
+        font-size: 2.8em;
+    }
+
+    .bio-paragraph {
+        text-align: left;
+    }
+
+    .profile-picture {
+        display: block;
+        width: 17em;
+        margin: 0.2em 3em 2em 0em;
+    }
+    .profile-picture-box {
+        display: relative;
+        z-index: 1;
+        height: 13em;
+        width: 16em;
+        border: black 1px solid;
+    }
+    .profile-picture-img {
+        position: relative;
+        top: .7em;
+        left: .8em;
+        height: 13em;
+        width: auto;
+        z-index: 2;
+        border: rgb(80, 53, 230) 2px solid;
+    }
+}
+

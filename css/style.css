@@ -156,14 +156,14 @@ body {
     border: black 1px solid;
 } */
 
-.profile-picture-img {
+/* .profile-picture-img {
     position: relative;
     top: -.5em;
     left: .8em;
     z-index: 2;
     height: 13em;
     border: rgb(80, 53, 230) 2px solid;
-}
+} */
 
 /* -------------------------- projects -------------------------- */
 
@@ -371,7 +371,7 @@ body {
         width: 16em;
         border: black 1px solid;
     } */
-    .profile-picture-img {
+    /* .profile-picture-img {
         position: relative;
         top: .7em;
         left: .8em;
@@ -379,6 +379,6 @@ body {
         width: auto;
         z-index: 2;
         border: rgb(80, 53, 230) 2px solid;
-    }
+    } */
 }
 

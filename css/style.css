@@ -196,7 +196,7 @@ body {
 
 .project-title {
     font-size: 1.8em;
-    color: rgb(80, 53, 230);
+    color: rgb(27, 231, 119);
 }
 
 .project-date {
@@ -364,13 +364,13 @@ body {
         width: 17em;
         margin: 0.2em 3em 2em 0em;
     }
-    .profile-picture-box {
+    /* .profile-picture-box {
         display: relative;
         z-index: 1;
         height: 13em;
         width: 16em;
         border: black 1px solid;
-    }
+    } */
     .profile-picture-img {
         position: relative;
         top: .7em;

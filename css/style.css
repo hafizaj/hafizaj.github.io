@@ -162,7 +162,7 @@ body {
     left: .8em;
     z-index: 2;
     height: 13em;
-    border: rgb(80, 53, 230) 2px solid;
+    border: grey 2px solid;
 }
 
 /* -------------------------- projects -------------------------- */
@@ -321,7 +321,7 @@ body {
         height: 13em;
         width: auto;
         z-index: 2;
-        border: rgb(80, 53, 230) 2px solid;
+        border: grey 2px solid;
     }
 }
 

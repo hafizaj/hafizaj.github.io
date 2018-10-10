@@ -3,29 +3,29 @@
 }
 
 .title-text {
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 100;
 }
 
 .body-text {
-    font-family: 'Quattrocento Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
     letter-spacing: 0.8px;
 }
 
 .body-text-light {
-    font-family: 'Quattrocento Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 0.8px;
 }
 
 #body-text-bold {
-    font-family: 'Lato', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
     letter-spacing: 0.8px;
 }
 
 #body-text-bold-color {
-    font-family: 'Quattrocento Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 0.8px;
     /* color: rgb(66, 43, 194); */
 }

@@ -147,14 +147,14 @@ body {
     justify-content: space-around;
 }
 
-.profile-picture-box {
+/* .profile-picture-box {
     display: block;
     z-index: 1;
     margin-top: .5em;
     height: 12em;
     width: 18em;
     border: black 1px solid;
-}
+} */
 
 .profile-picture-img {
     position: relative;

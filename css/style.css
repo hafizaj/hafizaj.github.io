@@ -219,38 +219,6 @@ body {
     justify-content: space-around;
 }
 
-/* -------------------------- blog -------------------------- */
-
-.annotation {
-    font-size: 100%;
-    padding-left: 1em;
-    padding-bottom: 0.5em;
-    border-left: 4px solid rgb(211,211,211);
-    color: rgb(61, 61, 61);
-}
-
-
-
-
-.post-middle {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.post-title {
-    font-size: 2em;
-}
-
-.post-subtitle {
-    font-size: 1.2em;
-    color: rgb(80,80,80);
-}
-
-
-
-
-
-
 @media screen and (min-width:768px) {
     .my-container {
         width: 700px;

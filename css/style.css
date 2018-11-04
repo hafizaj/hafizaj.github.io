@@ -138,6 +138,17 @@ body {
     font-size: 2.2em;
 }
 
+.class-enroll {
+    padding-top: 1em;
+    display: block;
+    margin: 0 auto;
+}
+
+.bio-title h1{
+    text-align: center;
+    font-size: 2.2em;
+}
+
 .profile-picture {
     display: block;
     z-index: 1;

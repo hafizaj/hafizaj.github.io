@@ -144,9 +144,13 @@ body {
     margin: 0 auto;
 }
 
-.bio-title h1{
-    text-align: center;
+.class-enroll-title h1{
+    text-align: left;
     font-size: 2.2em;
+}
+
+.class-enroll-paragraph {
+    text-align: left;
 }
 
 .profile-picture {

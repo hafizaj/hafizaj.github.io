@@ -172,6 +172,7 @@ body {
 }
 
 
+
 @media screen and (min-width:768px) {
     .my-container {
         width: 700px;
@@ -243,6 +244,12 @@ body {
         width: auto;
         z-index: 2;
         border: grey 2px solid;
+    }
+
+    .card-img-top {
+        width: 70%;
+        height: 15vw;
+        object-fit: cover;
     }
 }
 

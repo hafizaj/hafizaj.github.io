@@ -248,7 +248,7 @@ body {
 
     .card-img-top {
         width: 70%;
-        height: 15vw;
+        height: 5vw;
         object-fit: cover;
     }
 }

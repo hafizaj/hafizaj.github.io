@@ -726,8 +726,16 @@ main { min-height: 60vh; }
   position: relative;
   min-height: 100vh;
   background: var(--bg);
-  overflow: hidden;        /* already there — keep it */
+  overflow: hidden;
   isolation: isolate;
+
+  /* ADD THIS — teal glow on the right where your photo sits */
+  background-image: radial-gradient(
+    ellipse 50% 60% at 85% 50%,
+    rgba(13, 115, 119, 0.12) 0%,
+    rgba(13, 115, 119, 0.04) 50%,
+    transparent 100%
+  );
 }
 
 #heroCanvas {
@@ -793,4 +801,120 @@ main { min-height: 60vh; }
   background: var(--bg3);           /* slightly different tone */
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+}
+
+.hero__profile {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;           /* above canvas so letters fall behind it */
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero__profile-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.hero__profile-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.hero__profile-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+
+.poker-calc-sidebar-teaser {
+  background: #0a1a1a !important;
+  border-color: rgba(13,115,119,0.3) !important;
+  position: relative;
+  overflow: hidden;
+}
+.poker-calc-sidebar-teaser::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 80% 20%, rgba(13,115,119,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.calc-sidebar-inner { position: relative; z-index: 1; }
+.calc-sidebar-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.calc-sidebar-title {
+  font-size: 1.1rem !important;
+  color: #fff !important;
+  margin-bottom: 0.6rem !important;
+}
+.calc-sidebar-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,1);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.calc-sidebar-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+}
+.calc-demo-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.calc-demo-cards { display: flex; gap: 0.25rem; flex-shrink: 0; }
+.calc-demo-card {
+  width: 28px; height: 38px;
+  background: #fff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.calc-demo-card.red   { color: #c0392b; }
+.calc-demo-card.black { color: #1a1714; }
+.calc-demo-bar-wrap {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.calc-demo-bar { height: 100%; border-radius: 3px; }
+.calc-demo-pct {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+  width: 32px;
+  text-align: right;
 }

@@ -3,27 +3,831 @@ layout: default
 title: Poker
 ---
 
-<div class="container" style="padding: 6rem 0 4rem;">
-  <h1>♠ Poker</h1>
-  <p>{{ site.data.poker.intro }}</p>
-  <div class="card__tech" style="margin: 1rem 0;">
-    {% for stat in site.data.poker.stats %}
-    <span>{{ stat.value }} {{ stat.label }}</span>
-    {% endfor %}
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="poker-hero">
+  <div class="poker-hero__felt"></div>
+  <div class="poker-hero__overlay"></div>
+  <div class="container poker-hero__inner">
+    <div class="poker-hero__left">
+      <div class="poker-hero__label">♠ ♥ ♦ ♣</div>
+      <h1 class="poker-hero__title">Poker</h1>
+      <p class="poker-hero__lead">{{ site.data.poker.intro }}</p>
+    </div>
+    <div class="poker-hero__stats">
+      {% for stat in site.data.poker.stats %}
+      <div class="poker-stat">
+        <div class="poker-stat__value">{{ stat.value }}</div>
+        <div class="poker-stat__label">{{ stat.label }}</div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-  <h2>{{ site.data.poker.philosophy.title }}</h2>
-  <p>{{ site.data.poker.philosophy.body }}</p>
-  <h2>{{ site.data.poker.study_approach.title }}</h2>
-  <ul>
-    {% for point in site.data.poker.study_approach.points %}
-    <li>{{ point }}</li>
-    {% endfor %}
-  </ul>
-  <h2>{{ site.data.poker.resources.title }}</h2>
-  <ul>
-    {% for item in site.data.poker.resources.items %}
-    <li>{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %} — {{ item.type }}</li>
-    {% endfor %}
-  </ul>
-  <p><a href="/" class="btn btn--outline">Back to home</a></p>
+</section>
+
+<!-- ═══════════════════════ CONTENT GRID ═══════════════════════ -->
+<section class="section poker-content">
+  <div class="container">
+    <div class="poker-grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="poker-main">
+
+        <div class="poker-card fade-in">
+          <div class="poker-card__icon">🧠</div>
+          <h3>{{ site.data.poker.philosophy.title }}</h3>
+          <p>{{ site.data.poker.philosophy.body }}</p>
+        </div>
+
+        <div class="poker-card fade-in">
+          <div class="poker-card__icon">📖</div>
+          <h3>{{ site.data.poker.study_approach.title }}</h3>
+          <ul class="poker-list">
+            {% for point in site.data.poker.study_approach.points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="poker-card poker-card--accent fade-in">
+          <div class="poker-card__icon">💼</div>
+          <h3>The Data Science Connection</h3>
+          <p>Poker sharpened skills that apply directly to ML: comfort with uncertainty, expected value thinking, updating beliefs on new evidence (Bayesian reasoning), and keeping emotions out of analytical decisions. Both reward rigorous process over results-oriented thinking.</p>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <!-- SIDEBAR -->
+      <div class="poker-sidebar">
+
+        <div class="poker-card fade-in">
+          <div class="poker-card__icon">📚</div>
+          <h3>{{ site.data.poker.resources.title }}</h3>
+          {% for item in site.data.poker.resources.items %}
+          <div class="resource-item">
+            <div>
+              {% if item.url != "" %}
+              <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>
+              {% else %}
+              <span>{{ item.name }}</span>
+              {% endif %}
+            </div>
+            <span class="resource-type">{{ item.type }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      
+        <!-- REPLACE EVERYTHING BELOW THIS LINE (delete old teaser, paste new) -->
+        <div class="poker-table-wrap fade-in">
+          <div class="poker-table" id="pokerTable">
+            <div class="felt-rail"></div>
+            <div class="deck-wrap">
+              <div class="deck-visual" id="deckBtn">
+                <div class="deck-layer"></div>
+                <div class="deck-layer"></div>
+                <div class="deck-layer deck-top"></div>
+              </div>
+              <div class="deck-label">Click to deal</div>
+            </div>
+            <div class="table-row row-opponent">
+              <div class="player-info">
+                <div class="player-name">Opponent</div>
+                <div class="player-stack">$1,240</div>
+              </div>
+              <div class="player-cards-wrap">
+                <div class="card" id="oc1"><div class="card-back"></div></div>
+                <div class="card" id="oc2"><div class="card-back"></div></div>
+              </div>
+            </div>
+            <div class="table-row row-community">
+              <div class="community-label">Board</div>
+              <div class="community-cards-wrap">
+                <div class="card card--community" id="cc1"><div class="card-back"></div></div>
+                <div class="card card--community" id="cc2"><div class="card-back"></div></div>
+                <div class="card card--community" id="cc3"><div class="card-back"></div></div>
+                <div class="card--placeholder" id="cc4"></div>
+                <div class="card--placeholder" id="cc5"></div>
+              </div>
+            </div>
+            <div class="pot-wrap">
+              <div class="pot-chips-visual">
+                <div class="pot-chip pot-chip--black"></div>
+                <div class="pot-chip pot-chip--blue"></div>
+                <div class="pot-chip pot-chip--red"></div>
+              </div>
+              <div class="pot-amount">POT $480</div>
+            </div>
+            <div class="table-row row-player">
+              <div class="player-cards-wrap">
+                <div class="card" id="pc1"><div class="card-back"></div></div>
+                <div class="card" id="pc2"><div class="card-back"></div></div>
+              </div>
+              <div class="player-info" style="align-items:flex-end">
+                <div class="player-name">You</div>
+                <div class="player-stack">$820</div>
+              </div>
+            </div>
+            <div class="action-row">
+              <button class="action-btn action-btn--fold">Fold</button>
+              <button class="action-btn action-btn--call">Call $80</button>
+              <button class="action-btn action-btn--raise">Raise</button>
+            </div>
+          </div>
+          <div class="table-cta">
+            <div class="cta-left">
+              <div class="cta-badge">♠ Interactive Tool</div>
+              <div class="cta-title">Equity Calculator</div>
+              <div class="cta-sub">Monte Carlo · Outs · Probability Math</div>
+            </div>
+            <a href="/poker/equity-calculator/" class="cta-link">Open →</a>
+          </div>
+        </div>
+      
+      </div>
+    
 </div>
+
+  </div>
+</section>
+
+<style>
+/* ── Poker Hero ─────────────────────────────────────────────── */
+.poker-hero {
+  position: relative;
+  padding: 7rem 0 4rem;
+  overflow: hidden;
+  background: #0a1a1a;
+}
+.poker-hero__felt {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, #0d3333 0%, #071414 100%);
+}
+/* Subtle felt texture */
+.poker-hero__felt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.01) 0px,
+    rgba(255,255,255,0.01) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+.poker-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(13,115,119,0.25) 0%, transparent 70%);
+}
+.poker-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+}
+.poker-hero__label {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  letter-spacing: 0.4em;
+  color: rgba(13,115,119,0.8);
+  margin-bottom: 1rem;
+}
+.poker-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+.poker-hero__lead {
+  color: rgba(255,255,255,0.65);
+  font-size: 1rem;
+  max-width: 52ch;
+  line-height: 1.7;
+}
+.poker-hero__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 180px;
+}
+.poker-stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 0.85rem 1.25rem;
+  text-align: right;
+}
+.poker-stat__value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #0d7377;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+.poker-stat__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── Content cards ──────────────────────────────────────────── */
+.poker-content { background: var(--bg); }
+.poker-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.poker-main, .poker-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+.poker-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+.poker-card--accent {
+  border-color: rgba(13,115,119,0.3);
+  background: rgba(13,115,119,0.04);
+}
+.poker-card__icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.poker-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+.poker-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+.poker-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.poker-list li {
+  font-size: 0.875rem;
+  color: var(--muted);
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+  padding-left: 1rem;
+  position: relative;
+}
+.poker-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+.poker-list li:last-child { border-bottom: none; }
+.resource-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+  gap: 0.5rem;
+}
+.resource-item:last-child { border-bottom: none; }
+.resource-item a { color: var(--accent); }
+.resource-type {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  white-space: nowrap;
+  background: var(--bg3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════
+   POKER TABLE
+═══════════════════════════════════════ */
+.poker-table-wrap {
+  width: 100%;           /* was max-width: 480px — change to 100% */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+.poker-table {
+  position: relative;
+  background: #1b5e20;
+  padding: 28px 20px 24px;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Felt texture */
+.poker-table::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg,  rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 4px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Radial light from above */
+.poker-table::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 75% 65% at 50% 35%, rgba(60,140,60,0.45) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Wooden rail */
+.felt-rail {
+  position: absolute;
+  inset: 0;
+  border: 14px solid #3e1f00;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 30px rgba(0,0,0,0.6),
+    inset 0 2px 6px rgba(255,200,100,0.08);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ═══════════════════════════════════════
+   PLAYING CARDS
+═══════════════════════════════════════ */
+.card {
+  width: 68px;
+  height: 96px;
+  border-radius: 7px;
+  position: relative;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease;
+}
+
+.card:hover { transform: translateY(-4px) rotate(-1deg); }
+
+/* Card face */
+.card-face, .card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  backface-visibility: hidden;
+}
+
+.card-face {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.card-back {
+  background: linear-gradient(135deg, #1a3a8f 0%, #0d1f60 100%);
+  transform: rotateY(180deg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.card-back::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px,
+    transparent 2px, transparent 8px
+  );
+}
+
+.card-tl {
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.card-tl-suit {
+  font-size: 0.65rem;
+  line-height: 1;
+  margin-top: 1px;
+}
+.card-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 1;
+}
+.card-br {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  transform: rotate(180deg);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+.card-br-suit {
+  font-size: 0.65rem;
+  line-height: 1;
+  margin-top: 1px;
+}
+.card.red .card-face { color: #c0392b; }
+.card.black .card-face { color: #1a1714; }
+
+/* Community card (slightly smaller) */
+.card--community {
+  width: 58px;
+  height: 82px;
+}
+.card--community .card-tl  { font-size: 0.85rem; }
+.card--community .card-center { font-size: 1.6rem; }
+.card--community .card-br  { font-size: 0.85rem; }
+
+/* ═══════════════════════════════════════
+   DEAL ANIMATION
+═══════════════════════════════════════ */
+@keyframes dealIn {
+  0% {
+    opacity: 0;
+    transform: translate(var(--dx,60px), var(--dy,-180px)) rotate(var(--dr,20deg)) scale(0.5);
+  }
+  70% { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translate(0,0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes flipToFace {
+  0%   { transform: scaleX(1); }
+  49%  { transform: scaleX(0); }
+  50%  { transform: scaleX(0); } /* swap happens here via JS */
+  100% { transform: scaleX(1); }
+}
+
+.card.dealing {
+  animation: dealIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ═══════════════════════════════════════
+   TABLE LAYOUT
+═══════════════════════════════════════ */
+.table-row { 
+  position: relative; 
+  z-index: 2; 
+  width: 100%; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+/* Opponent row */
+.row-opponent {
+  justify-content: flex-start;
+  padding-left: 8px;
+  gap: 12px;
+  align-items: flex-end;
+}
+.player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.player-name {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.player-stack {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.05em;
+}
+.player-cards-wrap { display: flex; gap: 6px; }
+
+/* Deck (top right) */
+.deck-wrap {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 3;
+}
+.deck-visual {
+  position: relative;
+  width: 58px;
+  height: 82px;
+  cursor: pointer;
+}
+.deck-visual:hover .deck-top { transform: translateY(-3px) rotate(-1deg); }
+.deck-layer {
+  position: absolute;
+  width: 58px; height: 82px;
+  background: linear-gradient(135deg, #1a3a8f, #0d1f60);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.deck-layer:nth-child(1) { top: 4px; left: -4px; }
+.deck-layer:nth-child(2) { top: 2px; left: -2px; }
+.deck-top { transition: transform 0.2s; }
+.deck-top::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 3px;
+}
+.deck-label {
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* Community cards row */
+.row-community {
+  flex-direction: column;
+  gap: 8px;
+}
+.community-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+.community-cards-wrap { display: flex; gap: 6px; align-items: center; }
+.card--placeholder {
+  width: 58px; height: 82px;
+  border-radius: 7px;
+  border: 1.5px dashed rgba(255,255,255,0.15);
+  opacity: 0.4;
+}
+
+/* Pot */
+.pot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  z-index: 2;
+  position: relative;  /* was absolute */
+}
+
+.pot-chips-visual { display: flex; align-items: flex-end; }
+.pot-chip {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.25);
+  margin-left: -6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.pot-chip:first-child { margin-left: 0; }
+.pot-chip--black { background: #1a1714; border-color: #555; }
+.pot-chip--blue  { background: #1565c0; border-color: #42a5f5; }
+.pot-chip--red   { background: #b71c1c; border-color: #ef5350; }
+.pot-amount {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.05em;
+}
+
+/* Player row (bottom) */
+.row-player {
+  justify-content: flex-end;
+  padding-right: 8px;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Action buttons */
+.action-row {
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+  position: relative;
+  margin-top: 4px;
+}
+.action-btn {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.action-btn--fold  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+.action-btn--call  { background: #1565c0; color: #fff; }
+.action-btn--raise { background: #b71c1c; color: #fff; }
+.action-btn:hover  { filter: brightness(1.2); transform: translateY(-1px); }
+
+/* ═══════════════════════════════════════
+   CTA STRIP
+═══════════════════════════════════════ */
+.table-cta {
+  background: #0d1a0d;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.cta-left {}
+.cta-badge {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #0d7377;
+  margin-bottom: 3px;
+}
+.cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.cta-sub {
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.3);
+}
+.cta-link {
+  flex-shrink: 0;
+  padding: 0.55rem 1.1rem;
+  background: #0d7377;
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+.cta-link:hover { background: #095e62; transform: translateY(-1px); }
+
+/* Deal again hint */
+.deal-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+</style>
+
+<script>
+  // ── Card database ─────────────────────────────────────────────
+  const SUITS = ['♠','♥','♦','♣'];
+  const RANKS = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+  const RED_SUITS = ['♥','♦'];
+  
+  function fullDeck() {
+    const d = [];
+    for (const r of RANKS) for (const s of SUITS) d.push({r,s});
+    return d;
+  }
+  function shuffle(a) {
+    for (let i=a.length-1;i>0;i--) {
+      const j=Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  }
+  
+  // ── Render a face-up card into an element ─────────────────────
+  function renderFaceUp(el, card, extraClass='') {
+    const isRed = RED_SUITS.includes(card.s);
+    el.className = `card ${isRed?'red':'black'} ${extraClass}`;
+    el.innerHTML = `
+      <div class="card-face">
+        <div>
+          <div class="card-tl">${card.r}</div>
+          <div class="card-tl-suit">${card.s}</div>
+        </div>
+        <div class="card-center">${card.s}</div>
+        <div class="card-br">
+          <div>${card.r}</div>
+          <div class="card-br-suit">${card.s}</div>
+        </div>
+      </div>
+    `;
+  }
+  
+  function renderFaceDown(el, extraClass='') {
+    el.className = `card ${extraClass}`;
+    el.innerHTML = `<div class="card-back"></div>`;
+  }
+  
+  // ── Deal sequence ─────────────────────────────────────────────
+  function deal() {
+    const deck = shuffle(fullDeck());
+    let di = 0;
+  
+    const p1 = deck[di++], p2 = deck[di++];
+    const o1 = deck[di++], o2 = deck[di++];
+    const c1 = deck[di++], c2 = deck[di++], c3 = deck[di++];
+  
+    // Reset all to face down
+    ['pc1','pc2','oc1','oc2'].forEach(id => {
+      const el = document.getElementById(id);
+      renderFaceDown(el, id.startsWith('c') ? 'card--community' : '');
+      el.style.opacity = '0';
+    });
+    ['cc1','cc2','cc3'].forEach(id => {
+      const el = document.getElementById(id);
+      renderFaceDown(el, 'card--community');
+      el.style.opacity = '0';
+    });
+    const cc4 = document.getElementById('cc4');
+    const cc5 = document.getElementById('cc5');
+    if(cc4) { cc4.className='card--placeholder'; cc4.innerHTML=''; cc4.style.opacity='0.4'; }
+    if(cc5) { cc5.className='card--placeholder'; cc5.innerHTML=''; cc5.style.opacity='0.4'; }
+  
+    // Staggered deal
+    const dealCard = (id, card, delay, dx, dy, dr, faceUp, extraClass='') => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        renderFaceDown(el, extraClass);
+        el.style.cssText += `--dx:${dx};--dy:${dy};--dr:${dr};opacity:1;`;
+        el.classList.add('dealing');
+        el.addEventListener('animationend', () => {
+          el.classList.remove('dealing');
+          if(faceUp) {
+            // Flip
+            el.style.transition = 'transform 0.25s ease';
+            el.style.transform = 'scaleX(0)';
+            setTimeout(() => {
+              renderFaceUp(el, card, extraClass);
+              el.style.transform = 'scaleX(1)';
+              setTimeout(() => { el.style.transition = ''; }, 260);
+            }, 130);
+          }
+        }, {once:true});
+      }, delay);
+    };
+  
+    const DX = '55px', DY = '-190px';
+  
+    // Hole cards — player face up, opponent face down (realistic)
+    dealCard('pc1', p1, 0,    DX, DY, '20deg',  true);
+    dealCard('oc1', o1, 180,  DX, DY, '-12deg', false);
+    dealCard('pc2', p2, 360,  DX, DY, '15deg',  true);
+    dealCard('oc2', o2, 540,  DX, DY, '-18deg', false);
+  
+    // Flop
+    dealCard('cc1', c1, 1000, DX, DY, '10deg',  true,  'card--community');
+    dealCard('cc2', c2, 1200, DX, DY, '-6deg',  true,  'card--community');
+    dealCard('cc3', c3, 1400, DX, DY, '8deg',   true,  'card--community');
+  }
+  
+  document.getElementById('deckBtn').addEventListener('click', deal);
+  document.getElementById('pokerTable').addEventListener('click', (e) => {
+    if(e.target.closest('#deckBtn')) deal();
+  });
+  
+  // Auto deal on load
+  setTimeout(deal, 400);
+  </script>
+  
+  

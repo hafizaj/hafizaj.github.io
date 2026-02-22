@@ -1,0 +1,60 @@
+# ============================================================
+# SITE CONFIGURATION — Edit this file to personalise your site
+# ============================================================
+
+title: "Your Name"
+tagline: "Data Scientist · Azure Solution Architect · Power Platform Developer"
+email: "your.email@example.com"
+description: >
+  Portfolio of a data scientist and Azure Solution Architect with a passion
+  for Power Platform development, poker strategy, and chess.
+
+baseurl: ""          # Leave empty if repo is username.github.io
+url: "https://hafizaj.github.io"
+
+# Social links (leave blank to hide)
+social:
+  github: "yourusername"
+  linkedin: "yourlinkedin"
+  twitter: ""
+  medium: ""
+
+# Navigation — order matters
+nav:
+  - label: "Portfolio"
+    url: "/#portfolio"
+  - label: "About"
+    url: "/about/"
+  - label: "Poker"
+    url: "/poker/"
+  - label: "Chess"
+    url: "/chess/"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - README.md
+  - .git

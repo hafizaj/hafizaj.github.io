@@ -1,0 +1,55 @@
+# ============================================================
+# POKER DATA — Update your stats, thoughts, and resources here
+# ============================================================
+
+stats:
+  - value: "NL200"
+    label: "Current Stakes"
+  - value: "3.2bb"
+    label: "Win Rate (100k hands)"
+  - value: "650k"
+    label: "Hands Played"
+  - value: "MTT"
+    label: "Preferred Format"
+
+intro: >
+  Poker has been a serious pursuit for over five years. What started as a curiosity
+  became an obsession once I realised poker was really a game of incomplete information,
+  probability, and psychology — all domains I find fascinating professionally.
+  The analytical skills transfer remarkably well between data science and the felt.
+
+philosophy:
+  title: "My Philosophy"
+  body: >
+    I approach poker the same way I approach ML models: build a solid prior, update
+    on new information, and stay aware of your own biases. The biggest edge at lower
+    stakes isn't hand-reading genius — it's discipline, bankroll management, and
+    avoiding tilt.
+
+study_approach:
+  title: "Study Approach"
+  points:
+    - Hand history review with PioSOLVER / GTO+
+    - Range construction and frequency analysis
+    - Monthly session reviews in a structured spreadsheet
+    - Theory reading — "The Mathematics of Poker", "Modern Poker Theory"
+    - Solver work on key spots (3-bet pots, turn decisions)
+
+resources:
+  title: "Recommended Resources"
+  items:
+    - name: "The Mathematics of Poker"
+      type: "Book"
+      url: ""
+    - name: "Modern Poker Theory"
+      type: "Book"
+      url: ""
+    - name: "Run It Once Training"
+      type: "Training Site"
+      url: "https://www.runitonce.com"
+    - name: "PioSOLVER"
+      type: "Software"
+      url: "https://www.piosolver.com"
+    - name: "Upswing Poker Lab"
+      type: "Training Site"
+      url: "https://upswingpoker.com"

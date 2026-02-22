@@ -2,9 +2,9 @@
 # SITE CONFIGURATION — Edit this file to personalise your site
 # ============================================================
 
-title: "Your Name"
+title: "Hafizuddin Jaafar"
 tagline: "Data Scientist · Azure Solution Architect · Power Platform Developer"
-email: "your.email@example.com"
+email: "hafizuddinbinjaafar@example.com"
 description: >
   Portfolio of a data scientist and Azure Solution Architect with a passion
   for Power Platform development, poker strategy, and chess.
@@ -14,8 +14,8 @@ url: "https://hafizaj.github.io"
 
 # Social links (leave blank to hide)
 social:
-  github: "yourusername"
-  linkedin: "yourlinkedin"
+  github: "hafizaj"
+  linkedin: "hafizaj"
   twitter: ""
   medium: ""
 

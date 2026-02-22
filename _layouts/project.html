@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<article class="project-page container">
+  <header>
+    <div class="card__category">{{ page.category | replace: '-', ' ' }}</div>
+    <h1>{{ page.title }}</h1>
+    <p class="project-page__desc">{{ page.description }}</p>
+    {% if page.tech.size > 0 %}
+    <div class="card__tech">
+      {% for t in page.tech %}<span>{{ t }}</span>{% endfor %}
+    </div>
+    {% endif %}
+  </header>
+  <div class="project-page__content">
+    {{ content }}
+  </div>
+</article>

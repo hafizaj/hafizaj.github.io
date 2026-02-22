@@ -1,0 +1,19 @@
+---
+layout: default
+title: About
+---
+
+<div class="container" style="padding: 6rem 0 4rem;">
+  <h1>About Me</h1>
+  <p>{{ site.description }}</p>
+  <p><strong>{{ site.tagline }}</strong></p>
+  {% if site.data.skills.certifications %}
+  <h2>Certifications</h2>
+  <ul>
+    {% for cert in site.data.skills.certifications %}
+    <li><strong>{{ cert.name }}</strong> — {{ cert.issuer }}, {{ cert.year }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <p><a href="/" class="btn btn--outline">Back to home</a></p>
+</div>

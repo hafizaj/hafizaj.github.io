@@ -1,0 +1,29 @@
+---
+layout: default
+title: Chess
+---
+
+<div class="container" style="padding: 6rem 0 4rem;">
+  <h1>♟ Chess</h1>
+  <p>{{ site.data.chess.intro }}</p>
+  <div class="card__tech" style="margin: 1rem 0;">
+    {% for stat in site.data.chess.stats %}
+    <span>{{ stat.value }} {{ stat.label }}</span>
+    {% endfor %}
+  </div>
+  <h2>{{ site.data.chess.style.title }}</h2>
+  <p>{{ site.data.chess.style.body }}</p>
+  <h2>{{ site.data.chess.study_approach.title }}</h2>
+  <ul>
+    {% for point in site.data.chess.study_approach.points %}
+    <li>{{ point }}</li>
+    {% endfor %}
+  </ul>
+  <h2>{{ site.data.chess.resources.title }}</h2>
+  <ul>
+    {% for item in site.data.chess.resources.items %}
+    <li>{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %} — {{ item.type }}</li>
+    {% endfor %}
+  </ul>
+  <p><a href="/" class="btn btn--outline">Back to home</a></p>
+</div>

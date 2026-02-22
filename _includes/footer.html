@@ -1,0 +1,7 @@
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ site.title }}. {{ site.tagline }}</p>
+    {% if site.social.github %}<a href="https://github.com/{{ site.social.github }}">GitHub</a>{% endif %}
+    {% if site.social.linkedin %}<a href="https://linkedin.com/in/{{ site.social.linkedin }}">LinkedIn</a>{% endif %}
+  </div>
+</footer>

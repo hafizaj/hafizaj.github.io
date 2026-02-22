@@ -1,0 +1,11 @@
+<a href="{{ project.url }}" class="project-card fade-in" data-category="{{ project.category }}">
+  <div class="card__category">{{ project.category | replace: '-', ' ' }}</div>
+  <h3 class="card__title">{{ project.title }}</h3>
+  <p class="card__desc">{{ project.description }}</p>
+  <div class="card__tech">
+    {% for t in project.tech limit: 4 %}
+    <span>{{ t }}</span>
+    {% endfor %}
+  </div>
+  <span class="card__link">View project →</span>
+</a>

@@ -4,13 +4,19 @@
 
 title: "Hafizuddin Jaafar"
 tagline: "Data Scientist · Azure Solution Architect · Power Platform Developer"
-email: "hafizuddinbinjaafar@example.com"
+email: "hafizuddinbinjaafar@gmail.com"
 description: >
   Portfolio of a data scientist and Azure Solution Architect with a passion
   for Power Platform development, poker strategy, and chess.
 
 baseurl: ""          # Leave empty if repo is username.github.io
 url: "https://hafizaj.github.io"
+
+# Header logo: initials in the square (e.g. "HJ")
+logo_initials: "HJ"
+
+# Profile image in hero (path under assets, e.g. "profile.jpg"). Leave blank for no image.
+profile_image: ""
 
 # Social links (leave blank to hide)
 social:

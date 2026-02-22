@@ -1,19 +1,272 @@
 ---
-layout: default
+layout: about
 title: About
+description: "Solution Architect with 4+ years building production ML systems at AstraZeneca and the Central Bank of Malaysia. Currently MSc Business Analytics at Imperial College London."
 ---
 
-<div class="container" style="padding: 6rem 0 4rem;">
-  <h1>About Me</h1>
-  <p>{{ site.description }}</p>
-  <p><strong>{{ site.tagline }}</strong></p>
-  {% if site.data.skills.certifications %}
-  <h2>Certifications</h2>
-  <ul>
-    {% for cert in site.data.skills.certifications %}
-    <li><strong>{{ cert.name }}</strong> — {{ cert.issuer }}, {{ cert.year }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  <p><a href="/" class="btn btn--outline">Back to home</a></p>
-</div>
+<section class="about-hero">
+  <div class="about-hero__gradient"></div>
+  <div class="container about-hero__inner">
+    <div class="about-hero__text">
+      <div class="mono text-accent about-hero__label">About Me</div>
+      <h1 class="about-hero__title">
+        Hafizuddin<br><span class="text-accent">Jaafar</span>
+      </h1>
+      <p class="about-hero__lead">
+        Solution Architect with 3 years of production experience building
+        fraud detection systems, forecasting engines, and automation pipelines at
+        <strong>AstraZeneca</strong> and the
+        <strong>Central Bank of Malaysia</strong>.
+        Currently completing an
+        <strong>MSc in Business Analytics at Imperial College London</strong>.
+      </p>
+      <div class="about-hero__cta">
+        <a href="mailto:{{ site.email }}" class="btn btn--primary">Get In Touch</a>
+        <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="btn btn--outline-dark">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="about-hero__photo">
+      <img src="/assets/images/avatar.jpeg" alt="Hafizuddin Jaafar" class="about-avatar">
+    </div>
+  </div>
+</section>
+
+  <!-- QUICK STATS -->
+<section class="about-stats">
+  <div class="container">
+    <div class="stat-grid fade-in">
+      <div class="stat">
+        <div class="stat__value">3</div>
+        <div class="stat__label">Years Industry Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat__value">30</div>
+        <div class="stat__label">Automation Projects Led</div>
+      </div>
+      <div class="stat">
+        <div class="stat__value">12k+</div>
+        <div class="stat__label">Hours Saved Annually</div>
+      </div>
+      <div class="stat">
+        <div class="stat__value">300+</div>
+        <div class="stat__label">Employees Upskilled</div>
+      </div>
+      <!-- <div class="stat">
+        <div class="stat__value">90%</div>
+        <div class="stat__label">ML Model Accuracy (Tax Classification)</div>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT GRID -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-main">
+        <!-- Experience -->
+        <div class="section-header fade-in">
+          <div class="section-header__label">Career</div>
+          <h2>Experience</h2>
+        </div>
+
+        <div class="exp-cards fade-in">
+          <article class="exp-card exp-card--open" data-exp-card>
+            <button type="button" class="exp-card__header" aria-expanded="true" aria-controls="exp-body-1" id="exp-header-1" data-exp-toggle>
+              <div class="exp-card__header-text">
+                <span class="exp-card__date">Nov 2022 — Sep 2025</span>
+                <h3 class="exp-card__title">Senior Solution Architect</h3>
+                <span class="exp-card__org">AstraZeneca · Kuala Lumpur, Malaysia</span>
+              </div>
+              <span class="exp-card__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="exp-card__body" id="exp-body-1" role="region" aria-labelledby="exp-header-1">
+              <div class="exp-card__tags">
+                <span class="tag-mono">Python</span>
+                <span class="tag-mono">K-Means</span>
+                <span class="tag-mono">Isolation Forest</span>
+                <span class="tag-mono">Power Platform</span>
+                <span class="tag-mono">Scikit-learn</span>
+              </div>
+              <ul class="exp-card__bullets">
+                <li>Spearheaded a cross-regional team supporting <strong>157 automation projects</strong> across Malaysia's first nationwide digital transformation — upskilling 492 employees and delivering <strong>12,000+ hours savings annually</strong></li>
+                <li>Built an <strong>ML fraud detection system</strong> processing 11,000+ monthly Concur submissions using K-Means clustering and Isolation Forest anomaly detection, saving <strong>400 hours/month</strong></li>
+                <li>Deployed to Costa Rica to build a <strong>supervised ML tax classification model</strong> from scratch — 90% accuracy via feature engineering, eliminating vendor dependency and releasing 480+ annual hours</li>
+                <li>Led Power Platform budget adjustment application for FP&A, reducing budgeting rework by <strong>60%</strong> and releasing <strong>5,000+ annual hours</strong></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="exp-card" data-exp-card>
+            <button type="button" class="exp-card__header" aria-expanded="false" aria-controls="exp-body-2" id="exp-header-2" data-exp-toggle>
+              <div class="exp-card__header-text">
+                <span class="exp-card__date">Sep 2021 — Nov 2022</span>
+                <h3 class="exp-card__title">Digital Graduate Analyst — Innovation Lab & Risk Management</h3>
+                <span class="exp-card__org">Central Bank of Malaysia (BNM) · Kuala Lumpur, Malaysia</span>
+              </div>
+              <span class="exp-card__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="exp-card__body" id="exp-body-2" role="region" aria-labelledby="exp-header-2">
+              <div class="exp-card__tags">
+                <span class="tag-mono">Python</span>
+                <span class="tag-mono">Neo4j</span>
+                <span class="tag-mono">NLP</span>
+                <span class="tag-mono">Power BI</span>
+                <span class="tag-mono">REST APIs</span>
+                <span class="tag-mono">MySQL</span>
+              </div>
+              <ul class="exp-card__bullets">
+                <li>Built asset vulnerability tracking using <strong>Python web scraping + Neo4j graph database</strong> for dependency mapping, improving SLA adherence by 30%</li>
+                <li>Consolidated 52 disparate departmental datasets into a centralised <strong>Power BI risk intelligence platform</strong>, eliminating 5,000 hours of manual reporting annually</li>
+                <li>Built multi-source <strong>social media analytics platform</strong> integrating LinkedIn, Facebook, Instagram, and Twitter APIs with NLP sentiment analysis and automated controversy flagging</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="exp-card" data-exp-card>
+            <button type="button" class="exp-card__header" aria-expanded="false" aria-controls="exp-body-3" id="exp-header-3" data-exp-toggle>
+              <div class="exp-card__header-text">
+                <span class="exp-card__date">Jun 2020 — Jun 2021</span>
+                <h3 class="exp-card__title">VP of Technology</h3>
+                <span class="exp-card__org">Xavier Optics · Los Angeles, US</span>
+              </div>
+              <span class="exp-card__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="exp-card__body" id="exp-body-3" role="region" aria-labelledby="exp-header-3">
+              <ul class="exp-card__bullets">
+                <li>Built the market intelligence and business case for a novel AR/VR optical element, securing <strong>$225,000 in Phase 1 SBIR government funding</strong></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <!-- Education -->
+        <div class="section-header fade-in" style="margin-top: 4rem;">
+          <div class="section-header__label">Education</div>
+          <h2>Academic Background</h2>
+        </div>
+
+        <div class="exp-cards fade-in">
+          <article class="exp-card exp-card--open" data-exp-card>
+            <button type="button" class="exp-card__header" aria-expanded="true" aria-controls="edu-body-1" id="edu-header-1" data-exp-toggle>
+              <div class="exp-card__header-text">
+                <span class="exp-card__date">Sep 2025 — Aug 2026</span>
+                <h3 class="exp-card__title">MSc Business Analytics</h3>
+                <span class="exp-card__org">Imperial College Business School · London, UK</span>
+              </div>
+              <span class="exp-card__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="exp-card__body" id="edu-body-1" role="region" aria-labelledby="edu-header-1">
+              <p class="exp-card__desc">
+                Modules: Advanced Machine Learning, Network Analytics, Financial Analytics, Causal Modelling.<br>
+                <strong class="text-accent">Yayasan Tun Ismail Excellence Award</strong> — Top 3 recipients nationally.
+              </p>
+            </div>
+          </article>
+
+          <article class="exp-card" data-exp-card>
+            <button type="button" class="exp-card__header" aria-expanded="false" aria-controls="edu-body-2" id="edu-header-2" data-exp-toggle>
+              <div class="exp-card__header-text">
+                <span class="exp-card__date">Sep 2017 — Jun 2021</span>
+                <h3 class="exp-card__title">BSc Electrical Engineering (Cum Laude, GPA 3.8)</h3>
+                <span class="exp-card__org">University of California, Los Angeles (UCLA) · Los Angeles, US</span>
+              </div>
+              <span class="exp-card__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="exp-card__body" id="edu-body-2" role="region" aria-labelledby="edu-header-2">
+              <p class="exp-card__desc">
+                Dean's Honors List (multiple quarters).<br>
+                <strong class="text-accent">Yayasan Khazanah Global Scholarship</strong> recipient.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="section-header fade-in" style="margin-top: 4rem;">
+          <div class="section-header__label">Recognition</div>
+          <h2>Key Achievements</h2>
+        </div>
+
+        <div class="fade-in">
+          <div class="content-block" style="margin-bottom: 1rem;">
+            <div class="content-block__row">
+              <div>
+                <h3 class="content-block__title">Finance Excellence Award at AstraZeneca</h3>
+                <p class="content-block__p">Pioneered a Python forecasting engine reconciling SAP data for real-time cash flow intelligence, eliminating <strong>5,000+ hours</strong> of annual manual reconciliation.</p>
+              </div>
+              <span class="mono text-muted content-block__date">2023–2024</span>
+            </div>
+          </div>
+          <div class="content-block">
+            <div class="content-block__row">
+              <div>
+                <h3 class="content-block__title">Finance Process Champion at AstraZeneca</h3>
+                <p class="content-block__p">Built an ML pipeline to detect CAPEX fraud across <strong>40,000+ IT assets valued at $20M</strong>, automating asset tracking and cutting 1,500+ annual auditing hours.</p>
+              </div>
+              <span class="mono text-muted content-block__date">2023–2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="about-sidebar">
+        <div class="content-block content-block--sticky">
+          <div class="skill-group__title">Contact</div>
+          <ul class="contact-list">
+            <li>✉ <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+            <li>📞 <span>+44 7466 828079</span></li>
+            <li>💼 <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener">linkedin.com/in/{{ site.social.linkedin }}</a></li>
+          </ul>
+
+          <div class="sidebar-block">
+            <div class="skill-group__title">Technical Skills</div>
+            <ul class="skill-group__list">
+              <li>Python (pandas, NumPy, scikit-learn)</li>
+              <li>Machine Learning (Supervised & Unsupervised)</li>
+              <li>Anomaly Detection & Fraud Detection</li>
+              <li>NLP & Sentiment Analysis</li>
+              <li>Time Series Forecasting</li>
+              <li>Feature Engineering</li>
+              <li>SQL & MySQL</li>
+              <li>Graph Databases (Neo4j)</li>
+              <li>Power BI & Tableau</li>
+              <li>Power Platform (Apps, Automate)</li>
+              <li>R</li>
+              <li>Advanced Excel & VBA</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="skill-group__title">Languages</div>
+            <ul class="skill-group__list">
+              <li>English (Native)</li>
+              <li>Malay (Native)</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="skill-group__title">Currently Studying</div>
+            <ul class="skill-group__list">
+              <li>Advanced Machine Learning</li>
+              <li>Network Analytics</li>
+              <li>Financial Analytics</li>
+              <li>Causal Modelling</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="skill-group__title">Beyond Work</div>
+            <ul class="skill-group__list">
+              <li>Poker : Cash games & tournaments</li>
+              <li>Chess : Attacking player, 1.e4</li>
+              <li>Bodybuilding coach (3+ yrs)</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

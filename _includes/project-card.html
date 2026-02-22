@@ -1,11 +1,13 @@
-<a href="{{ project.url }}" class="project-card fade-in" data-category="{{ project.category }}">
-  <div class="card__category">{{ project.category | replace: '-', ' ' }}</div>
-  <h3 class="card__title">{{ project.title }}</h3>
-  <p class="card__desc">{{ project.description }}</p>
-  <div class="card__tech">
-    {% for t in project.tech limit: 4 %}
-    <span>{{ t }}</span>
-    {% endfor %}
+<a href="{{ project.url }}" class="featured-card fade-in" data-category="{{ project.category }}">
+  <div class="featured-card__image">
+    {% if project.image %}
+    <img src="{{ project.image | prepend: '/assets/' | relative_url }}" alt="{{ project.title }}">
+    {% else %}
+    <div class="featured-card__placeholder featured-card__placeholder--{{ project.category }}"></div>
+    {% endif %}
   </div>
-  <span class="card__link">View project →</span>
+  <div class="featured-card__bar featured-card__bar--{{ project.category }}">
+    <h3 class="featured-card__title">{{ project.title }}</h3>
+    <p class="featured-card__tagline">{{ project.description }}</p>
+  </div>
 </a>

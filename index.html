@@ -3,77 +3,239 @@ layout: default
 title: Home
 ---
 
-<!-- ═══════════════════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════════════════════ -->
-<section class="hero" id="home">
-  <div class="hero__bg"></div>
-  <div class="hero__grid"></div>
-  <div class="container">
-    <div class="hero__content">
-      <div class="hero__eyebrow">{{ site.tagline }}</div>
-      <h1 class="hero__title">
-        Hi, I'm<br>
-        <span class="line2">{{ site.title }}</span>
-      </h1>
-      <p class="hero__subtitle">
-        I build data-driven solutions on Azure, create intelligent Power Platform
-        applications, and obsess over poker theory and chess strategy in my spare time.
-      </p>
-      <div class="hero__tags">
-        <span class="tag">Data Science</span>
-        <span class="tag">Azure Architect</span>
-        <span class="tag">Power Platform</span>
-        <span class="tag">Machine Learning</span>
-        <span class="tag">♠ Poker</span>
-        <span class="tag">♟ Chess</span>
-      </div>
-      <div class="hero__cta">
-        <a href="#portfolio" class="btn btn--primary">View My Work</a>
-        <a href="/about/" class="btn btn--outline">About Me</a>
-      </div>
-    </div>
+<!-- Hero: light section, centered profile + greeting -->
+<section class="hero hero--physics" id="home">
+  <canvas id="heroCanvas"></canvas>
+
+  <!-- Label sits top-left, never overlaps centre -->
+  <div class="hero__top-label">
+    Solution Architect · Data Science · MSc Business Analytics at Imperial College London
   </div>
+
+  <!-- Buttons sit at the bottom, never overlaps centre -->
+  <div class="hero__bottom-cta">
+  </div>
+
+  <div class="hero__scroll-hint">Scroll ↓</div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     PORTFOLIO
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="portfolio">
+<div class="hero__cta-strip">
+  <a href="/#portfolio" class="btn btn--primary">View Work</a>
+  <a href="/about/" class="btn btn--outline">About Me</a>
+</div>
+
+<!-- Matter.js physics library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+<script>
+(function () {
+  /* ── Config ────────────────────────────────────────────── */
+  const WORDS = ['I Turn', 'Noise', 'Into Signal.'];
+  const FONT_SIZE  = Math.min(window.innerWidth * 0.13, 160);
+  const FONT_FACE  = 'Playfair Display, Georgia, serif';
+  const TEXT_COLOR = '#1a1714';
+  const ACCENT     = '#0d7377';
+  const NAV_OFFSET = 100; // clears nav + label
+
+
+  /* ── State ─────────────────────────────────────────────── */
+  let engine, render, runner;
+  let letterBodies = [];
+  let exploded = false;
+  let scrollProgress = 0;
+  let raf;
+
+  /* ── Canvas setup ──────────────────────────────────────── */
+  const canvas  = document.getElementById('heroCanvas');
+  const section = document.querySelector('.hero--physics');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); if (exploded) rebuildScene(); });
+
+  /* ── Matter.js engine ──────────────────────────────────── */
+  function initEngine() {
+    engine = Matter.Engine.create({ gravity: { x: 0, y: 0 } });
+
+    // Invisible walls
+    const W = canvas.width, H = canvas.height;
+    const walls = [
+      Matter.Bodies.rectangle(W / 2, H + 50, W * 2, 100, { isStatic: true }), // floor
+      Matter.Bodies.rectangle(-50, H / 2, 100, H * 2, { isStatic: true }),     // left
+      Matter.Bodies.rectangle(W + 50, H / 2, 100, H * 2, { isStatic: true }),  // right
+    ];
+    Matter.World.add(engine.world, walls);
+  }
+
+  // Make each word fill ~90% of screen width
+  function calcFontSize(word, ctx) {
+    ctx.font = `900 10px ${FONT_FACE}`;
+    const targetW = canvas.width * 0.75;
+    let size = Math.floor((targetW / ctx.measureText(word).width) * 10);
+    // Never let a single line exceed 1/3 of viewport height
+    size = Math.min(size, Math.floor(canvas.height * 0.13), 160);
+    return size;
+  }
+
+  /* ── Build letter bodies from text ────────────────────────
+     We render each letter to an offscreen canvas to get
+     its width, then place physics rectangles accordingly.
+  ─────────────────────────────────────────────────────────── */
+  function buildLetters() {
+    const W = canvas.width;
+    const H = canvas.height;
+    const ctx = canvas.getContext('2d');
+    const MARGIN = W * 0.05;
+
+
+    const sizes = WORDS.map(word => calcFontSize(word, ctx));
+    const lineHeights = sizes.map(s => s * 1.05);
+    const totalH = lineHeights.reduce((a, b) => a + b, 0);
+    const NAV_OFFSET = 100; // clears nav + label
+    let startY = (H - totalH) / 2 + sizes[0] * 0.82;
+    startY = Math.max(startY, NAV_OFFSET + sizes[0] * 0.9); // never goes above nav
+
+    letterBodies = [];
+
+    WORDS.forEach((word, wi) => {
+      const FONT_SIZE = sizes[wi];
+      ctx.font = `900 ${FONT_SIZE}px ${FONT_FACE}`;
+
+      let x = MARGIN;
+      const y = startY + lineHeights.slice(0, wi).reduce((a, b) => a + b, 0);
+
+      word.split('').forEach(char => {
+        const charW = ctx.measureText(char).width;
+        const isAccent = (wi === 0);
+
+        const body = Matter.Bodies.rectangle(
+          x + charW / 2,
+          y - FONT_SIZE / 2,
+          charW,
+          FONT_SIZE,
+          { frictionAir: 0.02, restitution: 0.4 }
+        );
+
+        body.letter  = char;
+        body.fontSize = FONT_SIZE;
+        body.color   = isAccent ? ACCENT : TEXT_COLOR;
+
+        letterBodies.push(body);
+        x += charW;
+      });
+    });
+
+    Matter.World.add(engine.world, letterBodies);
+  }
+
+  function rebuildScene() {
+    if (engine) Matter.Engine.clear(engine);
+    letterBodies = [];
+    exploded = false;
+    initEngine();
+    buildLetters();
+  }
+
+  /* ── Explosion ─────────────────────────────────────────── */
+  function explode() {
+    if (exploded) return;
+    exploded = true;
+
+    // Gravity kicks in
+    engine.gravity.y = 1.2;
+
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+
+    letterBodies.forEach(body => {
+      const dx = body.position.x - cx;
+      const dy = body.position.y - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+      const forceMag = 0.018 + Math.random() * 0.022;
+      Matter.Body.applyForce(body, body.position, {
+        x: (dx / dist) * forceMag + (Math.random() - 0.5) * 0.008,
+        y: (dy / dist) * forceMag - Math.random() * 0.015,
+      });
+
+      Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.25);
+    });
+  }
+
+  /* ── Render loop ───────────────────────────────────────── */
+  function draw() {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw each letter body
+    letterBodies.forEach(body => {
+      ctx.save();
+      ctx.translate(body.position.x, body.position.y);
+      ctx.rotate(body.angle);
+      ctx.font = `900 ${body.fontSize}px ${FONT_FACE}`;
+      ctx.fillStyle = body.color;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(body.letter, 0, 0);
+      ctx.restore();
+    });
+
+    Matter.Engine.update(engine, 1000 / 60);
+    raf = requestAnimationFrame(draw);
+  }
+
+  /* ── Scroll trigger ────────────────────────────────────── */
+  window.addEventListener('scroll', () => {
+    const sectionTop = section.offsetTop;
+    const sectionH   = section.offsetHeight;
+    const scrolled   = window.scrollY - sectionTop;
+    scrollProgress   = Math.max(0, Math.min(1, scrolled / (sectionH * 0.4)));
+
+    if (scrollProgress > 0.05 && !exploded) {
+      explode();
+    }
+  }, { passive: true });
+
+  /* ── Init ──────────────────────────────────────────────── */
+  document.fonts.ready.then(() => {
+      initEngine();
+      buildLetters();
+      draw();
+    });
+})();
+</script>
+
+<!-- Featured Work: dark section, project cards with image + colored bar -->
+<section class="section section--dark" id="portfolio">
   <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-header__label">Work</div>
-      <h2>Portfolio</h2>
-      <p>A selection of data science, cloud architecture, and Power Platform projects.</p>
-    </div>
+    <h2 class="section__title">Featured Work</h2>
 
     <!-- Filter Bar -->
     <div class="filter-bar fade-in">
       <button class="filter-btn active" data-filter="all">All Projects</button>
-      <button class="filter-btn" data-filter="data-science">🧠 Data Science</button>
-      <button class="filter-btn" data-filter="azure">☁ Azure Solutions</button>
-      <button class="filter-btn" data-filter="power-platform">⚡ Power Platform</button>
+      <button class="filter-btn" data-filter="data-science">Data Science</button>
+      <button class="filter-btn" data-filter="azure">Azure Solutions</button>
+      <button class="filter-btn" data-filter="power-platform">Power Platform</button>
     </div>
 
-    <!-- Project Cards -->
-    <div class="projects-grid">
+    <div class="projects-grid projects-grid--featured">
       {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
       {% for project in sorted_projects %}
         {% include project-card.html project=project %}
       {% endfor %}
     </div>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SKILLS SNAPSHOT
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="skills" style="background: var(--bg2);">
+<!-- Skills: dark section -->
+<section class="section section--dark" id="skills">
   <div class="container">
     <div class="section-header fade-in">
       <div class="section-header__label">Expertise</div>
-      <h2>Core Skills</h2>
+      <h2 class="section__title">Core Skills</h2>
       <p>Technologies and disciplines I work with day-to-day.</p>
     </div>
     <div class="skills-grid">
@@ -90,55 +252,33 @@ title: Home
       {% endfor %}
     </div>
     <div style="text-align: center; margin-top: 3rem;" class="fade-in">
-      <a href="/about/" class="btn btn--outline">Full Profile & Certifications</a>
+      <a href="/about/" class="btn btn--outline-light">Full Profile & Certifications</a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     HOBBIES TEASER
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="hobbies">
+<!-- Hobbies: dark section -->
+<section class="section section--dark" id="hobbies">
   <div class="container">
     <div class="section-header fade-in">
       <div class="section-header__label">Beyond Work</div>
-      <h2>Serious Hobbies</h2>
+      <h2 class="section__title">Serious Hobbies</h2>
       <p>When I'm not building data pipelines, you'll find me at the poker table or the chessboard.</p>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="hobby-cards">
-      <!-- Poker card -->
-      <a href="/poker/" style="text-decoration: none;" class="fade-in">
-        <div class="project-card" style="border-color: rgba(255,107,53,0.2);">
-          <div class="card__category" style="color: var(--accent2);">♠ ♥ ♦ ♣ &nbsp;&nbsp;Poker</div>
-          <h3 class="card__title">Texas Hold'em & Tournament Strategy</h3>
-          <p class="card__desc">
-            {{ site.data.poker.stats[0].value }} cash game player with a serious study
-            routine built around GTO solvers and hand history review.
-          </p>
-          <div class="card__tech">
-            {% for stat in site.data.poker.stats %}
-            <span>{{ stat.value }} {{ stat.label }}</span>
-            {% endfor %}
-          </div>
-          <span class="card__link" style="color: var(--accent2);">Explore my poker journey →</span>
+    <div class="hobby-cards">
+      <a href="/poker/" class="hobby-card hobby-card--green fade-in">
+        <div class="hobby-card__bar">
+          <h3 class="hobby-card__title">Texas Hold'em & Tournament Strategy</h3>
+          <p class="hobby-card__tagline">{{ site.data.poker.stats[0].value }} cash game player — GTO solvers & hand history review.</p>
         </div>
+        <span class="hobby-card__link">Explore my poker journey →</span>
       </a>
-      <!-- Chess card -->
-      <a href="/chess/" style="text-decoration: none;" class="fade-in">
-        <div class="project-card" style="border-color: rgba(167,139,250,0.2);">
-          <div class="card__category" style="color: var(--accent3);">♟ Chess</div>
-          <h3 class="card__title">Rapid & Classical — Attacking Player</h3>
-          <p class="card__desc">
-            Rated {{ site.data.chess.stats[0].value }} on Lichess. Passionate about
-            opening preparation, tactical puzzles, and endgame studies.
-          </p>
-          <div class="card__tech">
-            {% for stat in site.data.chess.stats %}
-            <span>{{ stat.value }} {{ stat.label }}</span>
-            {% endfor %}
-          </div>
-          <span class="card__link" style="color: var(--accent3);">Explore my chess journey →</span>
+      <a href="/chess/" class="hobby-card hobby-card--purple fade-in">
+        <div class="hobby-card__bar">
+          <h3 class="hobby-card__title">Rapid & Classical — Attacking Player</h3>
+          <p class="hobby-card__tagline">Rated {{ site.data.chess.stats[0].value }} on Lichess. Opening prep, tactics, endgame studies.</p>
         </div>
+        <span class="hobby-card__link">Explore my chess journey →</span>
       </a>
     </div>
   </div>

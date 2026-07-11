@@ -664,15 +664,15 @@ body { background: var(--bg); }  /* remove the #1a0f0a override */
             <div class="results-grid">
               <div class="result-item">
                 <div class="result-lbl">Win</div>
-                <div class="result-val" id="resWin">—</div>
+                <div class="result-val" id="resWin">-</div>
               </div>
               <div class="result-item">
                 <div class="result-lbl">Tie</div>
-                <div class="result-val" id="resTie">—</div>
+                <div class="result-val" id="resTie">-</div>
               </div>
               <div class="result-item">
                 <div class="result-lbl">Lose</div>
-                <div class="result-val" id="resLose">—</div>
+                <div class="result-val" id="resLose">-</div>
               </div>
               <div class="result-item">
                 <div class="result-lbl">Simulations</div>
@@ -1020,7 +1020,7 @@ function calculate(){
     document.getElementById('resSims').textContent=sims.toLocaleString();
     const boardCards=state.board.filter(Boolean);
     const street=['preflop','preflop','preflop','flop','turn'][boardCards.length]||'preflop';
-    document.getElementById('resultNote').textContent=`${h1.join(' ')} vs ${h2.join(' ')} ${street} — equity ${eq}% · Monte Carlo ${sims.toLocaleString()} sims`;
+    document.getElementById('resultNote').textContent=`${h1.join(' ')} vs ${h2.join(' ')} ${street}: equity ${eq}% · Monte Carlo ${sims.toLocaleString()} sims`;
     // Outs
     const loser=parseFloat(eq)>=50?h2:h1;
     const winner=parseFloat(eq)>=50?h1:h2;
@@ -1064,7 +1064,7 @@ function calculate(){
           </div>
           <div class="outs-cards-section">
             <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px">Cards that give you the win</div>
-            ${outs.length>0?outsHTML:'<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;">No clean outs — drawing dead.</p>'}
+            ${outs.length>0?outsHTML:'<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;">No clean outs. Drawing dead.</p>'}
           </div>
         </div>`;
     } else {

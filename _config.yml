@@ -1,13 +1,13 @@
 # ============================================================
-# SITE CONFIGURATION — Edit this file to personalise your site
+# SITE CONFIGURATION - Edit this file to personalise your site
 # ============================================================
 
 title: "Hafizuddin Jaafar"
-tagline: "Solution Architect · Data Science"
+tagline: "AI & Cloud Solution Architect"
 email: "hafizuddinbinjaafar@gmail.com"
 description: >
-  Portfolio of a data scientist and Azure Solution Architect with a passion
-  for Power Platform development, poker strategy, and chess.
+  Personal site of Hafizuddin Jaafar, an AI and cloud solution architect
+  who also plays a lot of poker and chess.
 
 baseurl: ""          # Leave empty if repo is username.github.io
 url: "https://hafizaj.github.io"
@@ -25,7 +25,7 @@ social:
   twitter: ""
   medium: ""
 
-# Navigation — order matters
+# Navigation - order matters
 nav:
   - label: "Work"
     url: "/#work"

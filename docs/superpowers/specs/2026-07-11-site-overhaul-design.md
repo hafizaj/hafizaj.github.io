@@ -1,9 +1,9 @@
-# Site Overhaul — Design Spec
+# Site Overhaul - Design Spec
 
 **Date:** 2026-07-11
 **Goal:** Recruiter-focused redesign of hafizaj.github.io. Amazing, easy to
 navigate, very lightweight. Informed by why zachjordan.io works (flat anchored
-navigation, real work first, personality included, zero friction to contact) —
+navigation, real work first, personality included, zero friction to contact) -
 not by its visual style.
 
 ## Requirements (from the brief)
@@ -11,7 +11,7 @@ not by its visual style.
 1. Complete visual overhaul; easy to navigate; catches recruiters' eyes.
 2. New personal brand guideline modeled on the structure of the AGSB corporate
    brand book in `__reference_files/` → delivered at `docs/brand-guidelines.md`.
-3. Tailwind CSS — **precompiled at build time**, not the runtime CDN script
+3. Tailwind CSS - **precompiled at build time**, not the runtime CDN script
    (the CDN compiler is ~110KB of JS and re-compiles on every visit; replacing
    it is the single biggest performance win).
 4. All icons/logos injected by JavaScript (Iconify web component), no inline SVG.
@@ -20,14 +20,14 @@ not by its visual style.
 
 ## Approaches considered
 
-- **A. Restyle in place** — keep both the Tailwind CDN and the parallel custom
+- **A. Restyle in place** - keep both the Tailwind CDN and the parallel custom
   CSS system. Rejected: two competing design systems is the current problem.
-- **B. Tailwind v4 precompiled + thin custom layer (chosen)** — one source of
+- **B. Tailwind v4 precompiled + thin custom layer (chosen)** - one source of
   truth in `_tailwind/input.css` (`@theme` tokens from the brand guideline),
   compiled with `npx @tailwindcss/cli` to `assets/css/tailwind.css`, committed.
   Custom CSS only for the few things utilities can't express (ledger device,
   entrance animation).
-- **C. Drop Jekyll for a JS framework** — rejected: heavier, unnecessary, and
+- **C. Drop Jekyll for a JS framework** - rejected: heavier, unnecessary, and
   GitHub Pages serves Jekyll natively.
 
 ## Architecture
@@ -47,7 +47,7 @@ not by its visual style.
   Work (4 real case cards) → Experience (roles as ledger rows, link to About) →
   Skills (capability clusters, JS icons) → Beyond work (poker + chess cards,
   equity-calculator callout) → Contact band (email, LinkedIn, GitHub).
-- **About:** full CV — kept, restyled with the same tokens; expandable cards
+- **About:** full CV - kept, restyled with the same tokens; expandable cards
   replaced with always-visible content (recruiters scan, they don't click).
 - **Projects:** the template content in `_projects/` (one fictional churn study
   with a placeholder GitHub link, two empty files) is replaced with four real
@@ -55,7 +55,7 @@ not by its visual style.
   tax classification model, BNM risk intelligence platform, cash-flow
   forecasting engine. `github`/`demo` fields left empty (internal work).
 - **Chess:** rebuilt on the new system (it was nearly unstyled).
-- **Poker + equity calculator:** self-contained `<style>` blocks — kept working
+- **Poker + equity calculator:** self-contained `<style>` blocks - kept working
   inside the new shell; shell-level classes they don't use are removed.
 
 ## Brand tokens

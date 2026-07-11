@@ -1,24 +1,24 @@
 ---
 layout: default
 title: Home
-description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud detection, forecasting, and automation systems at AstraZeneca and the Central Bank of Malaysia. MSc Business Analytics, Imperial College London."
+description: "Hafizuddin Jaafar, AI and cloud solution architect. I build fraud detection, forecasting, and automation systems on Azure. MSc Business Analytics at Imperial College London."
 ---
 
-<!-- HERO — thesis + evidence ledger -->
-<section class="on-midnight bg-midnight text-white">
-  <div class="mx-auto max-w-6xl px-6 pb-16 pt-20 sm:pt-24 lg:pb-20">
+<!-- HERO -->
+<section class="on-midnight relative overflow-hidden bg-midnight text-white">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_80%_12%,rgba(247,148,30,0.13),transparent_70%),radial-gradient(ellipse_50%_55%_at_10%_95%,rgba(122,31,43,0.4),transparent_70%)]"></div>
+  <div class="relative mx-auto max-w-6xl px-6 pb-16 pt-20 sm:pt-24 lg:pb-20">
     <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
       <div>
-        <p class="eyebrow rise text-ember">Solution architect · Data &amp; AI — London</p>
+        <p class="eyebrow rise text-ember">AI &amp; Cloud Solution Architect · London</p>
         <h1 class="rise rise-1 mt-5 font-display text-[clamp(2.4rem,6vw,4.2rem)] font-bold leading-[1.05] tracking-tight">
-          <span class="block">Messy data in.</span>
-          <span class="block">Defensible decisions out.</span>
+          Hi, I'm Hafiz <span class="inline-block" aria-hidden="true">👋</span>
         </h1>
         <p class="rise rise-2 mt-6 max-w-xl text-lg leading-8 text-white/70">
-          I'm Hafizuddin Jaafar. For the last four years I've built fraud detection,
-          forecasting, and automation systems at <strong class="font-semibold text-white">AstraZeneca</strong>
-          and the <strong class="font-semibold text-white">Central Bank of Malaysia</strong> —
-          now finishing an MSc in Business Analytics at
+          I design AI systems that make it into production and stay there. Fraud detection at
+          <strong class="font-semibold text-white">AstraZeneca</strong>, risk platforms at the
+          <strong class="font-semibold text-white">Central Bank of Malaysia</strong>, and automation
+          that hundreds of people use every day. Right now I'm finishing an MSc in Business Analytics at
           <strong class="font-semibold text-white">Imperial College London</strong>.
         </p>
         <div class="rise rise-3 mt-8 flex flex-wrap gap-3">
@@ -31,7 +31,7 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
             <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">12,000+ hrs</span> of manual work eliminated annually across 157 automation projects</p>
           </div>
           <div class="ledger-row">
-            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">90%</span> accuracy from a tax classification model built solo, replacing a vendor</p>
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">90%</span> accuracy from a tax classification model I built solo, replacing a vendor</p>
           </div>
           <div class="ledger-row">
             <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">$20M</span> in IT assets protected by CAPEX fraud detection ML</p>
@@ -40,9 +40,12 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
       </div>
 
       <div class="rise rise-2 lg:justify-self-end">
-        <img src="/assets/images/avatar.jpeg" alt="Hafizuddin Jaafar" width="420" height="420"
-             class="w-full max-w-sm rounded-xl border border-white/15 object-cover">
-        <p class="eyebrow mt-4 text-white/50">Open to senior data, AI &amp; architecture roles</p>
+        <div class="relative max-w-sm">
+          <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-xl border border-ember/50" aria-hidden="true"></div>
+          <img src="/assets/images/avatar.jpeg" alt="Hafizuddin Jaafar" width="420" height="420"
+               class="relative w-full rounded-xl border border-white/15 object-cover">
+        </div>
+        <p class="eyebrow mt-6 text-white/50">Open to senior AI, data &amp; architecture roles</p>
       </div>
     </div>
   </div>
@@ -65,7 +68,8 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
 <section id="work" class="py-20 sm:py-24">
   <div class="mx-auto max-w-6xl px-6">
     <p class="eyebrow text-royal">Selected work</p>
-    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">Systems that shipped, with the numbers to show for it.</h2>
+    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">Work I'm proud of.</h2>
+    <p class="mt-4 max-w-2xl text-muted">Real systems, in production, with the numbers to show for it.</p>
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
       {% for project in sorted_projects %}
@@ -81,23 +85,23 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
         <p class="eyebrow text-royal">Experience</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Five years, three countries, one thread: delivery.</h2>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Where I've worked.</h2>
       </div>
       <a href="/about/" class="text-sm font-semibold text-royal transition-colors hover:text-midnight">Full history →</a>
     </div>
 
     <div class="ledger mt-10">
       <div class="ledger-row sm:grid-cols-[auto_11rem_1fr]">
-        <span class="ledger-metric text-sm text-royal">2022 — 2025</span>
-        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">Senior Solution Architect, AstraZeneca</strong> — led automation across Malaysia's first nationwide digital transformation; built expense-fraud ML scoring 11,000+ submissions a month.</p>
+        <span class="ledger-metric text-sm text-royal">2022 - 2025</span>
+        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">Senior Solution Architect, AstraZeneca.</strong> Led automation across Malaysia's first nationwide digital transformation and built expense-fraud ML that scores 11,000+ submissions a month.</p>
       </div>
       <div class="ledger-row sm:grid-cols-[auto_11rem_1fr]">
-        <span class="ledger-metric text-sm text-royal">2021 — 2022</span>
-        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">Digital Graduate Analyst, Central Bank of Malaysia</strong> — consolidated 52 departmental datasets into one risk intelligence platform, saving 5,000 reporting hours a year.</p>
+        <span class="ledger-metric text-sm text-royal">2021 - 2022</span>
+        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">Digital Graduate Analyst, Central Bank of Malaysia.</strong> Consolidated 52 departmental datasets into one risk intelligence platform, saving 5,000 reporting hours a year.</p>
       </div>
       <div class="ledger-row sm:grid-cols-[auto_11rem_1fr]">
-        <span class="ledger-metric text-sm text-royal">2020 — 2021</span>
-        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">VP of Technology, Xavier Optics (Los Angeles)</strong> — built the business case that secured $225,000 in Phase 1 SBIR funding for a novel AR/VR optical element.</p>
+        <span class="ledger-metric text-sm text-royal">2020 - 2021</span>
+        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">VP of Technology, Xavier Optics (Los Angeles).</strong> Built the business case that secured $225,000 in Phase 1 SBIR funding for a novel AR/VR optical element.</p>
       </div>
     </div>
   </div>
@@ -107,11 +111,11 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
 <section id="skills" class="py-20 sm:py-24">
   <div class="mx-auto max-w-6xl px-6">
     <p class="eyebrow text-royal">Capabilities</p>
-    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">A modern stack, applied with business discipline.</h2>
+    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">What I work with.</h2>
     <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       <div class="rounded-xl border border-mist bg-white p-6">
         <iconify-icon icon="ph:brain" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
-        <h3 class="mt-3 font-display text-base font-bold">Data science &amp; ML</h3>
+        <h3 class="mt-3 font-display text-base font-bold">Machine learning &amp; AI</h3>
         <ul class="mt-3 space-y-1.5 text-sm leading-6 text-muted">
           <li>Python · pandas · scikit-learn · PyTorch</li>
           <li>Anomaly &amp; fraud detection</li>
@@ -122,7 +126,7 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
       </div>
       <div class="rounded-xl border border-mist bg-white p-6">
         <iconify-icon icon="ph:cloud" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
-        <h3 class="mt-3 font-display text-base font-bold">Azure architecture</h3>
+        <h3 class="mt-3 font-display text-base font-bold">Azure &amp; cloud architecture</h3>
         <ul class="mt-3 space-y-1.5 text-sm leading-6 text-muted">
           <li>Solution architecture</li>
           <li>Synapse Analytics &amp; Data Factory</li>
@@ -158,15 +162,15 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
 <section id="beyond" class="border-t border-mist bg-white py-20 sm:py-24">
   <div class="mx-auto max-w-6xl px-6">
     <p class="eyebrow text-royal">Beyond work</p>
-    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">The same maths, played for fun.</h2>
-    <p class="mt-4 max-w-2xl text-muted">Probability, incomplete information, and calculated aggression — the hobbies train the same muscles as the job.</p>
+    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">Off the clock.</h2>
+    <p class="mt-4 max-w-2xl text-muted">Most of my free time goes to games that punish sloppy thinking. The rest goes to the gym, live music, and the occasional ballgame.</p>
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       <a href="/poker/" class="group rounded-xl border border-mist bg-paper p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
         <div class="flex items-center justify-between">
           <h3 class="font-display text-xl font-bold">Poker</h3>
           <iconify-icon icon="ph:spade" width="24" class="text-royal" aria-hidden="true"></iconify-icon>
         </div>
-        <p class="mt-3 text-sm leading-7 text-muted">Five years of serious study — solver work, range construction, bankroll discipline. 650k hands played at a 3.2bb win rate.</p>
+        <p class="mt-3 text-sm leading-7 text-muted">Five years of serious study: solver work, range construction, and bankroll discipline. 650k hands played at a 3.2bb win rate.</p>
         <p class="mt-4 font-mono text-xs text-royal">Includes a hand-equity calculator I built →</p>
       </a>
       <a href="/chess/" class="group rounded-xl border border-mist bg-paper p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
@@ -174,7 +178,7 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
           <h3 class="font-display text-xl font-bold">Chess</h3>
           <iconify-icon icon="ph:horse" width="24" class="text-royal" aria-hidden="true"></iconify-icon>
         </div>
-        <p class="mt-3 text-sm leading-7 text-muted">Attacking player, 1.e4. Rated 1820 Lichess rapid, playing since 2016, weekly over-the-board games at a local club.</p>
+        <p class="mt-3 text-sm leading-7 text-muted">Attacking player, 1.e4. Rated 1820 Lichess rapid, playing since 2016, with weekly over-the-board games at a local club.</p>
         <p class="mt-4 font-mono text-xs text-royal">Openings, study plan &amp; resources →</p>
       </a>
     </div>
@@ -182,18 +186,20 @@ description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="on-midnight bg-midnight py-20 text-white sm:py-24">
-  <div class="mx-auto max-w-6xl px-6">
+<section id="contact" class="on-midnight relative overflow-hidden bg-midnight py-20 text-white sm:py-24">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_90%_100%,rgba(122,31,43,0.35),transparent_70%)]"></div>
+  <div class="relative mx-auto max-w-6xl px-6">
     <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
       <div>
         <p class="eyebrow text-ember">Contact</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Need someone who moves from insight to implementation?</h2>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Let's talk.</h2>
+        <p class="mt-4 max-w-lg leading-8 text-white/70">If you're hiring for AI or cloud architecture, or you just want to compare notes on a hard data problem, my inbox is open.</p>
         <div class="ledger mt-8 max-w-md">
           <div class="ledger-row">
-            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-white">Available</span> — London · open to global opportunities</p>
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-white">Based in</span> London, open to global opportunities</p>
           </div>
           <div class="ledger-row">
-            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-white">Replies</span> — usually within a day</p>
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-white">Replies</span> usually within a day</p>
           </div>
         </div>
       </div>

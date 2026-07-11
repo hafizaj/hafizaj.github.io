@@ -1,5 +1,5 @@
 # ============================================================
-# POKER DATA — Update your stats, thoughts, and resources here
+# POKER DATA - Update your stats, thoughts, and resources here
 # ============================================================
 
 stats:
@@ -15,7 +15,7 @@ stats:
 intro: >
   Poker has been a serious pursuit for over five years. What started as a curiosity
   became an obsession once I realised poker was really a game of incomplete information,
-  probability, and psychology — all domains I find fascinating professionally.
+  probability, and psychology, all things I find fascinating professionally.
   The analytical skills transfer remarkably well between data science and the felt.
 
 philosophy:
@@ -23,7 +23,7 @@ philosophy:
   body: >
     I approach poker the same way I approach ML models: build a solid prior, update
     on new information, and stay aware of your own biases. The biggest edge at lower
-    stakes isn't hand-reading genius — it's discipline, bankroll management, and
+    stakes isn't hand-reading genius. It's discipline, bankroll management, and
     avoiding tilt.
 
 study_approach:
@@ -32,7 +32,7 @@ study_approach:
     - Hand history review with PioSOLVER / GTO+
     - Range construction and frequency analysis
     - Monthly session reviews in a structured spreadsheet
-    - Theory reading — "The Mathematics of Poker", "Modern Poker Theory"
+    - 'Theory reading: "The Mathematics of Poker" and "Modern Poker Theory"'
     - Solver work on key spots (3-bet pots, turn decisions)
 
 resources:

@@ -1,6 +1,6 @@
 ---
 title: "Cash flow forecasting engine"
-description: "A Python engine that reconciles SAP data into real-time cash flow intelligence — recognised with AstraZeneca's Finance Excellence Award."
+description: "A Python engine that reconciles SAP data into real-time cash flow intelligence. It won AstraZeneca's Finance Excellence Award."
 category: "Analytics engineering"
 org: "AstraZeneca"
 date: 2024-01-15
@@ -16,8 +16,8 @@ tech:
 ## Context
 
 Cash flow visibility depended on analysts manually reconciling SAP extracts in
-spreadsheets — thousands of hours a year spent assembling the picture before
-anyone could act on it.
+spreadsheets. Thousands of hours a year went into assembling the picture
+before anyone could act on it.
 
 ## What I built
 
@@ -26,8 +26,8 @@ A forecasting engine that does the reconciliation continuously:
 - Pulls and reconciles SAP data automatically, so the baseline is always current
 - Produces forward-looking cash flow projections instead of backward-looking
   reports
-- Feeds finance dashboards directly — the analysts' time moved from assembling
-  numbers to interrogating them
+- Feeds finance dashboards directly, so analysts spend their time
+  interrogating the numbers instead of assembling them
 
 ## Results
 

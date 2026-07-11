@@ -1,6 +1,6 @@
 # hafizaj.github.io
 
-Personal portfolio — Jekyll + precompiled Tailwind CSS, served by GitHub Pages.
+Personal portfolio. Jekyll + precompiled Tailwind CSS, served by GitHub Pages.
 
 ## Editing styles
 

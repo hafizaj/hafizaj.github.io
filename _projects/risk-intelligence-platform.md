@@ -25,7 +25,7 @@ A centralised risk intelligence platform:
 
 - Consolidated the 52 datasets into a single modelled layer feeding **Power BI**
 - Added asset vulnerability tracking using Python web scraping with a **Neo4j
-  graph database** to map dependencies between systems — improving SLA adherence
+  graph database** to map dependencies between systems, improving SLA adherence
   by 30%
 - Built a multi-source social media analytics pipeline (LinkedIn, Facebook,
   Instagram, Twitter APIs) with NLP sentiment analysis and automated

@@ -1,29 +1,72 @@
 ---
 layout: default
 title: Chess
+description: "Attacking chess player — 1.e4, Italian Game, Sicilian Najdorf. Rated 1820 Lichess rapid. Openings, study approach, and resources."
 ---
 
-<div class="container" style="padding: 6rem 0 4rem;">
-  <h1>♟ Chess</h1>
-  <p>{{ site.data.chess.intro }}</p>
-  <div class="card__tech" style="margin: 1rem 0;">
-    {% for stat in site.data.chess.stats %}
-    <span>{{ stat.value }} {{ stat.label }}</span>
-    {% endfor %}
+<!-- HEADER -->
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+      <div>
+        <p class="eyebrow text-royal">Beyond work</p>
+        <h1 class="mt-4 flex items-center gap-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          Chess
+          <iconify-icon icon="ph:horse" width="40" class="text-royal" aria-hidden="true"></iconify-icon>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-muted">{{ site.data.chess.intro }}</p>
+      </div>
+      <div class="ledger lg:mt-2">
+        {% for stat in site.data.chess.stats %}
+        <div class="ledger-row">
+          <p class="text-sm leading-7 text-muted"><span class="ledger-metric text-base text-ink">{{ stat.value }}</span> {{ stat.label }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
-  <h2>{{ site.data.chess.style.title }}</h2>
-  <p>{{ site.data.chess.style.body }}</p>
-  <h2>{{ site.data.chess.study_approach.title }}</h2>
-  <ul>
-    {% for point in site.data.chess.study_approach.points %}
-    <li>{{ point }}</li>
-    {% endfor %}
-  </ul>
-  <h2>{{ site.data.chess.resources.title }}</h2>
-  <ul>
-    {% for item in site.data.chess.resources.items %}
-    <li>{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.name }}</a>{% else %}{{ item.name }}{% endif %} — {{ item.type }}</li>
-    {% endfor %}
-  </ul>
-  <p><a href="/" class="btn btn--outline">Back to home</a></p>
-</div>
+</section>
+
+<!-- CONTENT -->
+<section class="py-16 sm:py-20">
+  <div class="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-2">
+
+    <div class="rounded-xl border border-mist bg-white p-7 md:col-span-2">
+      <p class="eyebrow text-royal">{{ site.data.chess.style.title }}</p>
+      <p class="mt-4 max-w-3xl leading-8 text-muted">{{ site.data.chess.style.body }}</p>
+    </div>
+
+    <div class="rounded-xl border border-mist bg-white p-7">
+      <p class="eyebrow text-royal">{{ site.data.chess.openings.title }}</p>
+      <h2 class="mt-3 font-mono text-xs uppercase tracking-widest text-muted">As White</h2>
+      <ul class="mt-2 space-y-1.5 text-sm leading-7 text-muted">
+        {% for line in site.data.chess.openings.as_white %}<li>{{ line }}</li>{% endfor %}
+      </ul>
+      <h2 class="mt-5 font-mono text-xs uppercase tracking-widest text-muted">As Black</h2>
+      <ul class="mt-2 space-y-1.5 text-sm leading-7 text-muted">
+        {% for line in site.data.chess.openings.as_black %}<li>{{ line }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="rounded-xl border border-mist bg-white p-7">
+      <p class="eyebrow text-royal">{{ site.data.chess.study_approach.title }}</p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-muted">
+        {% for point in site.data.chess.study_approach.points %}<li>{{ point }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="rounded-xl border border-mist bg-white p-7 md:col-span-2">
+      <p class="eyebrow text-royal">{{ site.data.chess.resources.title }}</p>
+      <div class="ledger mt-4">
+        {% for item in site.data.chess.resources.items %}
+        <div class="ledger-row">
+          <p class="text-sm leading-7 text-muted">
+            {% if item.url and item.url != "" %}<a href="{{ item.url }}" target="_blank" rel="noopener" class="font-semibold text-royal hover:text-midnight">{{ item.name }}</a>{% else %}<span class="font-semibold text-ink">{{ item.name }}</span>{% endif %}
+            <span class="font-mono text-xs"> · {{ item.type }}</span>
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,13 +1,18 @@
-<a href="{{ project.url }}" class="featured-card fade-in" data-category="{{ project.category }}">
-  <div class="featured-card__image">
-    {% if project.image %}
-    <img src="{{ project.image | prepend: '/assets/' | relative_url }}" alt="{{ project.title }}">
-    {% else %}
-    <div class="featured-card__placeholder featured-card__placeholder--{{ project.category }}"></div>
-    {% endif %}
+<a href="{{ project.url }}" class="group flex h-full flex-col rounded-xl border border-mist bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+  <div class="flex items-baseline justify-between gap-3">
+    <span class="eyebrow text-royal">{{ project.category }}</span>
+    <span class="font-mono text-xs text-muted">{{ project.org }}</span>
   </div>
-  <div class="featured-card__bar featured-card__bar--{{ project.category }}">
-    <h3 class="featured-card__title">{{ project.title }}</h3>
-    <p class="featured-card__tagline">{{ project.description }}</p>
+  <h3 class="mt-4 font-display text-xl font-bold leading-snug group-hover:text-royal">{{ project.title }}</h3>
+  <p class="mt-2 text-sm leading-7 text-muted">{{ project.description }}</p>
+  <div class="ledger mt-5">
+    <div class="ledger-row">
+      <p class="text-sm leading-6 text-muted"><span class="ledger-metric text-ink">{{ project.impact }}</span> {{ project.impact_label }}</p>
+    </div>
+  </div>
+  <div class="mt-4 flex flex-wrap gap-2 pt-1">
+    {% for tech in project.tech limit:4 %}
+    <span class="rounded border border-mist px-2 py-0.5 font-mono text-[11px] text-muted">{{ tech }}</span>
+    {% endfor %}
   </div>
 </a>

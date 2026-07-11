@@ -1,13 +1,28 @@
-<header class="site-header">
-  <nav class="nav container">
-    <a href="/" class="nav__logo" aria-label="Home">
-      <span class="nav__logo-initials">{{ site.logo_initials | default: "HJ" }}</span>
+<header class="sticky top-0 z-50 border-b border-mist bg-paper/90 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3" aria-label="Main">
+    <a href="/" class="flex items-center gap-3" aria-label="Home">
+      <span class="flex h-10 w-10 items-center justify-center rounded border-2 border-ink font-display text-sm font-bold tracking-wide">{{ site.logo_initials | default: "HJ" }}</span>
+      <span class="hidden font-display text-sm font-bold sm:inline">Hafizuddin Jaafar</span>
     </a>
-    <ul class="nav__links">
+
+    <div class="hidden items-center gap-7 md:flex">
       {% for item in site.nav %}
-      <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+      <a href="{{ item.url }}" class="text-sm font-medium text-muted transition-colors hover:text-royal">{{ item.label }}</a>
       {% endfor %}
-    </ul>
-    <a href="mailto:{{ site.email }}" class="btn btn--nav">Contact Me</a>
+      <a href="mailto:{{ site.email }}" class="rounded bg-royal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-midnight">Email me</a>
+    </div>
+
+    <button type="button" class="flex items-center rounded border border-mist p-2 text-ink md:hidden" data-mobile-nav-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation">
+      <iconify-icon icon="ph:list" width="22" aria-hidden="true"></iconify-icon>
+    </button>
   </nav>
+
+  <div id="mobile-nav" class="hidden border-t border-mist bg-paper px-6 py-4 md:hidden">
+    <div class="flex flex-col gap-1">
+      {% for item in site.nav %}
+      <a href="{{ item.url }}" class="rounded px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-mist/50 hover:text-royal">{{ item.label }}</a>
+      {% endfor %}
+      <a href="mailto:{{ site.email }}" class="mt-2 rounded bg-royal px-3 py-2 text-center text-sm font-semibold text-white">Email me</a>
+    </div>
+  </div>
 </header>

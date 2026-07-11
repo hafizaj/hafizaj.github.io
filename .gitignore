@@ -18,3 +18,9 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Node
+node_modules/
+
+# Private reference material
+__reference_files/

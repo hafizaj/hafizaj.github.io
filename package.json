@@ -1,0 +1,12 @@
+{
+  "name": "hafizaj-site",
+  "private": true,
+  "scripts": {
+    "css": "tailwindcss -i _tailwind/input.css -o assets/css/tailwind.css --minify",
+    "css:watch": "tailwindcss -i _tailwind/input.css -o assets/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

@@ -1,0 +1,153 @@
+/* ============================================================
+   HJ brand system — source stylesheet
+   Compile: npm run css  →  assets/css/tailwind.css (committed)
+   Tokens follow docs/brand-guidelines.md
+============================================================ */
+@import "tailwindcss";
+
+@theme {
+  /* Colour — Royal Ledger palette */
+  --color-ink: #0a1b33;
+  --color-royal: #00397b;
+  --color-midnight: #042448;
+  --color-ember: #f7941e;
+  --color-paper: #f6f8fb;
+  --color-mist: #d9e2ef;
+  --color-muted: #44536b;
+
+  /* Type */
+  --font-sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Schibsted Grotesk", "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+@layer base {
+  /* Legacy variable bridge — the self-styled poker pages reference
+     these names; keep them resolving to current brand tokens. */
+  :root {
+    --bg: var(--color-paper);
+    --bg2: #ffffff;
+    --bg3: #eef2f8;
+    --border: var(--color-mist);
+    --text: var(--color-ink);
+    --muted: var(--color-muted);
+    --accent: var(--color-royal);
+    --accent-hover: var(--color-midnight);
+    --font: var(--font-sans);
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 10px 30px rgba(10, 27, 51, 0.06);
+    --shadow: 0 20px 50px rgba(10, 27, 51, 0.1);
+    --shadow-lg: 0 30px 80px rgba(10, 27, 51, 0.14);
+    --transition: 0.2s ease;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-royal);
+    outline-offset: 2px;
+  }
+  .on-midnight :focus-visible {
+    outline-color: var(--color-ember);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── Components ───────────────────────────────────────────── */
+@layer components {
+  /* Legacy shell classes still used by the self-styled poker pages */
+  .container {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  .section {
+    padding-block: 5rem;
+  }
+  .fade-in {
+    opacity: 1;
+  }
+
+  /* Eyebrow labels — utility face, tracked caps */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Signature device — the evidence ledger */
+  .ledger {
+    border-top: 1px solid var(--color-mist);
+  }
+  .ledger-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+    padding-block: 0.85rem;
+    border-bottom: 1px solid var(--color-mist);
+  }
+  .ledger-row::before {
+    content: "▸";
+    grid-row: 1 / span 2;
+    color: var(--color-ember);
+    font-size: 0.8rem;
+    line-height: inherit;
+    align-self: baseline;
+  }
+  .ledger-metric {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .on-midnight .ledger,
+  .on-midnight .ledger-row {
+    border-color: color-mix(in srgb, white 16%, transparent);
+  }
+
+  /* Orchestrated hero entrance */
+  .rise {
+    animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .rise-1 { animation-delay: 0.08s; }
+  .rise-2 { animation-delay: 0.16s; }
+  .rise-3 { animation-delay: 0.24s; }
+  .rise-4 { animation-delay: 0.32s; }
+  .rise-5 { animation-delay: 0.4s; }
+  .rise-6 { animation-delay: 0.48s; }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

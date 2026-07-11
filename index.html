@@ -1,232 +1,72 @@
 ---
 layout: default
 title: Home
+description: "Hafizuddin Jaafar — solution architect and data scientist. Fraud detection, forecasting, and automation systems at AstraZeneca and the Central Bank of Malaysia. MSc Business Analytics, Imperial College London."
 ---
 
-<!-- Hero: light section, centered profile + greeting -->
-<section class="hero hero--physics" id="home">
-  <canvas id="heroCanvas"></canvas>
-  <div class="hero__profile">
-    <img src="/assets/images/avatar.jpeg" alt="Hafizuddin Jaafar" class="hero__profile-img">
-    <div class="hero__profile-name">Hafizuddin Jaafar</div>
-    <div class="hero__profile-sub">Open to opportunities · London</div>
-  </div>
+<!-- HERO — thesis + evidence ledger -->
+<section class="on-midnight bg-midnight text-white">
+  <div class="mx-auto max-w-6xl px-6 pb-16 pt-20 sm:pt-24 lg:pb-20">
+    <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+      <div>
+        <p class="eyebrow rise text-ember">Solution architect · Data &amp; AI — London</p>
+        <h1 class="rise rise-1 mt-5 font-display text-[clamp(2.4rem,6vw,4.2rem)] font-bold leading-[1.05] tracking-tight">
+          <span class="block">Messy data in.</span>
+          <span class="block">Defensible decisions out.</span>
+        </h1>
+        <p class="rise rise-2 mt-6 max-w-xl text-lg leading-8 text-white/70">
+          I'm Hafizuddin Jaafar. For the last four years I've built fraud detection,
+          forecasting, and automation systems at <strong class="font-semibold text-white">AstraZeneca</strong>
+          and the <strong class="font-semibold text-white">Central Bank of Malaysia</strong> —
+          now finishing an MSc in Business Analytics at
+          <strong class="font-semibold text-white">Imperial College London</strong>.
+        </p>
+        <div class="rise rise-3 mt-8 flex flex-wrap gap-3">
+          <a href="mailto:{{ site.email }}" class="rounded bg-ember px-6 py-3 text-sm font-semibold text-midnight transition-colors hover:bg-white">Email me</a>
+          <a href="/#work" class="rounded border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-ember hover:text-ember">See the work</a>
+        </div>
 
-  <!-- Label sits top-left, never overlaps centre -->
-  <div class="hero__top-label">
-    Solution Architect · Data Science · MSc Business Analytics at Imperial College London
-  </div>
+        <div class="ledger rise rise-4 mt-12 max-w-xl">
+          <div class="ledger-row">
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">12,000+ hrs</span> of manual work eliminated annually across 157 automation projects</p>
+          </div>
+          <div class="ledger-row">
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">90%</span> accuracy from a tax classification model built solo, replacing a vendor</p>
+          </div>
+          <div class="ledger-row">
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-base text-white">$20M</span> in IT assets protected by CAPEX fraud detection ML</p>
+          </div>
+        </div>
+      </div>
 
-  <!-- Buttons sit at the bottom, never overlaps centre -->
-  <div class="hero__bottom-cta">
+      <div class="rise rise-2 lg:justify-self-end">
+        <img src="/assets/images/avatar.jpeg" alt="Hafizuddin Jaafar" width="420" height="420"
+             class="w-full max-w-sm rounded-xl border border-white/15 object-cover">
+        <p class="eyebrow mt-4 text-white/50">Open to senior data, AI &amp; architecture roles</p>
+      </div>
+    </div>
   </div>
-
-  <div class="hero__scroll-hint">Scroll ↓</div>
 </section>
 
-<div class="hero__cta-strip">
-  <a href="/#portfolio" class="btn btn--primary">View Work</a>
-  <a href="/about/" class="btn btn--outline">About Me</a>
-</div>
-
-<!-- Matter.js physics library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-
-<script>
-(function () {
-  /* ── Config ────────────────────────────────────────────── */
-  const WORDS = ['I Turn', 'Noise', 'Into Signal.'];
-  const FONT_SIZE  = Math.min(window.innerWidth * 0.13, 160);
-  const FONT_FACE  = 'Playfair Display, Georgia, serif';
-  const TEXT_COLOR = '#1a1714';
-  const ACCENT     = '#0d7377';
-  const NAV_OFFSET = 100; // clears nav + label
-
-
-  /* ── State ─────────────────────────────────────────────── */
-  let engine, render, runner;
-  let letterBodies = [];
-  let exploded = false;
-  let scrollProgress = 0;
-  let raf;
-
-  /* ── Canvas setup ──────────────────────────────────────── */
-  const canvas  = document.getElementById('heroCanvas');
-  const section = document.querySelector('.hero--physics');
-
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', () => { resize(); if (exploded) rebuildScene(); });
-
-  /* ── Matter.js engine ──────────────────────────────────── */
-  function initEngine() {
-    engine = Matter.Engine.create({ gravity: { x: 0, y: 0 } });
-
-    // Invisible walls
-    const W = canvas.width, H = canvas.height;
-    const walls = [
-      Matter.Bodies.rectangle(W / 2, H + 50, W * 2, 100, { isStatic: true }), // floor
-      Matter.Bodies.rectangle(-50, H / 2, 100, H * 2, { isStatic: true }),     // left
-      Matter.Bodies.rectangle(W + 50, H / 2, 100, H * 2, { isStatic: true }),  // right
-    ];
-    Matter.World.add(engine.world, walls);
-  }
-
-  // Make each word fill ~90% of screen width
-  function calcFontSize(word, ctx) {
-    ctx.font = `900 10px ${FONT_FACE}`;
-    const targetW = canvas.width * 0.75;
-    let size = Math.floor((targetW / ctx.measureText(word).width) * 10);
-    // Never let a single line exceed 1/3 of viewport height
-    size = Math.min(size, Math.floor(canvas.height * 0.13), 160);
-    return size;
-  }
-
-  /* ── Build letter bodies from text ────────────────────────
-     We render each letter to an offscreen canvas to get
-     its width, then place physics rectangles accordingly.
-  ─────────────────────────────────────────────────────────── */
-  function buildLetters() {
-    const W = canvas.width;
-    const H = canvas.height;
-    const ctx = canvas.getContext('2d');
-    const MARGIN = W * 0.05;
-
-
-    const sizes = WORDS.map(word => calcFontSize(word, ctx));
-    const lineHeights = sizes.map(s => s * 1.05);
-    const totalH = lineHeights.reduce((a, b) => a + b, 0);
-    const NAV_OFFSET = 100; // clears nav + label
-    let startY = (H - totalH) / 2 + sizes[0] * 0.82;
-    startY = Math.max(startY, NAV_OFFSET + sizes[0] * 0.9); // never goes above nav
-
-    letterBodies = [];
-
-    WORDS.forEach((word, wi) => {
-      const FONT_SIZE = sizes[wi];
-      ctx.font = `900 ${FONT_SIZE}px ${FONT_FACE}`;
-
-      let x = MARGIN;
-      const y = startY + lineHeights.slice(0, wi).reduce((a, b) => a + b, 0);
-
-      word.split('').forEach(char => {
-        const charW = ctx.measureText(char).width;
-        const isAccent = (wi === 0);
-
-        const body = Matter.Bodies.rectangle(
-          x + charW / 2,
-          y - FONT_SIZE / 2,
-          charW,
-          FONT_SIZE,
-          { frictionAir: 0.02, restitution: 0.4 }
-        );
-
-        body.letter  = char;
-        body.fontSize = FONT_SIZE;
-        body.color   = isAccent ? ACCENT : TEXT_COLOR;
-
-        letterBodies.push(body);
-        x += charW;
-      });
-    });
-
-    Matter.World.add(engine.world, letterBodies);
-  }
-
-  function rebuildScene() {
-    if (engine) Matter.Engine.clear(engine);
-    letterBodies = [];
-    exploded = false;
-    initEngine();
-    buildLetters();
-  }
-
-  /* ── Explosion ─────────────────────────────────────────── */
-  function explode() {
-    if (exploded) return;
-    exploded = true;
-
-    // Gravity kicks in
-    engine.gravity.y = 1.2;
-
-    const cx = canvas.width / 2;
-    const cy = canvas.height / 2;
-
-    letterBodies.forEach(body => {
-      const dx = body.position.x - cx;
-      const dy = body.position.y - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-
-      const forceMag = 0.018 + Math.random() * 0.022;
-      Matter.Body.applyForce(body, body.position, {
-        x: (dx / dist) * forceMag + (Math.random() - 0.5) * 0.008,
-        y: (dy / dist) * forceMag - Math.random() * 0.015,
-      });
-
-      Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.25);
-    });
-  }
-
-  /* ── Render loop ───────────────────────────────────────── */
-  function draw() {
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw each letter body
-    letterBodies.forEach(body => {
-      ctx.save();
-      ctx.translate(body.position.x, body.position.y);
-      ctx.rotate(body.angle);
-      ctx.font = `900 ${body.fontSize}px ${FONT_FACE}`;
-      ctx.fillStyle = body.color;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(body.letter, 0, 0);
-      ctx.restore();
-    });
-
-    Matter.Engine.update(engine, 1000 / 60);
-    raf = requestAnimationFrame(draw);
-  }
-
-  /* ── Scroll trigger ────────────────────────────────────── */
-  window.addEventListener('scroll', () => {
-    const sectionTop = section.offsetTop;
-    const sectionH   = section.offsetHeight;
-    const scrolled   = window.scrollY - sectionTop;
-    scrollProgress   = Math.max(0, Math.min(1, scrolled / (sectionH * 0.4)));
-
-    if (scrollProgress > 0.05 && !exploded) {
-      explode();
-    }
-  }, { passive: true });
-
-  /* ── Init ──────────────────────────────────────────────── */
-  document.fonts.ready.then(() => {
-      initEngine();
-      buildLetters();
-      draw();
-    });
-})();
-</script>
-
-<!-- Featured Work: dark section, project cards with image + colored bar -->
-<section class="section section--dark" id="portfolio">
-  <div class="container">
-    <h2 class="section__title">Featured Work</h2>
-
-    <!-- Filter Bar -->
-    <div class="filter-bar fade-in">
-      <button class="filter-btn active" data-filter="all">All Projects</button>
-      <button class="filter-btn" data-filter="data-science">Data Science</button>
-      <button class="filter-btn" data-filter="azure">Azure Solutions</button>
-      <button class="filter-btn" data-filter="power-platform">Power Platform</button>
+<!-- PROOF STRIP -->
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-6">
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-2 sm:justify-between">
+      <span class="eyebrow text-muted">Trusted at</span>
+      <span class="font-display text-sm font-bold text-ink/80">AstraZeneca</span>
+      <span class="font-display text-sm font-bold text-ink/80">Central Bank of Malaysia</span>
+      <span class="font-display text-sm font-bold text-ink/80">Imperial College London</span>
+      <span class="font-display text-sm font-bold text-ink/80">UCLA</span>
     </div>
+  </div>
+</section>
 
-    <div class="projects-grid projects-grid--featured">
+<!-- WORK -->
+<section id="work" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <p class="eyebrow text-royal">Selected work</p>
+    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">Systems that shipped, with the numbers to show for it.</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
       {% for project in sorted_projects %}
         {% include project-card.html project=project %}
@@ -235,62 +75,137 @@ title: Home
   </div>
 </section>
 
-<!-- Skills: dark section -->
-<section class="section section--dark" id="skills">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-header__label">Expertise</div>
-      <h2 class="section__title">Core Skills</h2>
-      <p>Technologies and disciplines I work with day-to-day.</p>
+<!-- EXPERIENCE -->
+<section id="experience" class="border-y border-mist bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow text-royal">Experience</p>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Five years, three countries, one thread: delivery.</h2>
+      </div>
+      <a href="/about/" class="text-sm font-semibold text-royal transition-colors hover:text-midnight">Full history →</a>
     </div>
-    <div class="skills-grid">
-      {% for group in site.data.skills.groups %}
-      <div class="skill-group fade-in">
-        <div class="skill-group__icon">{{ group.icon }}</div>
-        <div class="skill-group__title">{{ group.title }}</div>
-        <ul class="skill-group__list">
-          {% for skill in group.skills %}
-          <li>{{ skill }}</li>
-          {% endfor %}
+
+    <div class="ledger mt-10">
+      <div class="ledger-row sm:grid-cols-[auto_11rem_1fr]">
+        <span class="ledger-metric text-sm text-royal">2022 — 2025</span>
+        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">Senior Solution Architect, AstraZeneca</strong> — led automation across Malaysia's first nationwide digital transformation; built expense-fraud ML scoring 11,000+ submissions a month.</p>
+      </div>
+      <div class="ledger-row sm:grid-cols-[auto_11rem_1fr]">
+        <span class="ledger-metric text-sm text-royal">2021 — 2022</span>
+        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">Digital Graduate Analyst, Central Bank of Malaysia</strong> — consolidated 52 departmental datasets into one risk intelligence platform, saving 5,000 reporting hours a year.</p>
+      </div>
+      <div class="ledger-row sm:grid-cols-[auto_11rem_1fr]">
+        <span class="ledger-metric text-sm text-royal">2020 — 2021</span>
+        <p class="text-sm leading-7 text-muted sm:col-start-3"><strong class="font-semibold text-ink">VP of Technology, Xavier Optics (Los Angeles)</strong> — built the business case that secured $225,000 in Phase 1 SBIR funding for a novel AR/VR optical element.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <p class="eyebrow text-royal">Capabilities</p>
+    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">A modern stack, applied with business discipline.</h2>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="rounded-xl border border-mist bg-white p-6">
+        <iconify-icon icon="ph:brain" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+        <h3 class="mt-3 font-display text-base font-bold">Data science &amp; ML</h3>
+        <ul class="mt-3 space-y-1.5 text-sm leading-6 text-muted">
+          <li>Python · pandas · scikit-learn · PyTorch</li>
+          <li>Anomaly &amp; fraud detection</li>
+          <li>Time-series forecasting</li>
+          <li>NLP &amp; sentiment analysis</li>
+          <li>Feature engineering &amp; MLOps</li>
         </ul>
       </div>
-      {% endfor %}
-    </div>
-    <div style="text-align: center; margin-top: 3rem;" class="fade-in">
-      <a href="/about/" class="btn btn--outline-light">Full Profile & Certifications</a>
+      <div class="rounded-xl border border-mist bg-white p-6">
+        <iconify-icon icon="ph:cloud" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+        <h3 class="mt-3 font-display text-base font-bold">Azure architecture</h3>
+        <ul class="mt-3 space-y-1.5 text-sm leading-6 text-muted">
+          <li>Solution architecture</li>
+          <li>Synapse Analytics &amp; Data Factory</li>
+          <li>Azure Machine Learning</li>
+          <li>DevOps, CI/CD, Bicep</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-mist bg-white p-6">
+        <iconify-icon icon="ph:lightning" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+        <h3 class="mt-3 font-display text-base font-bold">Power Platform</h3>
+        <ul class="mt-3 space-y-1.5 text-sm leading-6 text-muted">
+          <li>Power Apps (canvas &amp; model-driven)</li>
+          <li>Power Automate</li>
+          <li>Power BI · advanced DAX</li>
+          <li>Dataverse &amp; M365 integration</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-mist bg-white p-6">
+        <iconify-icon icon="ph:tree-structure" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+        <h3 class="mt-3 font-display text-base font-bold">Engineering practice</h3>
+        <ul class="mt-3 space-y-1.5 text-sm leading-6 text-muted">
+          <li>SQL · MySQL · Neo4j</li>
+          <li>REST API design &amp; ETL pipelines</li>
+          <li>Git, Docker, Agile delivery</li>
+          <li>Technical documentation</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Hobbies: dark section -->
-<section class="section section--dark" id="hobbies">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-header__label">Beyond Work</div>
-      <h2 class="section__title">Serious Hobbies</h2>
-      <p>When I'm not building data pipelines, you'll find me at the poker table or the chessboard.</p>
-    </div>
-    <div class="hobby-cards">
-      <a href="/poker/" class="hobby-card hobby-card--green fade-in">
-        <div class="hobby-card__bar">
-          <h3 class="hobby-card__title">Texas Hold'em & Tournament Strategy</h3>
-          <p class="hobby-card__tagline">{{ site.data.poker.stats[0].value }} cash game player — GTO solvers & hand history review.</p>
+<!-- BEYOND WORK -->
+<section id="beyond" class="border-t border-mist bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <p class="eyebrow text-royal">Beyond work</p>
+    <h2 class="mt-3 max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">The same maths, played for fun.</h2>
+    <p class="mt-4 max-w-2xl text-muted">Probability, incomplete information, and calculated aggression — the hobbies train the same muscles as the job.</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <a href="/poker/" class="group rounded-xl border border-mist bg-paper p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+        <div class="flex items-center justify-between">
+          <h3 class="font-display text-xl font-bold">Poker</h3>
+          <iconify-icon icon="ph:spade" width="24" class="text-royal" aria-hidden="true"></iconify-icon>
         </div>
-        <span class="hobby-card__link">Explore my poker journey →</span>
+        <p class="mt-3 text-sm leading-7 text-muted">Five years of serious study — solver work, range construction, bankroll discipline. 650k hands played at a 3.2bb win rate.</p>
+        <p class="mt-4 font-mono text-xs text-royal">Includes a hand-equity calculator I built →</p>
       </a>
-      <a href="/chess/" class="hobby-card hobby-card--purple fade-in">
-        <div class="hobby-card__bar">
-          <h3 class="hobby-card__title">Rapid & Classical — Attacking Player</h3>
-          <p class="hobby-card__tagline">Rated {{ site.data.chess.stats[0].value }} on Lichess. Opening prep, tactics, endgame studies.</p>
+      <a href="/chess/" class="group rounded-xl border border-mist bg-paper p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+        <div class="flex items-center justify-between">
+          <h3 class="font-display text-xl font-bold">Chess</h3>
+          <iconify-icon icon="ph:horse" width="24" class="text-royal" aria-hidden="true"></iconify-icon>
         </div>
-        <span class="hobby-card__link">Explore my chess journey →</span>
+        <p class="mt-3 text-sm leading-7 text-muted">Attacking player, 1.e4. Rated 1820 Lichess rapid, playing since 2016, weekly over-the-board games at a local club.</p>
+        <p class="mt-4 font-mono text-xs text-royal">Openings, study plan &amp; resources →</p>
       </a>
     </div>
   </div>
 </section>
 
-<style>
-@media (max-width: 640px) {
-  .hobby-cards { grid-template-columns: 1fr !important; }
-}
-</style>
+<!-- CONTACT -->
+<section id="contact" class="on-midnight bg-midnight py-20 text-white sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+      <div>
+        <p class="eyebrow text-ember">Contact</p>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">Need someone who moves from insight to implementation?</h2>
+        <div class="ledger mt-8 max-w-md">
+          <div class="ledger-row">
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-white">Available</span> — London · open to global opportunities</p>
+          </div>
+          <div class="ledger-row">
+            <p class="text-sm leading-7 text-white/70"><span class="ledger-metric text-white">Replies</span> — usually within a day</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a href="mailto:{{ site.email }}" class="rounded bg-ember px-6 py-3 text-sm font-semibold text-midnight transition-colors hover:bg-white">Email me</a>
+        <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="flex items-center gap-2 rounded border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-ember hover:text-ember">
+          <iconify-icon icon="simple-icons:linkedin" width="16" aria-hidden="true"></iconify-icon>LinkedIn
+        </a>
+        <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="flex items-center gap-2 rounded border border-white/25 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-ember hover:text-ember">
+          <iconify-icon icon="simple-icons:github" width="16" aria-hidden="true"></iconify-icon>GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

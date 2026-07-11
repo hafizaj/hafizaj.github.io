@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Poker
-description: "Five years of serious poker study, plus a playable heads-up hold'em game and a Monte Carlo equity calculator I built."
+description: "Five years studying poker as applied probability: range construction, expected value, and decision-making under uncertainty, plus a Monte Carlo win-probability calculator I built."
 ---
 
 <!-- HEADER -->
@@ -9,17 +9,18 @@ description: "Five years of serious poker study, plus a playable heads-up hold'e
   <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
     <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
       <div>
-        <span class="tape tape--pink">Beyond work</span>
-        <h1 class="mt-6 flex items-center gap-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
+        <span class="label-pill bg-indigo/10 text-indigo">Beyond work</span>
+        <h1 class="mt-6 flex items-center gap-3 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
           Poker
-          <iconify-icon icon="ph:spade" width="40" class="text-royal" aria-hidden="true"></iconify-icon>
+          <iconify-icon icon="ph:spade" width="40" class="text-indigo" aria-hidden="true"></iconify-icon>
         </h1>
         <p class="mt-6 max-w-xl text-lg leading-8 text-muted">{{ site.data.poker.intro }}</p>
       </div>
-      <div class="ledger lg:mt-2">
+      <div class="flex gap-8 lg:mt-2 lg:flex-col lg:gap-6">
         {% for stat in site.data.poker.stats %}
-        <div class="ledger-row">
-          <p class="text-sm leading-7 text-muted"><span class="ledger-metric text-base text-ink">{{ stat.value }}</span> {{ stat.label }}</p>
+        <div>
+          <p class="font-display text-2xl font-extrabold text-indigo">{{ stat.value }}</p>
+          <p class="text-sm text-muted">{{ stat.label }}</p>
         </div>
         {% endfor %}
       </div>
@@ -27,53 +28,16 @@ description: "Five years of serious poker study, plus a playable heads-up hold'e
   </div>
 </section>
 
-<!-- PLAY A HAND -->
-<section class="py-16 sm:py-20">
-  <div class="mx-auto max-w-6xl px-6">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <span class="tape tape--green">Play a hand</span>
-        <h2 class="mt-5 font-display text-3xl font-bold tracking-tight">Heads-up against my equity bot</h2>
-        <p class="mt-4 max-w-2xl text-muted">No-limit hold'em, blinds $10/$20, $1,000 stacks. The bot estimates its equity by Monte Carlo simulation on every decision, the same engine that powers the <a href="/poker/equity-calculator/" class="font-semibold text-royal hover:text-midnight">equity calculator</a>.</p>
-      </div>
+<!-- TRY IT -->
+<section class="bg-indigo">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-14 sm:py-16 lg:grid-cols-[2fr_3fr] lg:items-center">
+    <div>
+      <p class="font-display text-[clamp(3rem,7vw,4.5rem)] font-extrabold leading-none text-white">10,000</p>
+      <p class="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">simulations per calculation</p>
     </div>
-
-    <div class="pk-table-wrap mt-10">
-      <div class="pk-table">
-        <div class="pk-rail" aria-hidden="true"></div>
-
-        <div class="pk-row pk-row--bot">
-          <div class="pk-player">
-            <div class="pk-player-name">Bot</div>
-            <div class="pk-player-stack" id="pkBotStack">$1,000</div>
-          </div>
-          <div class="pk-cards" id="pkBotCards"></div>
-          <div class="pk-lastact" id="pkBotAct"></div>
-        </div>
-
-        <div class="pk-row pk-row--board">
-          <div class="pk-board-label">Board</div>
-          <div class="pk-cards" id="pkBoard"></div>
-          <div class="pk-pot" id="pkPot">Pot $0</div>
-        </div>
-
-        <div class="pk-row pk-row--you">
-          <div class="pk-player">
-            <div class="pk-player-name">You</div>
-            <div class="pk-player-stack" id="pkYouStack">$1,000</div>
-          </div>
-          <div class="pk-cards" id="pkYouCards"></div>
-          <div class="pk-lastact" id="pkYouAct"></div>
-        </div>
-
-        <div class="pk-status" id="pkStatus">Shuffling up.</div>
-        <div class="pk-actions" id="pkActions"></div>
-      </div>
-
-      <div class="pk-footer">
-        <span class="pk-session" id="pkSession">Session: you $0</span>
-        <a href="/poker/equity-calculator/" class="pk-footer-link">Open the equity calculator →</a>
-      </div>
+    <div>
+      <p class="text-lg leading-8 text-white/85">I built a Monte Carlo calculator that estimates win probability for any two hands against any board. It runs the same style of simulation-based estimation I use professionally: play out the scenario thousands of times, read off the distribution.</p>
+      <a href="/poker/equity-calculator/" class="mt-5 inline-block rounded-lg bg-white px-6 py-3 text-sm font-bold text-indigo transition-transform hover:-translate-y-0.5">Open the win-probability calculator →</a>
     </div>
   </div>
 </section>
@@ -82,13 +46,13 @@ description: "Five years of serious poker study, plus a playable heads-up hold'e
 <section class="border-t border-mist bg-white py-16 sm:py-20">
   <div class="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-2">
 
-    <div class="rounded-xl border border-mist bg-paper p-7">
-      <iconify-icon icon="ph:brain" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+    <div class="rounded-xl border-x border-b border-t-4 border-x-mist border-b-mist border-t-indigo bg-paper p-7">
+      <iconify-icon icon="ph:brain" width="26" class="text-indigo" aria-hidden="true"></iconify-icon>
       <h3 class="mt-3 font-display text-lg font-bold">{{ site.data.poker.philosophy.title }}</h3>
       <p class="mt-3 text-sm leading-7 text-muted">{{ site.data.poker.philosophy.body }}</p>
     </div>
 
-    <div class="rounded-xl border border-mist bg-paper p-7">
+    <div class="rounded-xl border-x border-b border-t-4 border-x-mist border-b-mist border-t-royal bg-paper p-7">
       <iconify-icon icon="ph:books" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
       <h3 class="mt-3 font-display text-lg font-bold">{{ site.data.poker.study_approach.title }}</h3>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-muted">
@@ -96,504 +60,23 @@ description: "Five years of serious poker study, plus a playable heads-up hold'e
       </ul>
     </div>
 
-    <div class="rounded-xl border border-mist bg-paper p-7">
-      <iconify-icon icon="ph:chart-scatter" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+    <div class="rounded-xl border-x border-b border-t-4 border-x-mist border-b-mist border-t-ember bg-paper p-7">
+      <iconify-icon icon="ph:chart-scatter" width="26" class="text-ember" aria-hidden="true"></iconify-icon>
       <h3 class="mt-3 font-display text-lg font-bold">The data science connection</h3>
       <p class="mt-3 text-sm leading-7 text-muted">Poker sharpened skills that apply directly to ML: comfort with uncertainty, expected value thinking, updating beliefs on new evidence, and keeping emotions out of analytical decisions. Both reward rigorous process over results-oriented thinking.</p>
     </div>
 
     <div class="rounded-xl border border-mist bg-paper p-7">
-      <iconify-icon icon="ph:bookmark-simple" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+      <iconify-icon icon="ph:bookmark-simple" width="26" class="text-indigo" aria-hidden="true"></iconify-icon>
       <h3 class="mt-3 font-display text-lg font-bold">{{ site.data.poker.resources.title }}</h3>
-      <div class="ledger mt-4">
+      <div class="mt-4 space-y-3">
         {% for item in site.data.poker.resources.items %}
-        <div class="ledger-row">
-          <p class="text-sm leading-7 text-muted">
-            {% if item.url != "" %}<a href="{{ item.url }}" target="_blank" rel="noopener" class="font-semibold text-royal hover:text-midnight">{{ item.name }}</a>{% else %}<span class="font-semibold text-ink">{{ item.name }}</span>{% endif %}
-            <span class="font-mono text-xs"> · {{ item.type }}</span>
-          </p>
-        </div>
+        <p class="text-sm leading-7 text-muted">
+          {% if item.url != "" %}<a href="{{ item.url }}" target="_blank" rel="noopener" class="font-semibold text-indigo hover:text-royal">{{ item.name }}</a>{% else %}<span class="font-semibold text-ink">{{ item.name }}</span>{% endif %}
+          <span class="font-mono text-xs"> · {{ item.type }}</span>
+        </p>
         {% endfor %}
       </div>
     </div>
   </div>
 </section>
-
-<style>
-/* ── Heads-up table, brand felt ─────────────────────────────── */
-.pk-table-wrap {
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: 0 20px 50px rgba(10, 27, 51, 0.12);
-}
-.pk-table {
-  position: relative;
-  background:
-    radial-gradient(ellipse 85% 70% at 50% 38%, #0b3a6e 0%, #062244 78%, #041a35 100%);
-  padding: 2rem 1.5rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-.pk-table::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg,  rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 4px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 4px);
-  pointer-events: none;
-}
-.pk-rail {
-  position: absolute;
-  inset: 0;
-  border: 10px solid #0a1b33;
-  border-radius: 16px;
-  box-shadow:
-    inset 0 0 26px rgba(0,0,0,0.55),
-    inset 0 0 0 1px rgba(247,148,30,0.28);
-  pointer-events: none;
-  z-index: 5;
-}
-
-/* Rows */
-.pk-row {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.pk-row--bot { justify-content: flex-start; }
-.pk-row--you { justify-content: flex-end; }
-.pk-row--you .pk-player { order: 3; text-align: right; }
-.pk-row--you .pk-cards  { order: 2; }
-.pk-row--you .pk-lastact{ order: 1; }
-.pk-row--board {
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.4rem 0;
-}
-.pk-player-name {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-}
-.pk-player-stack {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #fff;
-}
-.pk-lastact {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: #f7941e;
-  min-width: 5.5rem;
-}
-.pk-row--you .pk-lastact { text-align: left; }
-.pk-board-label {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-}
-.pk-pot {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.75);
-}
-
-/* Cards */
-.pk-cards { display: flex; gap: 6px; min-height: 84px; align-items: center; }
-.pk-card {
-  width: 58px;
-  height: 82px;
-  border-radius: 7px;
-  position: relative;
-  flex-shrink: 0;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  padding: 5px 6px;
-  animation: pkDeal 0.35s cubic-bezier(0.22,1,0.36,1) both;
-}
-.pk-card--down {
-  background: linear-gradient(135deg, #123a75 0%, #0a1b33 100%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
-}
-.pk-card--down::after {
-  content: '';
-  position: absolute;
-  inset: 5px;
-  border: 1.5px solid rgba(247,148,30,0.25);
-  border-radius: 4px;
-}
-.pk-card--empty {
-  background: transparent;
-  border: 1.5px dashed rgba(255,255,255,0.18);
-  box-shadow: none;
-  animation: none;
-}
-.pk-card .tl { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; line-height: 1; }
-.pk-card .tls { font-size: 0.62rem; line-height: 1; }
-.pk-card .ctr { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; line-height: 1; }
-.pk-card.red   { color: #c0392b; }
-.pk-card.black { color: #1a1714; }
-@keyframes pkDeal {
-  from { opacity: 0; transform: translateY(-14px) rotate(3deg) scale(0.9); }
-  to   { opacity: 1; transform: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pk-card { animation: none; }
-}
-
-/* Status + actions */
-.pk-status {
-  position: relative;
-  z-index: 2;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.65);
-  text-align: center;
-  min-height: 1.2rem;
-}
-.pk-actions {
-  position: relative;
-  z-index: 6;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  min-height: 2.6rem;
-}
-.pk-btn {
-  padding: 0.6rem 1.3rem;
-  border: none;
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: filter 0.15s, transform 0.15s;
-}
-.pk-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
-.pk-btn--fold  { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); }
-.pk-btn--call  { background: #00397b; color: #fff; }
-.pk-btn--bet   { background: #f7941e; color: #042448; }
-.pk-btn--next  { background: #fff; color: #042448; }
-
-/* Footer strip */
-.pk-footer {
-  background: #0a1b33;
-  padding: 0.9rem 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.pk-session {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.55);
-}
-.pk-footer-link {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #f7941e;
-  text-decoration: none;
-}
-.pk-footer-link:hover { color: #fff; }
-
-@media (max-width: 560px) {
-  .pk-lastact { min-width: 0; }
-  .pk-card { width: 48px; height: 68px; }
-  .pk-card .ctr { font-size: 1.35rem; }
-  .pk-cards { min-height: 70px; }
-}
-</style>
-
-<script>
-(function () {
-  /* ── Engine (same evaluator as the equity calculator) ── */
-  const RANKS = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'];
-  const SUITS = ['s','h','d','c'];
-  const RANK_VAL = Object.fromEntries(RANKS.map((r,i)=>[r,i+2]));
-  const RED = ['h','d'];
-  const SYM = {s:'♠',h:'♥',d:'♦',c:'♣'};
-
-  function fullDeck(){const d=[];for(const r of RANKS)for(const s of SUITS)d.push(r+s);return d;}
-  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
-  function rankHand(cards){
-    const ranks=cards.map(c=>RANK_VAL[c[0]]).sort((a,b)=>b-a);
-    const suits=cards.map(c=>c[1]);
-    const rc={};ranks.forEach(r=>rc[r]=(rc[r]||0)+1);
-    const counts=Object.values(rc).sort((a,b)=>b-a);
-    const uniq=[...new Set(ranks)].sort((a,b)=>b-a);
-    const sc={};suits.forEach(s=>sc[s]=(sc[s]||0)+1);
-    const fs=Object.keys(sc).find(s=>sc[s]>=5);
-    const fc=fs?cards.filter(c=>c[1]===fs).map(c=>RANK_VAL[c[0]]).sort((a,b)=>b-a):null;
-    function stH(rks){const u=[...new Set(rks)].sort((a,b)=>b-a);
-      if(u.includes(14)&&u.includes(2)&&u.includes(3)&&u.includes(4)&&u.includes(5))return 5;
-      for(let i=0;i<=u.length-5;i++){let ok=true;for(let j=0;j<4;j++)if(u[i+j]-u[i+j+1]!==1){ok=false;break;}if(ok)return u[i];}
-      return 0;}
-    const sfH=fc?stH(fc):0, strH=stH(ranks);
-    const top5=(b,tb)=>b*1e10+tb.reduce((a,v,i)=>a+v*Math.pow(15,4-i),0);
-    if(sfH)return top5(8,[sfH]);
-    if(counts[0]===4){const q=+Object.keys(rc).find(k=>rc[k]===4);const k=uniq.find(r=>r!==q);return top5(7,[q,k]);}
-    if(counts[0]===3&&counts[1]>=2){const t=+Object.keys(rc).find(k=>rc[k]===3);const p=+Object.keys(rc).filter(k=>rc[k]>=2&&+k!==t).sort((a,b)=>b-a)[0];return top5(6,[t,p]);}
-    if(fc)return top5(5,fc.slice(0,5));
-    if(strH)return top5(4,[strH]);
-    if(counts[0]===3){const t=+Object.keys(rc).find(k=>rc[k]===3);return top5(3,[t,...uniq.filter(r=>r!==t).slice(0,2)]);}
-    if(counts[0]===2&&counts[1]===2){const ps=Object.keys(rc).filter(k=>rc[k]===2).map(Number).sort((a,b)=>b-a);const k=uniq.find(r=>!ps.includes(r));return top5(2,[...ps,k]);}
-    if(counts[0]===2){const p=+Object.keys(rc).find(k=>rc[k]===2);return top5(1,[p,...uniq.filter(r=>r!==p).slice(0,3)]);}
-    return top5(0,uniq.slice(0,5));
-  }
-  function best5(hole,board){
-    const all=[...hole,...board];let best=-Infinity;
-    for(let i=0;i<all.length;i++)for(let j=i+1;j<all.length;j++){
-      const five=all.filter((_,x)=>x!==i&&x!==j);
-      const s=rankHand(five);if(s>best)best=s;
-    }
-    return best;
-  }
-  function handName(s){
-    if(s>=8e10)return'a straight flush';if(s>=7e10)return'four of a kind';
-    if(s>=6e10)return'a full house';if(s>=5e10)return'a flush';
-    if(s>=4e10)return'a straight';if(s>=3e10)return'three of a kind';
-    if(s>=2e10)return'two pair';if(s>=1e10)return'a pair';return'high card';
-  }
-  function equityVsRandom(hole,board,sims){
-    const known=[...hole,...board];
-    const deck=fullDeck().filter(c=>!known.includes(c));
-    let w=0,t=0;
-    for(let i=0;i<sims;i++){
-      shuffle(deck);
-      const opp=[deck[0],deck[1]];
-      const run=[...board,...deck.slice(2,2+(5-board.length))];
-      const a=best5(hole,run),b=best5(opp,run);
-      if(a>b)w++;else if(a===b)t++;
-    }
-    return (w+t*0.5)/sims;
-  }
-
-  /* ── Game state ── */
-  const SB=10, BB=20, START=1000;
-  const S={you:START,bot:START,session:0};
-  let H=null;
-
-  const $=id=>document.getElementById(id);
-  const fmt=n=>'$'+n.toLocaleString();
-
-  function cardEl(code,down){
-    if(down)return'<div class="pk-card pk-card--down"></div>';
-    if(!code)return'<div class="pk-card pk-card--empty"></div>';
-    const r=code[0]==='T'?'10':code[0], s=code[1];
-    return`<div class="pk-card ${RED.includes(s)?'red':'black'}">
-      <div><div class="tl">${r}</div><div class="tls">${SYM[s]}</div></div>
-      <div class="ctr">${SYM[s]}</div>
-    </div>`;
-  }
-  function render(reveal){
-    $('pkYouCards').innerHTML=H?H.you.map(c=>cardEl(c)).join(''):cardEl()+cardEl();
-    $('pkBotCards').innerHTML=H?H.bot.map(c=>cardEl(c,!reveal)).join(''):cardEl()+cardEl();
-    const b=[...(H?H.board:[])];while(b.length<5)b.push(null);
-    $('pkBoard').innerHTML=b.map(c=>cardEl(c)).join('');
-    $('pkPot').textContent='Pot '+fmt(H?H.pot:0);
-    $('pkYouStack').textContent=fmt(S.you);
-    $('pkBotStack').textContent=fmt(S.bot);
-    const delta=S.you-START;
-    $('pkSession').textContent='Session: you '+(delta>=0?'+$':'−$')+Math.abs(delta).toLocaleString();
-  }
-  function status(msg){$('pkStatus').textContent=msg;}
-  function acted(who,msg){$(who==='you'?'pkYouAct':'pkBotAct').textContent=msg;}
-  function clearActs(){acted('you','');acted('bot','');}
-  function buttons(list){
-    $('pkActions').innerHTML='';
-    list.forEach(b=>{
-      const el=document.createElement('button');
-      el.className='pk-btn pk-btn--'+b.kind;
-      el.textContent=b.label;
-      el.addEventListener('click',b.fn);
-      $('pkActions').appendChild(el);
-    });
-  }
-
-  function pay(who,amt){
-    amt=Math.min(amt,S[who]);
-    S[who]-=amt;H.pot+=amt;H[who==='you'?'youIn':'botIn']+=amt;
-    return amt;
-  }
-  function allIn(){return S.you===0||S.bot===0;}
-
-  function newHand(){
-    if(S.you<BB||S.bot<BB){S.you=START;S.bot=START;status('Stacks reset. Fresh $1,000 each.');}
-    const deck=shuffle(fullDeck());
-    H={you:[deck[0],deck[1]],bot:[deck[2],deck[3]],deck:deck.slice(4),
-       board:[],pot:0,youIn:0,botIn:0,street:0};
-    clearActs();
-    pay('you',SB);pay('bot',BB);
-    acted('you','SB '+fmt(SB));acted('bot','BB '+fmt(BB));
-    render(false);
-    status('Your action.');
-    buttons([
-      {label:'Fold',kind:'fold',fn:()=>fold('you')},
-      {label:'Call '+fmt(SB),kind:'call',fn:()=>{pay('you',SB);acted('you','call');render(false);botPreflopOption();}},
-      {label:'Raise to '+fmt(BB*3),kind:'bet',fn:()=>{pay('you',BB*3-SB);acted('you','raise '+fmt(BB*3));render(false);botFacingRaise(BB*3);}}
-    ]);
-  }
-
-  function botEq(){return equityVsRandom(H.bot,H.board,150);}
-  function think(fn){buttons([]);status('Bot is thinking…');setTimeout(fn,650);}
-
-  function botPreflopOption(){
-    think(()=>{
-      const eq=botEq();
-      if(eq>0.60||Math.random()<0.12){
-        const need=BB*3-H.botIn;pay('bot',need);acted('bot','raise '+fmt(BB*3));render(false);
-        status('Bot raises to '+fmt(BB*3)+'. Your action.');
-        buttons([
-          {label:'Fold',kind:'fold',fn:()=>fold('you')},
-          {label:'Call '+fmt(BB*3-H.youIn),kind:'call',fn:()=>{pay('you',BB*3-H.youIn);acted('you','call');nextStreet();}}
-        ]);
-      } else {acted('bot','check');nextStreet();}
-    });
-  }
-  function botFacingRaise(to){
-    think(()=>{
-      const eq=botEq();
-      if(eq>0.72){
-        const target=to*2.5;pay('bot',target-H.botIn);acted('bot','reraise '+fmt(target));render(false);
-        status('Bot reraises to '+fmt(target)+'. Your action.');
-        buttons([
-          {label:'Fold',kind:'fold',fn:()=>fold('you')},
-          {label:'Call '+fmt(Math.min(target-H.youIn,S.you)),kind:'call',fn:()=>{pay('you',target-H.youIn);acted('you','call');nextStreet();}}
-        ]);
-      } else if(eq>0.40){pay('bot',to-H.botIn);acted('bot','call');nextStreet();}
-      else fold('bot');
-    });
-  }
-
-  function dealBoard(){
-    if(H.street===1)H.board=H.deck.splice(0,3);
-    else H.board.push(H.deck.splice(0,1)[0]);
-  }
-  function nextStreet(){
-    H.street++;clearActs();
-    if(allIn()&&H.street<=3){ // run it out
-      while(H.board.length<5){if(H.board.length===0)H.board=H.deck.splice(0,3);else H.board.push(H.deck.splice(0,1)[0]);}
-      render(true);status('All in. Running it out…');
-      setTimeout(showdown,900);return;
-    }
-    if(H.street>3){showdown();return;}
-    dealBoard();render(false);
-    botLeads();
-  }
-
-  function streetName(){return['preflop','flop','turn','river'][H.street]||'';}
-  function betSize(){return Math.max(20,Math.round(H.pot*2/3/10)*10);}
-
-  function botLeads(){
-    think(()=>{
-      const eq=botEq();
-      if((eq>0.62||Math.random()<0.10)&&S.bot>0&&S.you>0){
-        const b=Math.min(betSize(),S.bot);pay('bot',b);acted('bot','bet '+fmt(b));render(false);
-        status('Bot bets '+fmt(b)+' on the '+streetName()+'. Your action.');
-        youFacingBet(b);
-      } else {
-        acted('bot','check');render(false);
-        status('Bot checks the '+streetName()+'. Your action.');
-        buttons([
-          {label:'Check',kind:'call',fn:youCheck},
-          {label:'Bet '+fmt(Math.min(betSize(),S.you)),kind:'bet',fn:youBet}
-        ]);
-      }
-    });
-  }
-  function youCheck(){acted('you','check');endStreet();}
-  function youBet(){
-    const b=Math.min(betSize(),S.you);pay('you',b);acted('you','bet '+fmt(b));render(false);
-    think(()=>{
-      const eq=botEq();
-      const odds=b/(H.pot+b);
-      if(eq>0.85&&S.bot>b){
-        const r=Math.min(Math.round(b*2.5/10)*10,S.bot);pay('bot',r);acted('bot','raise '+fmt(r));render(false);
-        status('Bot raises to '+fmt(r)+'. Your action.');
-        const toCall=Math.min(r-b,S.you);
-        buttons([
-          {label:'Fold',kind:'fold',fn:()=>fold('you')},
-          {label:'Call '+fmt(toCall),kind:'call',fn:()=>{pay('you',toCall);acted('you','call');endStreet();}}
-        ]);
-      } else if(eq>odds+0.05){pay('bot',Math.min(b,S.bot));acted('bot','call');endStreet();}
-      else fold('bot');
-    });
-  }
-  function youFacingBet(b){
-    const toCall=Math.min(b,S.you);
-    const btns=[
-      {label:'Fold',kind:'fold',fn:()=>fold('you')},
-      {label:'Call '+fmt(toCall),kind:'call',fn:()=>{pay('you',toCall);acted('you','call');endStreet();}}
-    ];
-    if(S.you>b){
-      const r=Math.min(Math.round(b*2.5/10)*10,S.you);
-      btns.push({label:'Raise to '+fmt(r),kind:'bet',fn:()=>{
-        pay('you',r);acted('you','raise '+fmt(r));render(false);
-        think(()=>{
-          const eq=botEq();
-          const need=Math.min(r-b,S.bot);
-          const odds=need/(H.pot+need);
-          if(eq>odds+0.05){pay('bot',need);acted('bot','call');endStreet();}
-          else fold('bot');
-        });
-      }});
-    }
-    buttons(btns);
-  }
-  function endStreet(){render(false);setTimeout(nextStreet,400);}
-
-  function fold(who){
-    const winner=who==='you'?'bot':'you';
-    const pot=H.pot;
-    S[winner]+=pot;
-    H.pot=0;
-    acted(who,'fold');
-    render(false);
-    status(who==='you'
-      ?'You fold. Bot takes '+fmt(pot)+'.'
-      :'Bot folds. You take '+fmt(pot)+'.');
-    H=null;
-    buttons([{label:'New hand',kind:'next',fn:newHand}]);
-  }
-
-  function showdown(){
-    const sy=best5(H.you,H.board), sb=best5(H.bot,H.board);
-    render(true);
-    let msg;
-    if(sy>sb){S.you+=H.pot;msg='You win '+fmt(H.pot)+' with '+handName(sy)+'.';}
-    else if(sb>sy){S.bot+=H.pot;msg='Bot wins '+fmt(H.pot)+' with '+handName(sb)+'.';}
-    else{S.you+=H.pot/2;S.bot+=H.pot/2;msg='Split pot. Both show '+handName(sy)+'.';}
-    const pot=H.pot;H=null;
-    $('pkPot').textContent='Pot '+fmt(pot);
-    $('pkYouStack').textContent=fmt(S.you);
-    $('pkBotStack').textContent=fmt(S.bot);
-    status(msg);
-    const delta=S.you-START;
-    $('pkSession').textContent='Session: you '+(delta>=0?'+$':'−$')+Math.abs(delta).toLocaleString();
-    buttons([{label:'New hand',kind:'next',fn:newHand}]);
-  }
-
-  newHand();
-})();
-</script>

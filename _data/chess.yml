@@ -3,9 +3,7 @@
 # ============================================================
 
 stats:
-  - value: "1820"
-    label: "Lichess Rapid"
-  - value: "1750"
+  - value: "1200"
     label: "Chess.com Rapid"
   - value: "e4"
     label: "Preferred Opening"
@@ -15,8 +13,8 @@ stats:
 intro: >
   Chess became a serious hobby after reading about Magnus Carlsen's approach to
   preparation. The game demands a unique blend of creativity and calculation, pattern
-    recognition and pure logic. I play primarily online (Lichess & Chess.com) with
-  weekly OTB games at a local club.
+  recognition and pure logic. I play primarily on Chess.com, working through
+  tactics and openings whenever I get a spare half hour.
 
 style:
   title: "Playing Style"

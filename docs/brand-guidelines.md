@@ -1,7 +1,7 @@
 # HJ Personal Brand Guidelines
 
 **Brand:** Hafizuddin Jaafar - AI & Cloud Solution Architect
-**Revision:** 2 · Effective 11 July 2026
+**Revision:** 3 · Effective 11 July 2026
 **Scope:** hafizaj.github.io and all personal collateral (CV, slides, social banners)
 
 ---
@@ -22,90 +22,87 @@
   square with a 2px ink border. No gradients, no rounding beyond 4px.
 - **Placement:** top-left of every page header, baseline-aligned with navigation.
 - **Clearspace:** minimum 0.5× the square's width on all sides.
-- **Variants:** ink-on-paper (default); white-on-midnight for dark bands. Never
-  amber, never outlined in any other colour.
-- **Forbidden:** stretching, recolouring, drop shadows, use over photography.
+- **Variants:** Royal border on Paper/white (default, revision 3); white-on-midnight
+  for dark bands. Never amber.
+- **Forbidden:** stretching, gradients, drop shadows, use over photography.
 
-## Colour palette
+## Colour palette (revision 3 - bold, saturated)
 
 | Role | Name | Hex | Usage |
 |---|---|---|---|
 | Ink | Ink | `#0A1B33` | Headings, primary text |
-| Primary | Royal | `#00397B` | Links, section labels, focus rings, key UI |
+| Primary | Royal | `#1D4FD8` | Links, one color-block family, key UI |
+| Accent | Indigo | `#5B21B6` | Second color-block family, poker/probability register |
+| Accent | Ember | `#FF8A00` | CTAs, single-stat highlights - never a full-section fill |
 | Dark field | Midnight | `#042448` | Hero band, contact band, footer |
-| Accent | Amber | `#F7941E` | One job per screen: primary CTA, ledger markers, active states |
 | Background | Paper | `#F6F8FB` | Page background - cool blue-white, never cream |
 | Hairline | Mist | `#D9E2EF` | Borders, rules, dividers |
 | Muted | Slate | `#44536B` | Secondary text |
 
 **Rules**
 
-- Amber is scarce by design: at most one amber CTA and the ledger markers per
-  viewport. If everything is highlighted, nothing is.
+- Every full-bleed color block is Royal or Indigo, never both stacked back to
+  back - alternate with a Paper/white section between them.
+- Ember never fills a full section background; it is a small-area accent only
+  (buttons, single stat callouts, underlines).
 - Dark bands are always Midnight (blue-black), never neutral black - the blue DNA
   must survive in the darks.
-- Text on Midnight is white at 100% for headings, 72% for body. Text on Paper is
-  Ink or Slate. Royal-on-Midnight is reserved for large decorative type only.
-- Minimum contrast: WCAG AA (4.5:1 body, 3:1 large type). Amber is never used for
-  body text on Paper (fails contrast); it may carry short labels on Midnight.
+- Text on Midnight, Royal, or Indigo is white at 100% for headings, 75-85% for
+  body - never Ink.
+- Minimum contrast: WCAG AA (4.5:1 body, 3:1 large type). Ember is never used for
+  body text on Paper (fails contrast); it may carry short labels on Midnight or
+  fill a button with dark text.
 
 ## Typography
 
 | Role | Face | Weights | Usage |
 |---|---|---|---|
-| Display | Schibsted Grotesk | 500, 700 | Headlines, section titles, the monogram |
+| Display | Bricolage Grotesque | 600, 700, 800 | Headlines, hero statement, section titles, the monogram |
 | Body | Instrument Sans | 400, 500, 600 | Paragraphs, navigation, buttons |
-| Utility | IBM Plex Mono | 400, 500 | Dates, metrics, tags, ledger rows, tape labels |
-| Annotation | Caveat | 500, 600 | Handwritten margin notes and photo captions only, never body text |
+| Utility | IBM Plex Mono | 400, 500 | Dates, metrics, tags, stat labels |
 
 **Rules**
 
-- Headlines are set tight (tracking −0.02em, leading ≤ 1.1) and sized by a clamp
-  scale: h1 `clamp(2.4rem, 6vw, 4.2rem)`, h2 `clamp(1.6rem, 3vw, 2.25rem)`.
+- Headlines are set tight (tracking −0.02em, leading ≤ 1.05) and sized by a clamp
+  scale: h1 `clamp(2.75rem, 6.5vw, 5rem)`, h2 `clamp(1.6rem, 3vw, 2.25rem)`.
 - Every number that carries evidence (hours saved, accuracy, counts) is set in the
-  utility face - numerals are data, and they should look like data.
-- Eyebrows/labels: utility face, 0.72rem, uppercase, letter-spacing 0.18em, Royal
-  on Paper / Amber on Midnight.
+  utility face for small metrics, or the display face at large sizes for the
+  Impact Split's headline stat - numerals are data, and they should look bold.
+- Eyebrows/labels: utility face, 0.7-0.72rem, uppercase, letter-spacing 0.14-0.18em,
+  either a plain label or a solid `.label-pill` (no rotation, no tape).
 - Never letter-space the body face. Never use the display face below 1rem.
 
-## The human layer (revision 2)
+## Signature device - the Impact Split
 
-The site borrows its warmth from the owner's personal moodboard: a scrapbook of
-taped labels, photo prints, and handwritten notes. Three devices carry it:
+The one element the brand is remembered by. An asymmetric two-column, full-bleed
+block (roughly 60/40, never 50/50):
 
-- **Tape labels** replace mono eyebrows as section markers: mono uppercase text
-  on a slightly rotated tape chip with torn edges. Ember on Midnight and for
-  finance/contact; Royal for professional sections; Pink `#D6437E` and Green
-  `#178A63` are reserved for the personal register (hobbies, play).
-- **Photo prints**: real photographs (never stock) presented as prints with a
-  white border, a translucent tape strip, a small rotation of 1 to 2 degrees,
-  and a handwritten caption in Caveat.
-- **Handwritten notes** in Caveat for short margin annotations ("the numbers
-  I'm proudest of"). At most two per page; they are seasoning, not structure.
-- Dark bands carry a faint film grain (opacity under 0.06).
+- The color side (Royal or Indigo, alternating each time it repeats) carries one
+  oversized statistic in the display face plus a short mono label.
+- The plain side carries 2-3 sentences of explanation: what the number means and
+  why it matters.
+- Which side holds the color block alternates left/right each time the module
+  repeats, so the rhythm doesn't feel monotonous. Used a small number of times
+  per page (homepage: after Work, in Experience, in Finance domain) - it's a
+  moment, not a template stamped everywhere.
 
-Rules: rotations stay under 2.5 degrees, handwriting never carries information
-that exists nowhere else, and the professional sections (work, experience,
-finance) keep their ledger discipline underneath the warmth.
+## Photography
 
-## Signature device - the evidence ledger
+Real photographs (never stock) presented plainly: rounded corners (16px), a
+4px accent border in Royal, Indigo, or Ember depending on context, no print
+border, no tape, no handwritten caption. A short mono caption may sit beneath
+if context is needed.
 
-The one element the brand is remembered by. A ledger is a stack of hairline-ruled
-rows, each row: an amber `▸` marker, a mono metric, and a plain-language claim.
-
-- Used in the hero (impact summary), experience entries (roles as ledger rows),
-  and the contact band (availability row).
-- Rows are separated by 1px Mist rules; metrics are right- or left-aligned
-  consistently within one ledger, never mixed.
-- The ledger is the only place amber repeats. Do not reuse the `▸` marker for
-  decoration elsewhere.
+Dark bands (hero, contact) carry a faint film grain (opacity under 0.06) for
+texture.
 
 ## Layout system
 
 - Content column: max-width 72rem (1152px), horizontal padding 1.5rem.
 - Section rhythm: 6-7rem vertical padding desktop, 4rem mobile. Alternate Paper
   and White (`#FFFFFF`) fields; Midnight bands open and close the page.
-- Cards: 1px Mist border, 12px radius, white fill, shadow only on hover. No
+- Cards: Mist border with a 4px top accent border (Royal, Indigo, or Ember,
+  rotated across a set), 12px radius, white fill, shadow only on hover. No
   glassmorphism, no backdrop blur.
 - The page reads as a single recruiter path: thesis → proof → work → history →
   capabilities → person → contact. Navigation is flat anchors; nothing is more
@@ -118,14 +115,13 @@ rows, each row: an amber `▸` marker, a mono metric, and a plain-language claim
   simple-icons glyphs, monochrome, inheriting text colour.
 - Icon sizes: 1em inline, 20px in lists, 22px in navigation. One style family per
   page - no mixing filled and outlined sets.
-- **Photography:** one portrait, straightforward crop, 12px radius, 1px Mist
-  border. No filters, no duotones, no browser-chrome mockup frames.
+- No filters, no duotones, no browser-chrome mockup frames. See Photography above.
 - No stock imagery, no decorative illustration, no emoji as UI icons.
 
 ## Motion
 
-- One orchestrated moment: on load, the hero headline fades up and ledger rows
-  stagger in (80ms apart). Everything else is micro: 150-200ms hover transitions
+- One orchestrated moment: on load, the hero headline and photo fade/rise in
+  staggered (80ms apart). Everything else is micro: 150-200ms hover transitions
   on cards and links.
 - `prefers-reduced-motion: reduce` disables all entrance animation.
 - Nothing moves on scroll except the browser.
@@ -153,15 +149,16 @@ rows, each row: an amber `▸` marker, a mono metric, and a plain-language claim
 
 | Topic | Rule |
 |---|---|
-| Monogram | "HJ" in bordered square; ink or white only |
-| Primary colour | Royal `#00397B` |
-| Accent | Amber `#F7941E`, one CTA per viewport + ledger markers |
+| Monogram | "HJ" in bordered square; Royal or white border |
+| Primary colour | Royal `#1D4FD8` |
+| Secondary colour | Indigo `#5B21B6` |
+| Accent | Ember `#FF8A00`, CTAs and single-stat highlights only |
 | Dark bands | Midnight `#042448`, never neutral black |
 | Background | Paper `#F6F8FB`, never cream |
-| Display face | Schibsted Grotesk 500/700 |
+| Display face | Bricolage Grotesque 600/700/800 |
 | Body face | Instrument Sans 400/500/600 |
 | Utility face | IBM Plex Mono 400/500 - all evidential numerals |
-| Signature | The evidence ledger (hairline rows, mono metrics, amber ▸) |
+| Signature | The Impact Split (color-block stat + plain-side explanation, 60/40) |
 | Icons | JS-injected (Iconify), monochrome, no inline SVG |
 | Motion | One hero entrance; 150-200ms hovers; reduced-motion respected |
 | Voice | First person, quantified, sentence case |

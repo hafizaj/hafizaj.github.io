@@ -1,15 +1,11 @@
-<a href="{{ project.url }}" class="group flex h-full flex-col rounded-xl border border-mist bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+<a href="{{ project.url }}" class="group flex h-full flex-col rounded-xl border-x border-b border-t-4 border-x-mist border-b-mist {{ include.border_color | default: 'border-t-royal' }} bg-white p-7 transition-all hover:-translate-y-0.5 hover:shadow-lg">
   <div class="flex items-baseline justify-between gap-3">
     <span class="eyebrow text-royal">{{ project.category }}</span>
     <span class="font-mono text-xs text-muted">{{ project.org }}</span>
   </div>
   <h3 class="mt-4 font-display text-xl font-bold leading-snug group-hover:text-royal">{{ project.title }}</h3>
   <p class="mt-2 text-sm leading-7 text-muted">{{ project.description }}</p>
-  <div class="ledger mt-5">
-    <div class="ledger-row">
-      <p class="text-sm leading-6 text-muted"><span class="ledger-metric text-ink">{{ project.impact }}</span> {{ project.impact_label }}</p>
-    </div>
-  </div>
+  <p class="mt-5 border-t border-mist pt-4 text-sm leading-6 text-muted"><span class="font-mono font-semibold text-ink">{{ project.impact }}</span> {{ project.impact_label }}</p>
   <div class="mt-4 flex flex-wrap gap-2 pt-1">
     {% for tech in project.tech limit:4 %}
     <span class="rounded border border-mist px-2 py-0.5 font-mono text-[11px] text-muted">{{ tech }}</span>

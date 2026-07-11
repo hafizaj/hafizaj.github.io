@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Equity Calculator
+title: Win Probability Calculator
 ---
 
 <style>
@@ -61,7 +61,7 @@ title: Equity Calculator
   overflow: hidden;
   box-shadow:
     0 0 0 10px #0a1b33,
-    0 0 0 11px rgba(247,148,30,0.3),
+    0 0 0 11px rgba(255,138,0,0.3),
     0 30px 80px rgba(4,26,53,0.5);
 }
 
@@ -87,7 +87,7 @@ title: Equity Calculator
   transform: translateX(-50%);
   width: 100%;
   height: 70%;
-  background: radial-gradient(ellipse, rgba(0,57,123,0.55) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(91,33,182,0.55) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -152,7 +152,7 @@ title: Equity Calculator
   font-size: 0.62rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(247,148,30,0.85);
+  color: rgba(255,138,0,0.85);
   text-align: center;
 }
 
@@ -229,7 +229,7 @@ title: Equity Calculator
 }
 
 .eq-bar { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
-.eq-bar--you  { background: linear-gradient(90deg, #f7941e, #ffb35c); }
+.eq-bar--you  { background: linear-gradient(90deg, #ff8a00, #ffb35c); }
 .eq-bar--opp  { background: linear-gradient(90deg, #c0392b, #e74c3c); }
 
 /* VS divider */
@@ -237,9 +237,9 @@ title: Equity Calculator
   font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 900;
-  color: rgba(247,148,30,0.6);
+  color: rgba(255,138,0,0.6);
   text-align: center;
-  text-shadow: 0 0 20px rgba(247,148,30,0.3);
+  text-shadow: 0 0 20px rgba(255,138,0,0.3);
 }
 
 /* ── Board section ── */
@@ -265,7 +265,7 @@ title: Equity Calculator
 .felt-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(247,148,30,0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,138,0,0.3), transparent);
   margin: 1.5rem 0;
 }
 
@@ -291,9 +291,9 @@ title: Equity Calculator
 }
 
 .felt-btn--primary {
-  background: #f7941e;
+  background: #ff8a00;
   color: #042448;
-  box-shadow: 0 2px 8px rgba(247,148,30,0.35);
+  box-shadow: 0 2px 8px rgba(255,138,0,0.35);
 }
 .felt-btn--primary:hover { filter: brightness(1.15); transform: translateY(-1px); }
 
@@ -328,7 +328,7 @@ title: Equity Calculator
   background: rgba(0,0,0,0.35);
   border-radius: 12px;
   padding: 1.25rem 1.5rem;
-  border: 1px solid rgba(247,148,30,0.18);
+  border: 1px solid rgba(255,138,0,0.18);
 }
 
 .results-grid {
@@ -369,7 +369,7 @@ title: Equity Calculator
   background: rgba(0,0,0,0.3);
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(247,148,30,0.18);
+  border: 1px solid rgba(255,138,0,0.18);
 }
 
 .outs-header {
@@ -401,7 +401,7 @@ title: Equity Calculator
   font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
-  color: #f7941e;
+  color: #ff8a00;
 }
 
 .outs-situation {
@@ -416,13 +416,13 @@ title: Equity Calculator
 
 .sit-hand { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: #fff; }
 .sit-label-lose { font-family: var(--font-mono); font-size: 0.62rem; color: #c0392b; margin-top: 3px; }
-.sit-label-win  { font-family: var(--font-mono); font-size: 0.62rem; color: #f7941e; margin-top: 3px; }
+.sit-label-win  { font-family: var(--font-mono); font-size: 0.62rem; color: #ff8a00; margin-top: 3px; }
 .sit-vs { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(255,255,255,0.25); text-align: center; }
 
 .outs-math {
   padding: 0.85rem 1.25rem;
   border-bottom: 1px solid rgba(255,255,255,0.05);
-  background: rgba(247,148,30,0.06);
+  background: rgba(255,138,0,0.06);
 }
 .outs-math-label {
   font-family: var(--font-mono);
@@ -435,7 +435,7 @@ title: Equity Calculator
 .outs-math-formula {
   font-family: var(--font-mono);
   font-size: 0.82rem;
-  color: #f7941e;
+  color: #ff8a00;
   margin-bottom: 4px;
 }
 .outs-math-tip {
@@ -450,7 +450,7 @@ title: Equity Calculator
   font-size: 0.62rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #f7941e;
+  color: #ff8a00;
   margin-bottom: 6px;
   margin-top: 10px;
   font-weight: 600;
@@ -487,7 +487,7 @@ title: Equity Calculator
 
 .card-picker-modal {
   background: #0a1b33;
-  border: 1px solid rgba(247,148,30,0.3);
+  border: 1px solid rgba(255,138,0,0.3);
   border-radius: 16px;
   padding: 1.5rem;
   width: 340px;
@@ -506,7 +506,7 @@ title: Equity Calculator
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(247,148,30,0.9);
+  color: rgba(255,138,0,0.9);
 }
 
 .picker-close {
@@ -537,7 +537,7 @@ title: Equity Calculator
   transition: all 0.15s;
   text-align: center;
 }
-.picker-suit.active { border-color: rgba(247,148,30,0.6); background: rgba(247,148,30,0.12); }
+.picker-suit.active { border-color: rgba(255,138,0,0.6); background: rgba(255,138,0,0.12); }
 .picker-suit.red { color: #e74c3c; }
 
 .picker-ranks {
@@ -560,7 +560,7 @@ title: Equity Calculator
   transition: all 0.12s;
   text-align: center;
 }
-.picker-rank:hover:not(:disabled) { border-color: rgba(247,148,30,0.5); background: rgba(247,148,30,0.12); color: #fff; }
+.picker-rank:hover:not(:disabled) { border-color: rgba(255,138,0,0.5); background: rgba(255,138,0,0.12); color: #fff; }
 .picker-rank:disabled { opacity: 0.2; cursor: not-allowed; }
 
 .picker-clear {
@@ -593,7 +593,7 @@ title: Equity Calculator
 <div class="calc-page">
   <div class="calc-header">
     <p class="calc-header__label">Interactive tool</p>
-    <h1 class="calc-header__title">Equity calculator</h1>
+    <h1 class="calc-header__title">Win probability calculator</h1>
     <div class="calc-header__sub">Monte Carlo simulation, 10,000 runs per calculation, with outs analysis on the flop and turn.</div>
   </div>
 
@@ -611,9 +611,9 @@ title: Equity Calculator
 
         <!-- HANDS ROW -->
         <div class="hands-row">
-          <!-- Your hand -->
+          <!-- Hand A -->
           <div class="hand-zone">
-            <div class="hand-label">Your Hand</div>
+            <div class="hand-label">Hand A</div>
             <div class="hand-cards">
               <div class="pcard pcard--empty" id="pc0" data-hand="hand1" data-slot="0">+</div>
               <div class="pcard pcard--empty" id="pc1" data-hand="hand1" data-slot="1">+</div>
@@ -626,9 +626,9 @@ title: Equity Calculator
 
           <div class="vs-divider">VS</div>
 
-          <!-- Opponent hand -->
+          <!-- Hand B -->
           <div class="hand-zone">
-            <div class="hand-label">Opponent</div>
+            <div class="hand-label">Hand B</div>
             <div class="hand-cards">
               <div class="pcard pcard--empty" id="oc0" data-hand="hand2" data-slot="0">+</div>
               <div class="pcard pcard--empty" id="oc1" data-hand="hand2" data-slot="1">+</div>
@@ -656,7 +656,7 @@ title: Equity Calculator
 
         <!-- ACTIONS -->
         <div class="calc-actions">
-          <button class="felt-btn felt-btn--primary" id="calcBtn">Calculate equity</button>
+          <button class="felt-btn felt-btn--primary" id="calcBtn">Calculate probability</button>
           <button class="felt-btn felt-btn--deal" id="dealBtn">Deal hands</button>
           <button class="felt-btn felt-btn--secondary" id="flopBtn">Deal flop</button>
           <button class="felt-btn felt-btn--secondary" id="hitBtn" disabled>Turn →</button>
@@ -1026,7 +1026,7 @@ function calculate(){
     document.getElementById('resSims').textContent=sims.toLocaleString();
     const boardCards=state.board.filter(Boolean);
     const street=['preflop','preflop','preflop','flop','turn','river'][boardCards.length]||'river';
-    document.getElementById('resultNote').textContent=`${h1.join(' ')} vs ${h2.join(' ')} ${street}: equity ${eq}% · Monte Carlo ${sims.toLocaleString()} sims`;
+    document.getElementById('resultNote').textContent=`${h1.join(' ')} vs ${h2.join(' ')} ${street}: win probability ${eq}% · Monte Carlo ${sims.toLocaleString()} sims`;
     // Outs
     const loser=parseFloat(eq)>=50?h2:h1;
     const winner=parseFloat(eq)>=50?h1:h2;
@@ -1120,7 +1120,7 @@ function reset(){
   document.getElementById('bar2').style.width='50%';
   document.getElementById('resultsWrap').style.display='none';
   document.getElementById('outsWrap').innerHTML='';
-  document.getElementById('calcBtn').textContent='Calculate equity';
+  document.getElementById('calcBtn').textContent='Calculate probability';
   updateUI();
 }
 

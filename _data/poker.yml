@@ -3,35 +3,33 @@
 # ============================================================
 
 stats:
-  - value: "NL200"
-    label: "Current Stakes"
-  - value: "3.2bb"
-    label: "Win Rate (100k hands)"
-  - value: "650k"
-    label: "Hands Played"
-  - value: "MTT"
-    label: "Preferred Format"
+  - value: "5+"
+    label: "Years of Study"
+  - value: "GTO+"
+    label: "Primary Solver"
+  - value: "EV"
+    label: "Decision Framework"
 
 intro: >
-  Poker has been a serious pursuit for over five years. What started as a curiosity
-  became an obsession once I realised poker was really a game of incomplete information,
-  probability, and psychology, all things I find fascinating professionally.
-  The analytical skills transfer remarkably well between data science and the felt.
+  Poker has been a serious study for over five years. What started as curiosity
+  became a habit once I realised poker is really a game of incomplete information
+  and probability, the same territory I work in professionally. The analytical
+  skills transfer remarkably well between data science and competitive play.
 
 philosophy:
   title: "My Philosophy"
   body: >
-    I approach poker the same way I approach ML models: build a solid prior, update
-    on new information, and stay aware of your own biases. The biggest edge at lower
-    stakes isn't hand-reading genius. It's discipline, bankroll management, and
-    avoiding tilt.
+    I approach poker the same way I approach ML models: build a solid prior,
+    update on new information, and stay aware of your own biases. The biggest
+    edge isn't hand-reading genius. It's discipline, staying process-focused,
+    and not letting one outcome distort your read on the next decision.
 
 study_approach:
   title: "Study Approach"
   points:
     - Hand history review with PioSOLVER / GTO+
     - Range construction and frequency analysis
-    - Monthly session reviews in a structured spreadsheet
+    - Monthly review sessions to spot recurring decision errors
     - 'Theory reading: "The Mathematics of Poker" and "Modern Poker Theory"'
     - Solver work on key spots (3-bet pots, turn decisions)
 

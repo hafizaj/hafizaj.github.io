@@ -24,3 +24,6 @@ node_modules/
 
 # Private reference material
 __reference_files/
+
+# Camera originals
+*.HEIC

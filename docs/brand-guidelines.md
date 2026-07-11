@@ -1,7 +1,7 @@
 # HJ Personal Brand Guidelines
 
 **Brand:** Hafizuddin Jaafar - AI & Cloud Solution Architect
-**Revision:** 1 · Effective 11 July 2026
+**Revision:** 2 · Effective 11 July 2026
 **Scope:** hafizaj.github.io and all personal collateral (CV, slides, social banners)
 
 ---
@@ -55,7 +55,8 @@
 |---|---|---|---|
 | Display | Schibsted Grotesk | 500, 700 | Headlines, section titles, the monogram |
 | Body | Instrument Sans | 400, 500, 600 | Paragraphs, navigation, buttons |
-| Utility | IBM Plex Mono | 400, 500 | Eyebrows, dates, metrics, tags, ledger rows |
+| Utility | IBM Plex Mono | 400, 500 | Dates, metrics, tags, ledger rows, tape labels |
+| Annotation | Caveat | 500, 600 | Handwritten margin notes and photo captions only, never body text |
 
 **Rules**
 
@@ -66,6 +67,26 @@
 - Eyebrows/labels: utility face, 0.72rem, uppercase, letter-spacing 0.18em, Royal
   on Paper / Amber on Midnight.
 - Never letter-space the body face. Never use the display face below 1rem.
+
+## The human layer (revision 2)
+
+The site borrows its warmth from the owner's personal moodboard: a scrapbook of
+taped labels, photo prints, and handwritten notes. Three devices carry it:
+
+- **Tape labels** replace mono eyebrows as section markers: mono uppercase text
+  on a slightly rotated tape chip with torn edges. Ember on Midnight and for
+  finance/contact; Royal for professional sections; Pink `#D6437E` and Green
+  `#178A63` are reserved for the personal register (hobbies, play).
+- **Photo prints**: real photographs (never stock) presented as prints with a
+  white border, a translucent tape strip, a small rotation of 1 to 2 degrees,
+  and a handwritten caption in Caveat.
+- **Handwritten notes** in Caveat for short margin annotations ("the numbers
+  I'm proudest of"). At most two per page; they are seasoning, not structure.
+- Dark bands carry a faint film grain (opacity under 0.06).
+
+Rules: rotations stay under 2.5 degrees, handwriting never carries information
+that exists nowhere else, and the professional sections (work, experience,
+finance) keep their ledger discipline underneath the warmth.
 
 ## Signature device - the evidence ledger
 

@@ -21,7 +21,7 @@ profile_image: ""
 # Social links (leave blank to hide)
 social:
   github: "hafizaj"
-  linkedin: "hafizaj"
+  linkedin: "hafizjaafar"
   twitter: ""
   medium: ""
 
@@ -62,6 +62,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules
+  - "**/*.HEIC"
   - README.md
   - .git
   - package.json

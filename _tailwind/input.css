@@ -116,6 +116,41 @@
     border-radius: 999px;
   }
 
+  /* Tech badge — colored chip with a brand icon, used only in the Toolkit
+     section. Background is the tool's real brand color (inline style per
+     badge), not a site token, so this is a scoped exception to the
+     monochrome-icon rule elsewhere on the site. */
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.7rem;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+  }
+  .tech-badge--dark {
+    color: var(--color-ink);
+  }
+
+  /* Logo cloud image — grayscale until hover, for the proof strip */
+  .logo-cloud-img {
+    height: 1.6rem;
+    width: auto;
+    max-width: 130px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.65;
+    transition: filter 0.2s, opacity 0.2s;
+  }
+  .logo-cloud-img:hover {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+
   /* Film grain for dark bands */
   .grain::after {
     content: '';

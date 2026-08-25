@@ -34,6 +34,12 @@ nav:
     url: "/#beyond"
 
 # Build settings
+# Jekyll suppresses future-dated documents at write time, comparing against the
+# builder's clock. CI runs in UTC, so a note dated today would silently 404
+# until UTC caught up. Pin the timezone and publish regardless.
+timezone: Europe/London
+future: true
+
 markdown: kramdown
 highlighter: rouge
 

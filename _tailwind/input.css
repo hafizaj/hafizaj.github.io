@@ -177,6 +177,178 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  /* ── Notes ────────────────────────────────────────────────
+     Web counterparts of the tcolorbox environments in the LaTeX
+     preamble (docs/notes-preamble.tex). Same semantics, same colour
+     roles, so a note reads identically on screen and in the PDF. */
+
+  .note-prose {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--color-muted);
+  }
+  .note-prose > * + * { margin-top: 1.15rem; }
+  .note-prose h2 {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-royal);
+    margin-top: 2.6rem;
+    scroll-margin-top: 5.5rem;
+  }
+  .note-prose h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-indigo);
+    margin-top: 1.9rem;
+    scroll-margin-top: 5.5rem;
+  }
+  .note-prose strong { font-weight: 600; color: var(--color-ink); }
+  .note-prose a { color: var(--color-royal); text-decoration: underline; text-underline-offset: 2px; }
+  .note-prose ul, .note-prose ol { padding-left: 1.3rem; }
+  .note-prose ul { list-style: disc; }
+  .note-prose ol { list-style: decimal; }
+  .note-prose li { margin-top: 0.4rem; }
+  .note-prose li::marker { color: var(--color-royal); }
+  .note-prose code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    background: #eef2f8;
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    color: var(--color-ink);
+  }
+  .note-prose pre {
+    background: var(--color-midnight);
+    color: #e8eef7;
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .note-prose pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+  .note-prose blockquote {
+    border-left: 3px solid var(--color-mist);
+    padding-left: 1rem;
+    color: var(--color-muted);
+    font-style: italic;
+  }
+  .note-prose table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .note-prose th, .note-prose td { border-bottom: 1px solid var(--color-mist); padding: 0.5rem 0.7rem; text-align: left; }
+  .note-prose th { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted); font-weight: 500; }
+
+  /* Wide maths must scroll inside itself, never the page */
+  .note-prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35rem 0; }
+
+  /* Callouts — .keybox and .warnbox from the preamble */
+  .callout {
+    border-radius: 10px;
+    border-width: 1px;
+    border-style: solid;
+    padding: 1rem 1.15rem;
+  }
+  .callout > * + * { margin-top: 0.7rem; }
+  .callout-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .callout-key { background: #fff8ec; border-color: #e2a03f; }
+  .callout-key .callout-label { color: #9a5b00; }
+  .callout-warn { background: #fdf1ef; border-color: #d98b7c; }
+  .callout-warn .callout-label { color: #b3261e; }
+  .callout-note { background: #fff; border-color: var(--color-mist); }
+  .callout-note .callout-label { color: var(--color-royal); }
+
+  /* Collapsible derivations and recall cards */
+  .reveal {
+    border: 1px solid var(--color-mist);
+    border-radius: 10px;
+    background: #fff;
+    padding: 0.9rem 1.1rem;
+  }
+  .reveal + .reveal { margin-top: 0.6rem; }
+  .reveal > summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    color: var(--color-ink);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .reveal > summary::-webkit-details-marker { display: none; }
+  .reveal > summary::before {
+    content: '+';
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--color-royal);
+    flex: none;
+  }
+  .reveal[open] > summary::before { content: '\2212'; }
+  .reveal > summary:hover { color: var(--color-royal); }
+  .reveal-body { margin-top: 0.85rem; }
+  .reveal-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-left: auto;
+    flex: none;
+  }
+  .reveal-recall { border-left: 3px solid var(--color-indigo); }
+
+  /* Recall scoring */
+  .recall-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+  .recall-btn {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    border-radius: 6px;
+    border: 1px solid var(--color-mist);
+    background: #fff;
+    color: var(--color-muted);
+    padding: 0.34rem 0.7rem;
+    cursor: pointer;
+  }
+  .recall-btn:hover { border-color: var(--color-royal); color: var(--color-royal); }
+  .recall-btn[aria-pressed='true'] { background: var(--color-royal); border-color: var(--color-royal); color: #fff; }
+  .recall-status {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+    align-self: center;
+  }
+
+  /* Explorable widgets */
+  .widget {
+    border: 1px solid var(--color-mist);
+    border-radius: 12px;
+    background: #fff;
+    padding: 1.15rem 1.25rem;
+  }
+  .widget-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+  .widget-title { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-royal); }
+  .widget-readout { font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+  .widget-canvas-wrap { margin-top: 0.9rem; overflow-x: auto; }
+  .widget canvas { display: block; width: 100%; height: auto; }
+  .widget-controls { margin-top: 0.9rem; display: grid; gap: 0.55rem; }
+  .widget-row { display: flex; align-items: center; gap: 0.8rem; }
+  .widget-row label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-muted); flex: none; min-width: 2.2rem; }
+  .widget input[type='range'] { flex: 1; accent-color: var(--color-royal); }
+  .widget-caption { margin-top: 0.85rem; font-size: 0.86rem; line-height: 1.6; color: var(--color-muted); }
+  .widget-noscript { font-size: 0.86rem; color: var(--color-muted); }
+
   /* Orchestrated hero entrance */
   .rise {
     animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;

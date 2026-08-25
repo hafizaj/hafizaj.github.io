@@ -1,0 +1,84 @@
+% ============================================================
+% Shared LaTeX design for /notes/ PDF exports.
+%
+% This is the print half of the notes design system. The web half lives in
+% _tailwind/input.css under "Notes" and uses the same semantics: keybox for
+% the one idea to retain, warnbox for the trap, and a reading-width measure
+% rather than the compact cheat-sheet grid.
+%
+% Derived from the preamble in
+%   Imperial/Class/Advanced Machine Learning/AML_Plain_English_Companion.tex
+% so exported notes sit alongside the guides already written in that style.
+%
+% Used via: scripts/note-to-pdf.sh <note.md>
+% ============================================================
+
+\usepackage[a4paper, margin=0.9in]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+\usepackage{setspace}
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+
+% Brand colours, matched to the site tokens in _tailwind/input.css
+\definecolor{hjroyal}{HTML}{1D4FD8}
+\definecolor{hjindigo}{HTML}{5B21B6}
+\definecolor{hjember}{HTML}{FF8A00}
+\definecolor{hjink}{HTML}{0A1B33}
+
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{hjroyal}}
+  {\thesection.}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{hjindigo}}
+  {\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{3pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+% ── Callouts ────────────────────────────────────────────────
+% Web counterparts: .callout-key and .callout-warn
+\newtcolorbox{keybox}[1][]{
+  colback=yellow!10, colframe=orange!60!black, boxrule=0.4pt, arc=2pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt, #1}
+
+\newtcolorbox{warnbox}[1][]{
+  colback=red!5, colframe=red!60!black, boxrule=0.4pt, arc=2pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt, #1}
+
+\newtcolorbox{notebox}[1][]{
+  colback=white, colframe=hjroyal!40, boxrule=0.4pt, arc=2pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt, #1}
+
+% ── Derivations and recall ──────────────────────────────────
+% On the web these collapse. On paper nothing can collapse, so they become
+% labelled blocks instead — the reader can still skip them by eye.
+\newtcolorbox{derivation}[1][]{
+  colback=hjroyal!3, colframe=hjroyal!35, boxrule=0.4pt, arc=2pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt,
+  title=\footnotesize\textsc{derivation}, fonttitle=\color{hjroyal}, #1}
+
+\newtcolorbox{recall}[1][]{
+  colback=hjindigo!3, colframe=hjindigo!35, boxrule=0.4pt, arc=2pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt,
+  title=\footnotesize\textsc{recall}, fonttitle=\color{hjindigo}, #1}
+
+% Interactive figures cannot print. The Lua filter replaces each widget with
+% this, so the PDF says plainly that something is missing rather than
+% leaving a silent hole.
+\newtcolorbox{widgetstub}[1][]{
+  colback=black!3, colframe=black!25, boxrule=0.4pt, arc=2pt,
+  left=5pt, right=5pt, top=3pt, bottom=3pt, #1}

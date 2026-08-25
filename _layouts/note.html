@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+<!-- KaTeX renders the maths in the browser. GitHub Pages cannot run a
+     server-side maths plugin, so kramdown leaves $…$ and $$…$$ as literal
+     text (see math_engine: null in _config.yml) and auto-render picks it up. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+        integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+<script defer src="{{ '/assets/js/notes.js' | relative_url }}"></script>
+
+<article class="mx-auto max-w-6xl px-6 py-14 sm:py-16">
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14">
+
+    <div class="min-w-0">
+      <header class="border-b border-mist pb-8">
+        <p class="eyebrow text-royal">{{ page.topic | default: 'Technical note' }}</p>
+        <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
+        <h1 class="mt-5 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">{{ page.title }}</h1>
+        {% if page.summary %}
+        <p class="mt-4 max-w-2xl text-lg leading-8 text-muted">{{ page.summary }}</p>
+        {% endif %}
+        <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted">
+          {% if page.date %}<span>{{ page.date | date: "%d %b %Y" }}</span>{% endif %}
+          {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
+          {% if page.module %}<span>Studied in {{ page.module }}, Imperial College London</span>{% endif %}
+        </div>
+        {% if page.prerequisites %}
+        <p class="mt-4 text-sm leading-6 text-muted"><span class="font-mono text-xs uppercase tracking-widest text-royal">Assumes</span><br>{{ page.prerequisites }}</p>
+        {% endif %}
+      </header>
+
+      <div class="note-prose mt-9" data-note-body>
+        {{ content }}
+      </div>
+
+      {% if page.sources %}
+      <section class="mt-14 border-t border-mist pt-7">
+        <p class="eyebrow text-muted">Where to read more</p>
+        <ul class="mt-4 space-y-2 text-sm leading-7 text-muted">
+          {% for s in page.sources %}<li>{{ s }}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <footer class="mt-10 rounded-xl border border-mist bg-white p-5 text-sm leading-7 text-muted">
+        Written from my own understanding while studying {{ page.module | default: 'at Imperial College London' }}.
+        Any errors are mine. No course material, problem sets, or model solutions are reproduced here.
+        <a href="mailto:{{ site.email }}" class="font-semibold text-royal hover:text-midnight">Tell me if something is wrong &rarr;</a>
+      </footer>
+
+      <p class="mt-9"><a href="/notes/" class="text-sm font-semibold text-royal transition-colors hover:text-midnight">&larr; All notes</a></p>
+    </div>
+
+    <aside class="hidden lg:block">
+      <div class="sticky top-24">
+        <p class="eyebrow text-muted">On this page</p>
+        <nav id="note-toc" class="mt-4 space-y-2 text-sm leading-6" aria-label="Table of contents"></nav>
+        <div class="mt-7 border-t border-mist pt-5">
+          <button type="button" id="recall-mode" class="recall-btn" aria-pressed="false">Test yourself</button>
+          <p class="mt-2 font-mono text-[0.65rem] leading-5 text-muted">Collapses every answer so you can recall before reading.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</article>

@@ -26,6 +26,8 @@ social:
 nav:
   - label: "Work"
     url: "/work/"
+  - label: "Notes"
+    url: "/notes/"
   - label: "About"
     url: "/about/"
   - label: "Beyond work"
@@ -34,6 +36,13 @@ nav:
 # Build settings
 markdown: kramdown
 highlighter: rouge
+
+# Leave $...$ / $$...$$ untouched in the HTML so KaTeX can render it in the
+# browser. GitHub Pages will not run a server-side maths plugin.
+kramdown:
+  math_engine: null
+  input: GFM
+  syntax_highlighter: rouge
 plugins:
   - jekyll-seo-tag
 
@@ -42,6 +51,9 @@ collections:
   projects:
     output: true
     permalink: /work/:name/
+  notes:
+    output: true
+    permalink: /notes/:name/
 
 defaults:
   - scope:
@@ -49,6 +61,11 @@ defaults:
       type: projects
     values:
       layout: project
+  - scope:
+      path: ""
+      type: notes
+    values:
+      layout: note
 
 exclude:
   - Gemfile

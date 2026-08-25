@@ -1,0 +1,67 @@
+---
+layout: default
+title: Notes
+description: "Technical notes by Hafizuddin Jaafar on machine learning, causal inference, and analytics — written from first principles while studying MSc Business Analytics at Imperial College London."
+---
+
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <span class="label-pill bg-royal/10 text-royal">Technical notes</span>
+    <h1 class="mt-6 max-w-3xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Working things out in public.</h1>
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">
+      Short pieces on the methods I use and the ones I am still learning: what the maths actually says,
+      why it behaves the way it does, and where it breaks. Written from first principles, with the
+      derivations you can open and the parameters you can move.
+    </p>
+    <p class="mt-4 max-w-2xl text-sm leading-7 text-muted">
+      Much of this comes out of my MSc at Imperial College London. None of it reproduces course
+      material, problem sets, or model solutions — the explanations, notation, and mistakes are my own.
+    </p>
+  </div>
+</section>
+
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    {% assign notes = site.notes | where_exp: "n", "n.draft != true" | sort: 'date' | reverse %}
+    {% if notes.size > 0 %}
+      <div class="grid gap-6 md:grid-cols-2">
+        {% for note in notes %}
+        <a href="{{ note.url }}" class="group flex h-full flex-col rounded-xl border border-mist bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+          <div class="flex items-baseline justify-between gap-3">
+            <span class="eyebrow text-royal">{{ note.topic }}</span>
+            <span class="font-mono text-xs text-muted">{{ note.date | date: "%b %Y" }}</span>
+          </div>
+          <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
+          <h2 class="mt-4 font-display text-xl font-bold leading-snug">{{ note.title }}</h2>
+          <p class="mt-2 text-sm leading-7 text-muted">{{ note.summary }}</p>
+          <p class="mt-auto pt-5 font-mono text-xs text-muted">
+            {% if note.reading_time %}{{ note.reading_time }} min{% endif %}
+            {% if note.module %} · {{ note.module }}{% endif %}
+          </p>
+        </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="rounded-xl border border-mist bg-white p-10 text-center">
+        <p class="font-display text-xl font-bold">First note landing shortly.</p>
+        <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-muted">The template is built; the writing is next.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="border-t border-mist bg-white py-14">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+    <div>
+      <p class="eyebrow text-muted">How these are written</p>
+      <p class="mt-3 max-w-2xl leading-8 text-muted">
+        Every note states its assumptions, shows the derivation rather than asserting the result, and
+        ends with the failure modes. Where a parameter matters, you can move it and watch what happens.
+        Where recall matters more than reading, the answer is hidden until you have tried.
+      </p>
+    </div>
+    <div class="lg:justify-self-end">
+      <a href="mailto:{{ site.email }}" class="inline-block rounded-lg bg-royal px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">Found an error? Tell me</a>
+    </div>
+  </div>
+</section>

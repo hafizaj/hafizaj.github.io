@@ -14,7 +14,7 @@ GEM
     eventmachine (1.2.7)
     ffi (1.17.3-arm64-darwin)
     forwardable-extended (2.6.0)
-    google-protobuf (4.33.5-arm64-darwin)
+    google-protobuf (4.33.5)
       bigdecimal
       rake (>= 13)
     http_parser.rb (0.8.1)
@@ -78,6 +78,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-25
 
 DEPENDENCIES
   jekyll (~> 4.3)

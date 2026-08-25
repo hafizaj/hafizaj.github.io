@@ -93,9 +93,9 @@ description: "Hafizuddin Jaafar, AI and cloud solution architect. Four years bui
 
     <div class="stats-grid mt-14 grid gap-x-10 gap-y-8 border-t border-mist pt-10 sm:grid-cols-2 lg:grid-cols-4">
       <div><p class="font-display text-3xl font-extrabold text-royal">4 yrs</p><p class="mt-1 text-sm text-muted">industry experience</p></div>
-      <div><p class="font-display text-3xl font-extrabold text-royal">30</p><p class="mt-1 text-sm text-muted">automation projects led</p></div>
+      <div><p class="font-display text-3xl font-extrabold text-royal">{{ site.data.facts.projects_delivered }}</p><p class="mt-1 text-sm text-muted">automation projects delivered</p></div>
       <div><p class="font-display text-3xl font-extrabold text-royal">12k+ hrs</p><p class="mt-1 text-sm text-muted">saved annually</p></div>
-      <div><p class="font-display text-3xl font-extrabold text-royal">300+</p><p class="mt-1 text-sm text-muted">employees upskilled</p></div>
+      <div><p class="font-display text-3xl font-extrabold text-royal">{{ site.data.facts.employees_upskilled }}</p><p class="mt-1 text-sm text-muted">employees upskilled</p></div>
     </div>
   </div>
 </section>
@@ -115,7 +115,7 @@ description: "Hafizuddin Jaafar, AI and cloud solution architect. Four years bui
           <h3 class="mt-2 font-display text-xl font-bold">Senior Solution Architect</h3>
           <p class="text-sm text-muted">AstraZeneca · Kuala Lumpur, Malaysia</p>
           <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-muted">
-            <li>Led a cross-regional team supporting <strong class="font-semibold text-ink">157 automation projects</strong> across Malaysia's first nationwide digital transformation. Along the way we upskilled 492 employees and delivered <strong class="font-semibold text-ink">12,000+ hours of savings annually</strong></li>
+            <li>Led a cross-regional team supporting <strong class="font-semibold text-ink">{{ site.data.facts.projects_delivered }} automation projects</strong> across Malaysia's first nationwide digital transformation. Along the way we upskilled {{ site.data.facts.employees_upskilled }} employees and delivered <strong class="font-semibold text-ink">{{ site.data.facts.hours_saved_annually }} hours of savings annually</strong></li>
             <li>Built an end-to-end <strong class="font-semibold text-ink">multi-market cashflow forecasting system</strong> spanning multiple payment types, integrating SAP, BlackLine, and Quantum into a single consolidated Power BI dashboard piloted across 8 markets. Cut planning-cycle time by <strong class="font-semibold text-ink">60%</strong> and reconciliation effort by <strong class="font-semibold text-ink">3,200+ hours a year</strong></li>
             <li>Built a Power BI and DAX-heavy <strong class="font-semibold text-ink">CAPEX consolidation dashboard</strong> with automated ETL pipelines, surfacing missing or inaccurate asset records ahead of the annual asset review across <strong class="font-semibold text-ink">15,000+ IT assets</strong></li>
             <li>Led Power Platform budget adjustment application for FP&amp;A, reducing budgeting rework by <strong class="font-semibold text-ink">60%</strong> and releasing <strong class="font-semibold text-ink">5,000+ annual hours</strong></li>
@@ -184,15 +184,15 @@ description: "Hafizuddin Jaafar, AI and cloud solution architect. Four years bui
       </div>
 
       <!-- Recognition -->
-      <div class="mt-14"><span class="label-pill bg-ember/15 text-ember">Recognition</span></div>
+      <div class="mt-14"><span class="label-pill bg-ember font-semibold text-midnight">Recognition</span></div>
       <h2 class="mt-5 font-display text-3xl font-extrabold tracking-tight">Key achievements</h2>
 
       <div class="mt-8 space-y-6">
-        <div class="flex flex-col gap-1 border-b border-mist pb-6 sm:flex-row sm:items-baseline sm:gap-6">
+        <div class="cv-block flex flex-col gap-1 border-b border-mist pb-6 sm:flex-row sm:items-baseline sm:gap-6">
           <span class="shrink-0 font-mono text-xs text-royal sm:w-32">2023 - 2024</span>
-          <p class="text-sm leading-7 text-muted"><strong class="font-semibold text-ink">Finance Excellence Award, AstraZeneca.</strong> Built a Python forecasting engine that reconciles SAP data into real-time cash flow intelligence, cutting 5,000+ hours of manual reconciliation a year.</p>
+          <p class="text-sm leading-7 text-muted"><strong class="font-semibold text-ink">Finance Excellence Award, AstraZeneca.</strong> Built a Python forecasting engine that reconciles SAP data into real-time cash flow intelligence, cutting {{ site.data.facts.cashflow_hours_saved }} hours of manual reconciliation a year.</p>
         </div>
-        <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+        <div class="cv-block flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
           <span class="shrink-0 font-mono text-xs text-royal sm:w-32">2023 - 2024</span>
           <p class="text-sm leading-7 text-muted"><strong class="font-semibold text-ink">Finance Process Champion, AstraZeneca.</strong> Built a CAPEX consolidation dashboard tracking 15,000+ IT assets, with fraud-detection ML built in, cutting 1,500+ auditing hours a year.</p>
         </div>

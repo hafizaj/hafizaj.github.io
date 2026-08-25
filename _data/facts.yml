@@ -1,0 +1,10 @@
+# Canonical career stats — the single source of truth for every number
+# that appears in more than one place. Reference as {{ site.data.facts.* }}.
+# After changing a value, regenerate the resume PDF (see about/index.html).
+projects_delivered: "157"
+employees_upskilled: "492"
+hours_saved_annually: "12,000+"
+cashflow_hours_saved: "3,200+"
+capex_assets: "15,000+"
+capex_audit_hours: "1,500+"
+bnm_reporting_hours: "5,000"

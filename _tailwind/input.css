@@ -91,6 +91,25 @@
     opacity: 1;
   }
 
+  /* Skip link — off-screen until keyboard focus lands on it */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.6rem 1rem;
+    border-radius: 0 0 8px 8px;
+    background: var(--color-royal);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+
   /* Eyebrow labels — utility face, tracked caps */
   .eyebrow {
     font-family: var(--font-mono);

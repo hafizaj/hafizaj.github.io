@@ -13,8 +13,9 @@
   <script src="{{ '/assets/js/main.js' | relative_url }}" defer></script>
 </head>
 <body class="min-h-screen bg-paper text-ink antialiased">
+  <a href="#main" class="skip-link">Skip to content</a>
   {% include nav.html %}
-  <main>
+  <main id="main">
     {{ content }}
   </main>
   {% include footer.html %}

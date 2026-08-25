@@ -7,7 +7,12 @@
 
     <div class="hidden items-center gap-7 md:flex">
       {% for item in site.nav %}
+      {% assign item_root = item.url | split: '#' | first %}
+      {% if item_root != '/' and page.url contains item_root %}
+      <a href="{{ item.url }}" aria-current="page" class="text-sm font-semibold text-royal">{{ item.label }}</a>
+      {% else %}
       <a href="{{ item.url }}" class="text-sm font-medium text-muted transition-colors hover:text-royal">{{ item.label }}</a>
+      {% endif %}
       {% endfor %}
       <a href="mailto:{{ site.email }}" class="rounded bg-royal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-midnight">Email me</a>
     </div>
@@ -20,7 +25,12 @@
   <div id="mobile-nav" class="hidden border-t border-mist bg-paper px-6 py-4 md:hidden">
     <div class="flex flex-col gap-1">
       {% for item in site.nav %}
+      {% assign item_root = item.url | split: '#' | first %}
+      {% if item_root != '/' and page.url contains item_root %}
+      <a href="{{ item.url }}" aria-current="page" class="rounded bg-mist/40 px-3 py-2 text-sm font-semibold text-royal">{{ item.label }}</a>
+      {% else %}
       <a href="{{ item.url }}" class="rounded px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-mist/50 hover:text-royal">{{ item.label }}</a>
+      {% endif %}
       {% endfor %}
       <a href="mailto:{{ site.email }}" class="mt-2 rounded bg-royal px-3 py-2 text-center text-sm font-semibold text-white">Email me</a>
     </div>

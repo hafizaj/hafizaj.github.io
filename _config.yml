@@ -1,5 +1,5 @@
 # ============================================================
-# SITE CONFIGURATION - Edit this file to personalise your site
+# Site configuration
 # ============================================================
 
 title: "Hafizuddin Jaafar"
@@ -14,9 +14,6 @@ url: "https://hafizaj.github.io"
 
 # Header logo: initials in the square (e.g. "HJ")
 logo_initials: "HJ"
-
-# Profile image in hero (path under assets, e.g. "profile.jpg"). Leave blank for no image.
-profile_image: ""
 
 # Social links (leave blank to hide)
 social:
@@ -37,10 +34,7 @@ nav:
 # Build settings
 markdown: kramdown
 highlighter: rouge
-permalink: /blog/:year/:month/:day/:title/
-
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
 
 # Collections

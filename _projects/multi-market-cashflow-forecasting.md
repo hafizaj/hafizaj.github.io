@@ -18,6 +18,12 @@ tech:
 
 Cashflow visibility across 8 markets depended on analysts manually reconciling SAP extracts in spreadsheets. Each market had its own rhythm, currency, and reporting habits, so assembling one picture took weeks, and by the time it existed it was already stale.
 
+## Architecture
+
+<img src="/assets/diagrams/multi-market-cashflow-forecasting.svg"
+     alt="SAP, BlackLine and Quantum feed a Python ETL layer that normalises each of eight markets' actuals; a forecasting layer turns those into forward cash positions, published to one consolidated Power BI dashboard, with Power Automate driving the submission and refresh cycle."
+     class="my-8 w-full rounded-xl border border-mist bg-white p-4">
+
 ## What I built
 
 The company's first multi-market cashflow forecasting system for Finance:

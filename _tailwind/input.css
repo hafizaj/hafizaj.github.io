@@ -304,7 +304,12 @@
     margin-left: auto;
     flex: none;
   }
-  .reveal-recall { border-left: 3px solid var(--color-indigo); }
+  /* Recall cards read as recall through their marker and tag, not a side
+     border — the accent grammar elsewhere on the site lives in the eyebrow,
+     never in a thick edge. */
+  .reveal-recall > summary::before { color: var(--color-indigo); }
+  .reveal-recall > summary:hover { color: var(--color-indigo); }
+  .reveal-recall .reveal-tag { color: var(--color-indigo); }
 
   /* Recall scoring */
   .recall-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }

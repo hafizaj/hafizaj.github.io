@@ -2,6 +2,7 @@
 title: "Multi-market cashflow forecasting system"
 description: "AstraZeneca Finance's first multi-market cashflow forecasting system, built on SAP data pipelines, Python ETL, and Power BI across 8 markets."
 category: "FP&A / Treasury"
+group: "automation"
 org: "AstraZeneca"
 date: 2024-06-01
 impact: "3,200+ hrs"

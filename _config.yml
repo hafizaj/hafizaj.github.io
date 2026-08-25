@@ -27,14 +27,12 @@ social:
 
 # Navigation - order matters
 nav:
-  - label: "Work"
-    url: "/#work"
+  - label: "Projects"
+    url: "/projects/"
   - label: "About"
     url: "/about/"
-  - label: "Poker"
-    url: "/poker/"
-  - label: "Chess"
-    url: "/chess/"
+  - label: "Beyond work"
+    url: "/#beyond"
 
 # Build settings
 markdown: kramdown

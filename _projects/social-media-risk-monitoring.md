@@ -2,6 +2,7 @@
 title: "Reputational risk monitoring platform"
 description: "A multi-source social media analytics platform integrating LinkedIn, Facebook, Instagram, and Twitter APIs with NLP sentiment analysis and automated controversy flagging for reputational risk."
 category: "Risk & communications"
+group: "data"
 org: "Bank Negara Malaysia"
 date: 2022-01-01
 impact: "4 platforms"

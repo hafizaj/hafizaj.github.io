@@ -2,6 +2,7 @@
 title: "Risk register consolidation and intelligence dashboards"
 description: "52 manual departmental risk profiles digitised into one centralised SharePoint register with live Power BI dashboards, replacing a slow, paper-heavy reporting cycle."
 category: "Data platform"
+group: "data"
 org: "Bank Negara Malaysia"
 date: 2022-03-01
 impact: "5,000 hrs/year"

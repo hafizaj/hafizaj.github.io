@@ -2,10 +2,11 @@
 title: "Scent Genome Engine"
 description: "A GenAI fragrance recommendation engine built for L'Oréal Brandstorm 2026: embeddings-based note similarity plus LangChain prompt chains that generate personalised scent stories."
 category: "Generative AI"
+group: "ai"
 org: "L'Oréal Brandstorm 2026"
 date: 2026-02-15
-impact: "LangChain + OpenAI"
-impact_label: "explainable recommendations with generated scent narratives"
+impact: "Explainable by design"
+impact_label: "every recommendation states its reasoning, with a generated scent narrative"
 tech:
   - Python
   - LangChain

@@ -27,8 +27,8 @@ social:
 
 # Navigation - order matters
 nav:
-  - label: "Projects"
-    url: "/projects/"
+  - label: "Work"
+    url: "/work/"
   - label: "About"
     url: "/about/"
   - label: "Beyond work"
@@ -47,7 +47,7 @@ plugins:
 collections:
   projects:
     output: true
-    permalink: /projects/:name/
+    permalink: /work/:name/
 
 defaults:
   - scope:

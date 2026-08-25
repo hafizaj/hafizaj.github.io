@@ -33,6 +33,18 @@ The company's first multi-market cashflow forecasting system for Finance:
 - **Power BI delivery** so finance teams drill into what's driving the numbers themselves
 - **Power Automate workflows** around the process that alone saved 3,200+ hours a year
 
+## Key decisions
+
+**A Python ETL layer, rather than transforming inside the BI tool.** The
+transformation had to do two things the reporting layer couldn't: scale across
+eight markets, and stay independent of any single system on either side of it.
+Python let me write the reconciliation once and parameterise it per market
+instead of maintaining eight near-identical copies of the same logic in Power
+Query. It also kept the pipeline source- and consumer-agnostic: SAP, BlackLine,
+and Quantum each land in the same standardised shape, and the layer producing
+that shape doesn't care what reads it downstream. Adding a market, or swapping
+what sits at either end, becomes a configuration change rather than a rebuild.
+
 ## Results
 
 - **3,200+ hours saved annually.** Each of the 8 markets used to spend roughly 3 days a cycle manually reconciling SAP extracts and rebuilding the forecast by hand, on top of the rework that came with catching errors late. Automating that away is where most of the savings come from

@@ -17,6 +17,11 @@ layout: default
   <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14">
 
     <div class="min-w-0">
+      {% assign mark = site.data.module_marks[page.module] %}
+      {% if mark %}
+      <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="367"
+           class="mb-8 aspect-[3/1] w-full rounded-xl border border-mist object-cover">
+      {% endif %}
       <header class="border-b border-mist pb-8">
         <p class="eyebrow text-royal">{{ page.topic | default: 'Technical note' }}</p>
         <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>

@@ -1,0 +1,8 @@
+# Maps each project's `title` front-matter value to an abstract project
+# mark (assets/images/module-marks/*.png — same directory as the notes'
+# module marks, shared asset system), rendered atop its card on /work/
+# and on its own project page. Custom, on-brand, no stock photography.
+"Multi-market cashflow forecasting system": "cashflow"
+"Risk register consolidation and intelligence dashboards": "risk-register"
+"Scent Genome Engine": "scent-genome"
+"Reputational risk monitoring platform": "social-media-risk"

@@ -2,6 +2,11 @@
 layout: default
 ---
 <article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+  {% assign mark = site.data.project_marks[page.title] %}
+  {% if mark %}
+  <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="367"
+       class="mb-8 aspect-[3/1] w-full rounded-xl border border-mist object-cover">
+  {% endif %}
   <header>
     <p class="eyebrow text-royal">{{ page.category }} · {{ page.org }}</p>
     <h1 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">{{ page.title }}</h1>

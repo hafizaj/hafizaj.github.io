@@ -172,9 +172,19 @@ settling before any of it becomes a URL slug or a public module reference.
   asserting the result, and ends with the failure modes.
 - **Cadence over coverage.** One good note a month beats thirteen modules of
   lecture summaries, and is the only cadence that survives a full-time job.
-- **Candidate queue**, ordered by seniority signal: causal inference
-  (rare, pairs with the Financial Analytics work), network analytics,
-  regularisation, kernel methods, bootstrap and resampling.
+- **Candidate queue**, ordered by seniority signal — struck through as
+  published:
+  - ~~Advanced Machine Learning — regularisation (ridge shrinkage)~~ published
+  - ~~Causal Modelling — confounding / Simpson's paradox~~ published
+  - ~~Optimisation & Decision Models — LP shadow prices~~ published
+  - ~~Financial Analytics — portfolio correlation~~ published
+  - ~~Deep Learning & Neural Networks — vanishing gradients~~ published
+  - Network Analytics — centrality measures disagreeing on the same graph
+  - Logistics & Supply Chain Analytics — the √n law of pooled safety stock
+  - Data Management & Ethics — the privacy/utility tradeoff in differential privacy
+  - Healthcare & Medical Analytics — survival analysis / censored data
+  - Machine Learning (general) — bias-variance tradeoff, deliberately not
+    duplicating the ridge note's regularisation angle
 
 ## v1 scope, and what is deliberately out
 

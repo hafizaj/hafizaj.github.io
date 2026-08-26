@@ -179,7 +179,7 @@ settling before any of it becomes a URL slug or a public module reference.
   - ~~Optimisation & Decision Models — LP shadow prices~~ published
   - ~~Financial Analytics — portfolio correlation~~ published
   - ~~Deep Learning & Neural Networks — vanishing gradients~~ published
-  - Network Analytics — centrality measures disagreeing on the same graph
+  - ~~Network Analytics — centrality measures disagreeing on the same graph~~ published
   - Logistics & Supply Chain Analytics — the √n law of pooled safety stock
   - Data Management & Ethics — the privacy/utility tradeoff in differential privacy
   - Healthcare & Medical Analytics — survival analysis / censored data

@@ -236,6 +236,31 @@
     color: var(--color-muted);
     font-style: italic;
   }
+
+  /* Editorial notes — magazine long-read cues, same three brand fonts */
+  .note-editorial > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--color-royal);
+    float: left;
+    font-size: 3.6rem;
+    line-height: 0.85;
+    padding-right: 0.35rem;
+    padding-top: 0.15rem;
+  }
+  .note-editorial blockquote {
+    border-left: none;
+    border-top: 3px solid var(--color-indigo);
+    border-bottom: 3px solid var(--color-indigo);
+    padding: 1.1rem 0;
+    margin: 2rem 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.35rem;
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
   .note-prose table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
   .note-prose th, .note-prose td { border-bottom: 1px solid var(--color-mist); padding: 0.5rem 0.7rem; text-align: left; }
   .note-prose th { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted); font-weight: 500; }

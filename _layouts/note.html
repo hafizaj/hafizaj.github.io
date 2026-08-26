@@ -30,16 +30,21 @@ layout: default
         <p class="mt-4 max-w-2xl text-lg leading-8 text-muted">{{ page.summary }}</p>
         {% endif %}
         <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted">
+          {% if page.style == 'editorial' %}<span class="uppercase tracking-widest">By Hafizuddin Jaafar</span>{% endif %}
           {% if page.date %}<span>{{ page.date | date: "%d %b %Y" }}</span>{% endif %}
           {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
-          {% if page.module %}<span>Studied in {{ page.module }}, Imperial College London</span>{% endif %}
+          {% if page.module %}
+          <span>
+            {% if page.provenance == 'professional' %}From my AB-100 study, Microsoft AI Business Solutions{% else %}Studied in {{ page.module }}, Imperial College London{% endif %}
+          </span>
+          {% endif %}
         </div>
         {% if page.prerequisites %}
         <p class="mt-4 text-sm leading-6 text-muted"><span class="font-mono text-xs uppercase tracking-widest text-royal">Assumes</span><br>{{ page.prerequisites }}</p>
         {% endif %}
       </header>
 
-      <div class="note-prose mt-9" data-note-body>
+      <div class="note-prose mt-9{% if page.style == 'editorial' %} note-editorial{% endif %}" data-note-body>
         {{ content }}
       </div>
 
@@ -53,8 +58,13 @@ layout: default
       {% endif %}
 
       <footer class="mt-10 rounded-xl border border-mist bg-white p-5 text-sm leading-7 text-muted">
+        {% if page.provenance == 'professional' %}
+        Written from my own understanding while working through Microsoft's AB-100 curriculum and my role in AI Business Solutions.
+        Any errors are mine. No proprietary Microsoft material is reproduced here.
+        {% else %}
         Written from my own understanding while studying {{ page.module | default: 'at Imperial College London' }}.
         Any errors are mine. No course material, problem sets, or model solutions are reproduced here.
+        {% endif %}
         <a href="#" data-mail="{{ site.email_b64 }}" class="font-semibold text-royal hover:text-midnight">Tell me if something is wrong &rarr;</a>
       </footer>
 

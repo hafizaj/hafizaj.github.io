@@ -3,6 +3,7 @@
 # Each mark is a custom, on-brand geometric icon — no stock photography,
 # no text baked in — generated to match docs/brand-guidelines.md.
 "Advanced Machine Learning": "aml"
+"Azure AI Architecture": "azure"
 "Causal Modelling": "causal-modelling"
 "Data Management & Ethics": "data-ethics"
 "Data Wrangling and Visualisation": "data-viz"

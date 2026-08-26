@@ -183,8 +183,8 @@ settling before any of it becomes a URL slug or a public module reference.
   - ~~Logistics & Supply Chain Analytics — the √n law of pooled safety stock~~ published
   - ~~Data Management & Ethics — the privacy/utility tradeoff in differential privacy~~ published
   - ~~Healthcare & Medical Analytics — survival analysis / censored data~~ published
-  - Machine Learning (general) — bias-variance tradeoff, deliberately not
-    duplicating the ridge note's regularisation angle
+  - ~~Machine Learning (general) — bias-variance tradeoff, deliberately not
+    duplicating the ridge note's regularisation angle~~ published
   - ~~Retail Analytics — price elasticity / market basket lift~~ published,
     plus a third Retail note bringing in a modern technique (uplift /
     incrementality modelling) per the user's request to "augment with
@@ -192,8 +192,13 @@ settling before any of it becomes a URL slug or a public module reference.
   - ~~Energy Analytics — merit order dispatch / the "duck curve"~~ published,
     plus two more Energy Analytics notes given full-module treatment:
     storage arbitrage economics, and capacity factor / LCOE scaling
-  - Data Wrangling and Visualization — a visual-perception principle
-    (e.g. why truncated/non-zero axes distort trend judgement)
+  - ~~Data Wrangling and Visualization — a visual-perception principle
+    (e.g. why truncated/non-zero axes distort trend judgement)~~ published
+    as "Data Wrangling and Visualisation" (UK spelling, per the spelling
+    table above)
+
+Queue is now empty — 17 notes across 13 modules. The next note is
+whatever the author next wants to write up, not a queue item.
 
 ## Known landmine: KaTeX auto-render + dollar amounts + Markdown bold
 

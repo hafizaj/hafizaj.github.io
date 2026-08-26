@@ -186,7 +186,9 @@ settling before any of it becomes a URL slug or a public module reference.
   - Machine Learning (general) — bias-variance tradeoff, deliberately not
     duplicating the ridge note's regularisation angle
   - Retail Analytics — price elasticity / market basket lift
-  - Energy Analytics — merit order dispatch / the "duck curve"
+  - ~~Energy Analytics — merit order dispatch / the "duck curve"~~ published,
+    plus two more Energy Analytics notes given full-module treatment:
+    storage arbitrage economics, and capacity factor / LCOE scaling
   - Data Wrangling and Visualization — a visual-perception principle
     (e.g. why truncated/non-zero axes distort trend judgement)
 

@@ -185,12 +185,46 @@ settling before any of it becomes a URL slug or a public module reference.
   - ~~Healthcare & Medical Analytics — survival analysis / censored data~~ published
   - Machine Learning (general) — bias-variance tradeoff, deliberately not
     duplicating the ridge note's regularisation angle
-  - Retail Analytics — price elasticity / market basket lift
+  - ~~Retail Analytics — price elasticity / market basket lift~~ published,
+    plus a third Retail note bringing in a modern technique (uplift /
+    incrementality modelling) per the user's request to "augment with
+    novel techniques... but do not overcomplicate"
   - ~~Energy Analytics — merit order dispatch / the "duck curve"~~ published,
     plus two more Energy Analytics notes given full-module treatment:
     storage arbitrage economics, and capacity factor / LCOE scaling
   - Data Wrangling and Visualization — a visual-perception principle
     (e.g. why truncated/non-zero axes distort trend judgement)
+
+## Known landmine: KaTeX auto-render + dollar amounts + Markdown bold
+
+`renderMathInElement` scans each DOM **text node** independently for
+`$...$` pairs — it does not see across element boundaries (e.g. a
+`<strong>` tag splits one sentence into three separate text nodes). Two
+distinct failure modes were found and fixed in the Retail Analytics batch:
+
+1. **kramdown GFM table false-positive.** A prose paragraph with 4+ bare
+   `|` characters (e.g. absolute-value notation written as `|ε|` twice in
+   one paragraph) can be misparsed as a single-row Markdown table. Fix:
+   never write bare `|x|` notation in prose outside a widget's raw-HTML
+   region — use `\lvert x \rvert` inside `$...$` instead.
+2. **Cross-node dollar-sign mispairing.** A bare, unbolded `$10` sitting in
+   the *same* text node as a legitimate `$\lvert\varepsilon\rvert=5$` math
+   span produces an odd count of `$` in that node, causing auto-render to
+   pair the wrong ones and swallow the intervening prose as garbled
+   "math" (KaTeX happily typesets plain English words as concatenated
+   italic single-letter variables — no error is thrown, so this fails
+   silently, not loudly).
+   **The fix, and the rule for every future note:** always wrap a bare
+   currency figure in Markdown bold, e.g. `**$10**` not `$10` — this
+   isolates it inside its own `<strong>` text node so it can never
+   contaminate an adjacent inline-math span's dollar count. Every
+   shipped note follows this convention already; keep following it.
+
+Verification method that caught both: render the built HTML, count
+`<table>` tags against the intended count, and grep the rendered output
+for the target math expression rather than trusting a screenshot alone —
+the screenshot for the second bug still looked "mostly fine" at a glance
+and needed the actual rendered-text diff to diagnose precisely.
 
 ## v1 scope, and what is deliberately out
 

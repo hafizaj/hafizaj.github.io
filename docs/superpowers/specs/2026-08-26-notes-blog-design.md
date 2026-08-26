@@ -244,3 +244,29 @@ real need appears, not before.
 3. Reconcile the About page's module list with reality.
 4. Widen the widget library only as notes demand it; resist building a
    framework before there are three real cases.
+
+## Visual mark system (added 26 Aug 2026)
+
+Each note's `module` front-matter value and each project's `title` map to a
+custom abstract mark — flat, solid-color line/shape art generated in Canva,
+strictly in the site's own palette (no gradients, shadows, 3D, text, or
+stock photography — this was chosen over raw stock imagery specifically to
+hold the brand guideline's "no raster imagery except the portrait" rule in
+spirit while still making the page feel less flat).
+
+- `_data/module_marks.yml` — `module` string → mark slug (11 marks, one per
+  Imperial module used across the notes).
+- `_data/project_marks.yml` — `project.title` string → mark slug (4 marks,
+  one per live `/work/` project).
+- Assets live together in `assets/images/module-marks/*.png` (1100×1100
+  source, cropped by CSS `aspect-ratio` per placement — 2:1 on index/card
+  thumbnails, 3:1 on individual page header banners).
+- Rendered on four surfaces: the notes index cards, individual note page
+  headers (`_layouts/note.html`), the `/work/` project cards
+  (`_includes/project-card.html`), and individual project page headers
+  (`_layouts/project.html`) — all via the same `{% assign mark =
+  site.data.X[key] %}{% if mark %}<img ...>{% endif %}` pattern, so a
+  missing lookup entry just omits the image rather than breaking the page.
+- Lookup tables avoid touching per-note/per-project front matter — new
+  content only needs an entry added to the relevant data file, and a new
+  mark generated to match, to pick up the treatment.

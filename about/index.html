@@ -26,7 +26,7 @@ description: "Hafizuddin Jaafar, AI and cloud solution architect. Four years bui
           <strong class="font-semibold text-ink">MSc in Business Analytics at Imperial College London</strong>.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="mailto:{{ site.email }}" class="rounded-lg bg-royal px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">Email me</a>
+          <a href="#" data-mail="{{ site.email_b64 }}" class="rounded-lg bg-royal px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">Email me</a>
           <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-lg border-2 border-mist px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-royal hover:text-royal">
             <iconify-icon icon="simple-icons:linkedin" width="16" aria-hidden="true"></iconify-icon>LinkedIn
           </a>
@@ -179,11 +179,7 @@ description: "Hafizuddin Jaafar, AI and cloud solution architect. Four years bui
         <ul class="mt-4 space-y-3 text-sm text-muted">
           <li class="flex items-start gap-2">
             <iconify-icon icon="ph:envelope-simple" width="18" class="mt-1 shrink-0 text-royal" aria-hidden="true"></iconify-icon>
-            <a href="mailto:{{ site.email }}" class="break-all text-royal hover:text-midnight">{{ site.email }}</a>
-          </li>
-          <li class="flex items-start gap-2">
-            <iconify-icon icon="ph:phone" width="18" class="mt-1 shrink-0 text-royal" aria-hidden="true"></iconify-icon>
-            <span>+44 7466 828079</span>
+            <a href="#" data-mail="{{ site.email_b64 }}" data-mail-text class="break-all text-royal hover:text-midnight">···</a>
           </li>
           <li class="flex items-start gap-2">
             <iconify-icon icon="simple-icons:linkedin" width="18" class="mt-1 shrink-0 text-royal" aria-hidden="true"></iconify-icon>

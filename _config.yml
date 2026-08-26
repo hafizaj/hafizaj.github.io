@@ -5,6 +5,12 @@
 title: "Hafizuddin Jaafar"
 tagline: "AI & Cloud Solution Architect"
 email: "hafizuddinbinjaafar@gmail.com"
+# Base64 of `email` above, kept in sync manually. Every mailto: link and
+# visible address in the templates reads this instead of `email` directly,
+# so the plain address never sits in rendered page source for scrapers to
+# regex-match — assets/js/main.js decodes it into a real mailto: link and
+# (where the template opts in) visible text once the page loads.
+email_b64: "aGFmaXp1ZGRpbmJpbmphYWZhckBnbWFpbC5jb20="
 description: >
   Personal site of Hafizuddin Jaafar, an AI and cloud solution architect
   who also plays a lot of poker and chess.

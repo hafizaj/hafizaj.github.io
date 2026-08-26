@@ -14,7 +14,7 @@
       <a href="{{ item.url }}" class="text-sm font-medium text-muted transition-colors hover:text-royal">{{ item.label }}</a>
       {% endif %}
       {% endfor %}
-      <a href="mailto:{{ site.email }}" class="rounded bg-royal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-midnight">Email me</a>
+      <a href="#" data-mail="{{ site.email_b64 }}" class="rounded bg-royal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-midnight">Email me</a>
     </div>
 
     <button type="button" class="flex items-center rounded border border-mist p-2 text-ink md:hidden" data-mobile-nav-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
       <a href="{{ item.url }}" class="rounded px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-mist/50 hover:text-royal">{{ item.label }}</a>
       {% endif %}
       {% endfor %}
-      <a href="mailto:{{ site.email }}" class="mt-2 rounded bg-royal px-3 py-2 text-center text-sm font-semibold text-white">Email me</a>
+      <a href="#" data-mail="{{ site.email_b64 }}" class="mt-2 rounded bg-royal px-3 py-2 text-center text-sm font-semibold text-white">Email me</a>
     </div>
   </div>
 </header>

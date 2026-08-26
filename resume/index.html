@@ -103,8 +103,7 @@ title: "Hafizuddin Jaafar — Resume"
     <h1 class="display">{{ site.title }}</h1>
     <p class="title">{{ site.tagline }}</p>
     <div class="contact">
-      <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-      <span>+44 7466 828079</span>
+      <a href="#" data-mail="{{ site.email_b64 }}" data-mail-text>···</a>
       <a href="https://linkedin.com/in/{{ site.social.linkedin }}">linkedin.com/in/{{ site.social.linkedin }}</a>
       <span>London, UK</span>
     </div>
@@ -192,5 +191,15 @@ title: "Hafizuddin Jaafar — Resume"
 
 </div>
 </div>
+<script>
+  // Runs synchronously (no defer) so the address is in place before a
+  // print-to-pdf snapshot is taken, not just for on-screen visitors.
+  document.querySelectorAll('[data-mail]').forEach(function (el) {
+    var email = atob(el.getAttribute('data-mail'));
+    if (el.tagName === 'A') el.href = 'mailto:' + email;
+    if (el.hasAttribute('data-mail-text')) el.textContent = email;
+    el.removeAttribute('data-mail');
+  });
+</script>
 </body>
 </html>

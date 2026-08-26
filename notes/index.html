@@ -26,18 +26,24 @@ description: "Technical notes by Hafizuddin Jaafar on machine learning, causal i
     {% if notes.size > 0 %}
       <div class="grid gap-6 md:grid-cols-2">
         {% for note in notes %}
-        <a href="{{ note.url }}" class="group flex h-full flex-col rounded-xl border border-mist bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
-          <div class="flex items-baseline justify-between gap-3">
-            <span class="eyebrow text-royal">{{ note.topic }}</span>
-            <span class="font-mono text-xs text-muted">{{ note.date | date: "%b %Y" }}</span>
+        {% assign mark = site.data.module_marks[note.module] %}
+        <a href="{{ note.url }}" class="group flex h-full flex-col overflow-hidden rounded-xl border border-mist bg-white transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+          {% if mark %}
+          <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="550" loading="lazy" class="aspect-[2/1] w-full border-b border-mist object-cover transition-transform duration-300 group-hover:scale-105">
+          {% endif %}
+          <div class="flex h-full flex-col p-7">
+            <div class="flex items-baseline justify-between gap-3">
+              <span class="eyebrow text-royal">{{ note.topic }}</span>
+              <span class="font-mono text-xs text-muted">{{ note.date | date: "%b %Y" }}</span>
+            </div>
+            <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
+            <h2 class="mt-4 font-display text-xl font-bold leading-snug">{{ note.title }}</h2>
+            <p class="mt-2 text-sm leading-7 text-muted">{{ note.summary }}</p>
+            <p class="mt-auto pt-5 font-mono text-xs text-muted">
+              {% if note.reading_time %}{{ note.reading_time }} min{% endif %}
+              {% if note.module %} · {{ note.module }}{% endif %}
+            </p>
           </div>
-          <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
-          <h2 class="mt-4 font-display text-xl font-bold leading-snug">{{ note.title }}</h2>
-          <p class="mt-2 text-sm leading-7 text-muted">{{ note.summary }}</p>
-          <p class="mt-auto pt-5 font-mono text-xs text-muted">
-            {% if note.reading_time %}{{ note.reading_time }} min{% endif %}
-            {% if note.module %} · {{ note.module }}{% endif %}
-          </p>
         </a>
         {% endfor %}
       </div>

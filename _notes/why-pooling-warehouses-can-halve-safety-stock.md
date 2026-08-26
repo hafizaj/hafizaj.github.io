@@ -1,5 +1,5 @@
 ---
-title: "Why pooling four warehouses can cut your safety stock in half — or not at all"
+title: "Pooling warehouses can halve your safety stock — if demand actually cooperates"
 topic: "Inventory pooling"
 module: "Logistics & Supply Chain Analytics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Silver, E. A., Pyke, D. F. & Peterson, R., <em>Inventory Management and Production Planning and Scheduling</em> — the standard textbook treatment of pooling."
 ---
 
-Every operations course teaches some version of the square root law: consolidate $n$ regional stocking points into one, and the safety stock you need falls by a factor of $\sqrt{n}$. It is one of the cleanest results in supply chain theory, and it is also one of the most commonly overstated, because the entire result hinges on one assumption that real demand quietly violates.
+Four regional warehouses, sized independently, need 660 units of safety stock between them to hit a 95% service level. Consolidate into one central warehouse serving the same total demand, and the square-root law — one of the cleanest results in supply chain theory — says that number should fall to 330: exactly half. It will, but only under an assumption real demand almost never fully satisfies: that what happens in one region has nothing to do with what happens in the next.
 
 ## The setup
 
@@ -24,17 +24,17 @@ Consolidate into one central location serving the same total demand. **If** each
 $$\text{Pooled safety stock} = z\sigma\sqrt{n}$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">√n only holds under independence</span>
 The ratio of pooled to decoupled safety stock is $\sigma\sqrt{n} / n\sigma = 1/\sqrt{n}$ — <strong>but only under independence</strong>. That single word is doing all the work in "the square root law." Nothing about pooling itself guarantees it.
 </div>
 
-## A deliberately awkward example
+## The 660-versus-330 case, worked through
 
 Four regional warehouses, each with weekly demand $\sigma = 100$ units and a 95% service target ($z=1.65$):
 
 $$\text{Decoupled: } 4 \times 1.65 \times 100 = 660 \text{ units} \qquad \text{Pooled: } 1.65 \times 100\sqrt{4} = 330 \text{ units}$$
 
-Exactly half. That is the textbook result, and it is real — under independence.
+Exactly the 660-to-330 halving promised above, and it's a real result — but only for the demand pattern this derivation assumed.
 
 <details class="reveal">
   <summary>What happens when demand is correlated<span class="reveal-tag">4 lines</span></summary>
@@ -63,10 +63,12 @@ At $\rho=0$ this collapses to $n\sigma^2$, recovering $\sigma\sqrt{n}$. At $\rho
   <p class="widget-noscript">This figure needs JavaScript. The boxed algebra above carries the same argument.</p>
 </div>
 
-## What this means in practice
+## Pricing the consolidation business case
+
+Real regional demand is rarely independent, and that gap between the textbook assumption and the historical data is exactly what a consolidation business case needs to price in before anyone signs off on it.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">Consultants love √n; real demand doesn't</span>
 Real regional demand is rarely independent. A national promotion, a shared macroeconomic cycle, or a common upstream supplier disruption pushes every region's demand up or down together — exactly the correlation that erodes the pooling benefit. Consultants and textbooks quote the √n figure as if it were guaranteed; the honest version of the pitch estimates the actual pairwise correlation in the historical demand data first, because a business case built on √n when the real ρ is 0.5 or higher will overstate the savings substantially.
 </div>
 

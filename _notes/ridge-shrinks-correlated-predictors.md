@@ -1,5 +1,5 @@
 ---
-title: "Why ridge regression shrinks correlated predictors together"
+title: "Ridge shrinks the directions your data trusts least"
 topic: "Regularisation"
 module: "Advanced Machine Learning"
 date: 2026-08-26
@@ -11,9 +11,7 @@ sources:
   - "James et al., <em>An Introduction to Statistical Learning</em>, §6.2 — the gentler treatment."
 ---
 
-Textbook descriptions of ridge regression usually stop at "it shrinks the coefficients toward zero." That is true, and it is not the interesting part. **Ridge does not shrink uniformly.** It shrinks some directions in predictor space almost not at all, and others into near-oblivion, and which is which is decided entirely by your design matrix rather than by you.
-
-Once you see that, a behaviour that looks mysterious becomes obvious: two strongly correlated predictors do not just shrink, they converge. Their individual coefficients get dragged toward each other on the way down.
+Fit ridge regression to two predictors correlated at 0.9, and something odd happens well before the penalty gets large: their coefficients don't drift toward zero independently, they collide, converging toward each other while both are still nowhere near zero. The textbook line — "ridge shrinks coefficients toward zero" — is true and almost beside the point. **Ridge does not shrink uniformly.** It shrinks some directions in predictor space almost not at all, and others into near-oblivion, and which is which is decided entirely by your design matrix rather than by you.
 
 ## The setup
 
@@ -26,11 +24,11 @@ which has the closed form
 $$\hat\beta(\lambda) = (X^\top X + \lambda I)^{-1} X^\top y.$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Why "toward zero" is the wrong mental model</span>
 Adding $\lambda I$ does not nudge every coefficient equally. It adds a constant $\lambda$ to **every eigenvalue** of $X^\top X$ — and a constant is enormous relative to a small eigenvalue and negligible relative to a large one.
 </div>
 
-## A deliberately awkward example
+## A 2×2 collinear system
 
 Take two standardised predictors with correlation $0.9$, so that
 
@@ -95,11 +93,11 @@ The shrinkage factor is the whole story. For our two directions:
 At $\lambda = 10$ — a penalty small enough to barely touch the sum — the difference has already been halved. That is the convergence you can see in the figure. Ridge is not pulling the coefficients toward each other because it "likes" similar coefficients. It is destroying the one direction the data never determined in the first place, and what survives is their common component.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The scale-invariance trap</span>
 Because the shrinkage factor depends on $d_j$, **ridge is not scale invariant**. Change the units of one predictor and you change its eigenvalues, and therefore change which directions get destroyed. Standardise your predictors before fitting, or you are letting your choice of units pick the penalty. This is also why the intercept is conventionally left unpenalised — shrinking it would make the fit depend on where you put the origin of $y$.
 </div>
 
-## What this means in practice
+## Reading ridge coefficients under collinearity
 
 The practical reading is that **ridge coefficients are not individually interpretable under collinearity, but their aggregate is.** If two predictors are strongly correlated, ridge will hand you two similar middling coefficients rather than one large and one negative. Neither answer is more "true" than the other; OLS picked an arbitrary point along a direction the data could not resolve, and ridge picked a different, more stable one.
 

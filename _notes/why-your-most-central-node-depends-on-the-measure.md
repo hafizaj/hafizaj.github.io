@@ -1,5 +1,5 @@
 ---
-title: "Why your most 'central' node depends entirely on which centrality you pick"
+title: "Betweenness and degree can crown different nodes on the same graph"
 topic: "Centrality"
 module: "Network Analytics"
 date: 2026-08-26
@@ -22,11 +22,11 @@ $$C_B(v) = \sum_{s \ne v \ne t} \frac{\sigma_{st}(v)}{\sigma_{st}}$$
 where $\sigma_{st}$ is the number of shortest paths between $s$ and $t$, and $\sigma_{st}(v)$ is how many of those pass through $v$.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Local popularity vs. global position</span>
 Degree only looks at a node's immediate neighbourhood. Betweenness looks at the node's position in the <strong>whole network's</strong> shortest-path structure. A node can be locally unremarkable — a handful of connections — while being globally load-bearing: the only route between two otherwise separate regions of the graph.
 </div>
 
-## A deliberately awkward graph
+## Two triangles and a bridge
 
 Two triangles, $\{A,B,C\}$ and $\{E,F,G\}$, joined by a single bridge node $D$:
 
@@ -65,12 +65,12 @@ C is intermediate on eight of those same paths (every cross-cluster path that st
   </div>
 </details>
 
-## What this means in practice
+## Picking a measure for the actual question
 
 D is exactly the profile a bridge or intermediary node has in a real network: a fraud ring's connective account between two otherwise-unrelated clusters of suspicious activity, or the one server whose failure splits a system in two. Degree centrality — the measure that's a single pass over the data and the first thing most people compute — would rank it as unremarkable. Betweenness is what finds it.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">Betweenness isn't cheap</span>
 Betweenness is not free. Computing it exactly needs shortest paths between every pair of nodes — Brandes' algorithm, the standard exact method, runs in $O(VE)$ for an unweighted graph, against $O(V)$ for degree. On a graph with millions of nodes, exact betweenness is often impractical, and production systems reach for approximations or cheaper proxies instead. There is no single "right" centrality measure — the right one depends entirely on what "central" is supposed to mean for the question you're actually asking.
 </div>
 

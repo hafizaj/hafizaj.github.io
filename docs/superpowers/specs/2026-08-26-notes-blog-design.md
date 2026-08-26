@@ -180,11 +180,15 @@ settling before any of it becomes a URL slug or a public module reference.
   - ~~Financial Analytics — portfolio correlation~~ published
   - ~~Deep Learning & Neural Networks — vanishing gradients~~ published
   - ~~Network Analytics — centrality measures disagreeing on the same graph~~ published
-  - Logistics & Supply Chain Analytics — the √n law of pooled safety stock
-  - Data Management & Ethics — the privacy/utility tradeoff in differential privacy
-  - Healthcare & Medical Analytics — survival analysis / censored data
+  - ~~Logistics & Supply Chain Analytics — the √n law of pooled safety stock~~ published
+  - ~~Data Management & Ethics — the privacy/utility tradeoff in differential privacy~~ published
+  - ~~Healthcare & Medical Analytics — survival analysis / censored data~~ published
   - Machine Learning (general) — bias-variance tradeoff, deliberately not
     duplicating the ridge note's regularisation angle
+  - Retail Analytics — price elasticity / market basket lift
+  - Energy Analytics — merit order dispatch / the "duck curve"
+  - Data Wrangling and Visualization — a visual-perception principle
+    (e.g. why truncated/non-zero axes distort trend judgement)
 
 ## v1 scope, and what is deliberately out
 

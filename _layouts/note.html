@@ -34,9 +34,13 @@ layout: default
           {% if page.date %}<span>{{ page.date | date: "%d %b %Y" }}</span>{% endif %}
           {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
           {% if page.module %}
-          <span>
-            {% if page.provenance == 'professional' %}From my AB-100 study, Microsoft AI Business Solutions{% else %}Studied in {{ page.module }}, Imperial College London{% endif %}
-          </span>
+          {% assign module_hub = site.data.note_hubs[page.module] %}
+          {% capture module_context %}{% if page.provenance == 'professional' %}From my AB-100 study, Microsoft AI Business Solutions{% else %}Studied in {{ page.module }}, Imperial College London{% endif %}{% endcapture %}
+          {% if module_hub %}
+          <a href="{{ module_hub.url }}" class="text-royal hover:text-midnight">{{ module_context | strip }}</a>
+          {% else %}
+          <span>{{ module_context | strip }}</span>
+          {% endif %}
           {% endif %}
         </div>
         {% if page.prerequisites %}

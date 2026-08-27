@@ -1,0 +1,14 @@
+# Modules with enough notes (3+) to justify their own hub page instead of
+# showing every note as a separate card on /notes/. A module not listed
+# here just shows its note(s) directly on the index. Keep `url` in sync
+# with the actual page at notes/<slug>/index.html — adding an entry here
+# without also creating that page will 404.
+"Energy Analytics":
+  url: "/notes/energy-analytics/"
+  teaser: "Price formation, capacity, and storage economics in real electricity markets."
+"Retail Analytics":
+  url: "/notes/retail-analytics/"
+  teaser: "Pricing, basket analysis, and targeting — where retail intuition and the numbers disagree."
+"Azure AI Architecture":
+  url: "/notes/azure-ai-architecture/"
+  teaser: "Field notes from my Microsoft role: Foundry, agent design, and Copilot Studio orchestration."

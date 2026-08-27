@@ -1,0 +1,22 @@
+{% comment %}
+  Card for a module with its own hub page (3+ notes) — stands in for
+  every individual note in that module on the index grid. Pass
+  include.module (module name string), include.hub (the note_hubs.yml
+  entry), include.count (number of notes in the module).
+{% endcomment %}
+{% assign mark = site.data.module_marks[include.module] %}
+<a href="{{ include.hub.url }}" class="group flex h-full flex-col overflow-hidden rounded-xl border border-mist bg-white transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+  {% if mark %}
+  <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="550" loading="lazy" class="aspect-[2/1] w-full border-b border-mist object-cover transition-transform duration-300 group-hover:scale-105">
+  {% endif %}
+  <div class="flex h-full flex-col p-7">
+    <div class="flex items-baseline justify-between gap-3">
+      <span class="eyebrow text-indigo">Module</span>
+      <span class="font-mono text-xs text-muted">{{ include.count }} notes</span>
+    </div>
+    <span class="mt-2 block h-0.5 w-10 bg-indigo" aria-hidden="true"></span>
+    <h2 class="mt-4 font-display text-xl font-bold leading-snug">{{ include.module }}</h2>
+    <p class="mt-2 text-sm leading-7 text-muted">{{ include.hub.teaser }}</p>
+    <p class="mt-auto pt-5 font-mono text-xs text-royal">See all {{ include.count }} notes &rarr;</p>
+  </div>
+</a>

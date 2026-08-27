@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <p class="text-sm font-semibold text-muted"><a href="/notes/" class="text-royal hover:text-midnight">Notes</a> / {{ page.title }}</p>
+    <div class="mt-6 grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+      <div>
+        <span class="label-pill bg-royal/10 text-royal">Module</span>
+        <h1 class="mt-6 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">{{ page.title }}</h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-muted">{{ page.description }}</p>
+      </div>
+      {% assign mark = site.data.module_marks[page.title] %}
+      {% if mark %}
+      <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="550"
+           class="aspect-[2/1] w-full rounded-xl border border-mist object-cover lg:justify-self-end">
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    {% assign notes = site.notes | where_exp: "n", "n.draft != true" | where: "module", page.title | sort: 'date' | reverse %}
+    <div class="grid gap-6 md:grid-cols-2">
+      {% for note in notes %}
+        {% include note-card.html note=note %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<p class="mx-auto max-w-6xl px-6 pb-16"><a href="/notes/" class="text-sm font-semibold text-royal transition-colors hover:text-midnight">&larr; All notes</a></p>

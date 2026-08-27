@@ -275,3 +275,61 @@ spirit while still making the page feel less flat).
 - Lookup tables avoid touching per-note/per-project front matter — new
   content only needs an entry added to the relevant data file, and a new
   mark generated to match, to pick up the treatment.
+
+## Professional/editorial note track (added 26 Aug 2026)
+
+Notes no longer come only from Imperial coursework. A second source now
+exists: field notes from the author's day-to-day Microsoft role (Cloud
+Solution Architect, AI Business Solutions) and its AB-100 study curriculum.
+Two front-matter fields distinguish the track without a second layout:
+
+- `provenance: professional` — swaps the note footer's attribution line
+  ("Written from my own understanding while working through Microsoft's
+  AB-100 curriculum and my role in AI Business Solutions... No proprietary
+  Microsoft material is reproduced here") and the header's context line
+  ("From my AB-100 study, Microsoft AI Business Solutions" instead of
+  "Studied in {module}, Imperial College London").
+- `style: editorial` — adds a byline ("By Hafizuddin Jaafar") and an
+  `note-editorial` class on the prose body for a first-person, field-note
+  register distinct from the derivation-led Imperial notes (pull quotes,
+  info-card groupings instead of always leaning on the widget/reveal
+  pattern).
+
+First three: "Microsoft Foundry is one platform pretending to be three
+products," "Before you build an agent, decide whether you should," and
+"Copilot Studio didn't need a new protocol until agents had to talk to
+each other" — module `"Azure AI Architecture"`, mark slug `azure`. Sourced
+from real, cited Microsoft documentation (Copilot Studio docs, Microsoft
+Cloud Blog), not invented — this is the professional counterpart to the
+"never fabricate project internals" rule that governs the About/work
+pages: field notes describe how the platform works and where design
+sessions actually go sideways, not invented personal outcomes.
+
+The notes-index intro copy ("Much of this comes out of my MSc...") was
+updated to credit both sources once this track existed — a page that
+frames itself as exclusively MSc-sourced while 3 of 20 notes come from
+somewhere else is the same kind of staleness as the About/homepage hero
+copy not mentioning the Microsoft role.
+
+## De-templatized note voice (added 27 Aug 2026)
+
+All 17 Imperial notes originally shared identical scaffolding: 16/17
+titles started with "Why", every note had a callout box literally
+labeled "The one thing to hold on to" and another "Where this bites",
+11/17 used the section heading "A deliberately awkward [noun]" verbatim,
+and most opened with the same "X is usually taught/explained as Y — but
+that's incomplete" contrarian hook. Individually each note read fine;
+back-to-back the template became louder than the content, and the user
+flagged notes as "sounding too similar."
+
+Fix was purely editorial — titles, opening hooks, section headings, and
+callout labels rewritten per-note to be specific to that note's actual
+content and to vary in rhetorical style (surprising-fact-first,
+question-first, number-first, scenario-first), while every derivation,
+verified number, and widget was left untouched. Piloted on 3 notes across
+3 modules first (ridge/AML, centrality/Network Analytics, warehouse
+pooling/Logistics) and confirmed with the user before the remaining 14
+were done the same way. `## The setup` as the first section heading was
+deliberately kept consistent across notes — it's neutral wayfinding text,
+not a voice tic, and some structural consistency helps a reader navigate
+a blog with many entries.

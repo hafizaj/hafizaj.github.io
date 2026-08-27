@@ -42,7 +42,7 @@ Entra ID identity, role-based access control, private networking, and content-sa
 
 The old three-services version of this had a specific failure mode: a team would prototype fast in one tool, hit a wall on governance, and have to re-platform onto something else to ship. Every re-platform is a project delay you have to explain to a sponsor who already signed off on a timeline.
 
-A single platform doesn't eliminate that risk, but it changes where the wall is. If the model catalog, the agent runtime, and the security boundary are the same product, "prototype fast" and "ship compliant" stop being two different journeys with a rewrite in between. That's the actual argument for Foundry over a pile of point solutions — not that any one component is best-in-class, but that the seams between components used to be where projects died.
+A single platform doesn't eliminate that risk, but it changes where the wall is. If the model catalog, the agent runtime, and the security boundary are the same product, "prototype fast" and "ship compliant" stop being two different journeys with a rewrite in between. That's the actual argument for Foundry over a pile of point solutions — not that any one component beats its rivals in isolation, but that the seams between components used to be where projects died.
 
 ## The honest caveat
 

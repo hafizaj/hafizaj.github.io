@@ -1,5 +1,5 @@
 ---
-title: "Why nameplate capacity overstates what a power plant actually delivers"
+title: "A 100 MW plant rarely delivers 100 MW"
 topic: "Capacity factor"
 module: "Energy Analytics"
 date: 2026-08-26
@@ -11,18 +11,18 @@ sources:
   - "IRENA, <em>Renewable Power Generation Costs</em> — annual LCOE benchmarking by technology."
 ---
 
-Two power plants, each rated at 100 MW. Announced side by side in a press release, they sound identical. They are not, because "100 MW" describes what a plant can produce at its absolute peak, not what it actually delivers averaged across a year — and the gap between those two numbers is exactly what capacity factor measures.
+Two 100 MW plants — one solar, one gas — sit side by side in a press release and read as identical. Run a full year through each and the gap opens wide: the gas plant delivers 744,600 MWh, the solar plant just 175,200 MWh, a 4.25× difference from the exact same nameplate rating. **Nameplate capacity is a ceiling, not a forecast** — it states the peak output a plant can hit, not what it actually averages across a year, and that gap is exactly what capacity factor measures.
 
 ## The setup
 
 $$\text{Capacity factor} = \frac{\text{energy actually produced}}{\text{nameplate capacity} \times \text{hours in the period}}$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Why capacity factor isn't a quality score</span>
 Capacity factor isn't a measure of how "good" a technology is — it reflects the physical reality of the resource driving it. Solar can only run when the sun is up; a gas plant can run whenever it's dispatched. Comparing two technologies by nameplate MW alone silently assumes they have the same capacity factor, which is almost never true.
 </div>
 
-## A deliberately awkward pair
+## Same nameplate, 4.25× the energy
 
 Two 100 MW plants, one full year (8,760 hours):
 
@@ -61,7 +61,7 @@ $\text{LCOE}(\text{CF}) = \dfrac{\text{FixedCost}}{\text{Capacity} \times \text{
 </details>
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The assumption that decides the LCOE argument</span>
 This is precisely why capacity-factor assumptions are the single most consequential — and most disputed — input in any LCOE comparison. A generation technology's headline cost figure can look dramatically better or worse than a competitor's purely from an optimistic or conservative capacity-factor assumption baked into the model, well before construction cost or financing terms enter the picture at all.
 </div>
 

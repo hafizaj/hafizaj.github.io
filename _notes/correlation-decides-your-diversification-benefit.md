@@ -1,5 +1,5 @@
 ---
-title: "Why correlation, not the number of assets, decides your diversification benefit"
+title: "Does adding more assets actually diversify a portfolio?"
 topic: "Portfolio theory"
 module: "Financial Analytics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Bodie, Z., Kane, A. & Marcus, A., <em>Investments</em> — the standard treatment used across CFA-level courses."
 ---
 
-"Diversification" is usually taught as "hold more things," which is close enough to be dangerous. Two assets are already enough to see the actual mechanism, and it has nothing to do with count.
+Add a second, riskier asset to a portfolio and ask what happens to total risk. Not the return — that's just the weighted average, no surprise there — but the risk. Pair an asset returning 8% with 10% volatility against one returning 14% with 20% volatility, and even when the two move in ways that share nothing in common ($\rho = 0$), the resulting portfolio can end up safer than either asset held alone. "Diversification" is usually taught as "hold more things," which is true often enough to be dangerous. **The real lever is correlation, not count** — two assets are already enough to see the whole mechanism.
 
 ## The setup
 
@@ -20,11 +20,11 @@ For a portfolio with weight $w$ in Asset 1 and $(1-w)$ in Asset 2:
 $$\mu_p = w\mu_1 + (1-w)\mu_2, \qquad \sigma_p^2 = w^2\sigma_1^2 + (1-w)^2\sigma_2^2 + 2w(1-w)\rho\sigma_1\sigma_2$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Return ignores correlation; risk doesn't</span>
 Expected return is <strong>always</strong> the weighted average — it does not know or care what $\rho$ is. Every ounce of the diversification story lives in the variance formula, entirely through the correlation term.
 </div>
 
-## A deliberately awkward pair
+## A higher-return, higher-volatility pair
 
 Asset 1: $\mu_1 = 8\%$, $\sigma_1 = 10\%$. Asset 2: $\mu_2 = 14\%$, $\sigma_2 = 20\%$ — higher return, twice the risk.
 
@@ -66,7 +66,7 @@ which hits **exactly zero** when $w\sigma_1 = (1-w)\sigma_2$, i.e. $w^\* = \dfra
 Even at $\rho = 0$ — the two assets moving completely independently, no hedge relationship at all — the minimum-variance weight is $w^\* = \sigma_2^2/(\sigma_1^2+\sigma_2^2) = 400/500 = 0.8$, giving a portfolio risk of $\sqrt{80\%^2} \approx 8.94\%$. That is **below** Asset 1's own risk of 10%, even though Asset 1 is already the lower-risk asset on its own. Mixing in some of the riskier, merely-uncorrelated Asset 2 reduces total risk below either asset held alone — the part of diversification that actually surprises people the first time they see it.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">Counting assets isn't diversification</span>
 "More assets" is not the mechanism — low or negative correlation is. Twenty stocks in the same sector, all moving together with $\rho \approx 0.8$, buy far less risk reduction than five holdings spread across genuinely uncorrelated asset classes. Counting names in a portfolio tells you nothing about how diversified it actually is.
 </div>
 

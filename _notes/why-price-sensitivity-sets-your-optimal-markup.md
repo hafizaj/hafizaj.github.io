@@ -1,5 +1,5 @@
 ---
-title: "Why price sensitivity alone sets your optimal markup"
+title: "Price sensitivity alone sets your optimal markup"
 topic: "Pricing"
 module: "Retail Analytics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Phillips, R., <em>Pricing and Revenue Optimization</em> — the modern retail/revenue-management treatment."
 ---
 
-Retailers set very different margins across categories — thin on staples, wide on discretionary goods — and it isn't guesswork. A single number, price elasticity, pins down the profit-maximizing markup exactly, with a formula simple enough to compute on the spot.
+Look across a retailer's own categories and the markups don't follow any single percentage — thin on staples, wide on discretionary goods — yet none of it is guesswork. A single number, price elasticity, pins the profit-maximizing markup down exactly, and the formula is simple enough to compute on the spot. **Optimal margin is nothing more than the reciprocal of elasticity magnitude.**
 
 ## The setup
 
@@ -20,7 +20,7 @@ Price elasticity $\varepsilon = \dfrac{\%\Delta Q}{\%\Delta P}$ measures how sha
 For demand of the constant-elasticity form $Q(P) = A P^{\varepsilon}$, maximizing profit $\pi(P) = (P-c)Q(P)$ over price gives a strikingly clean result:
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Only elasticity magnitude decides the markup</span>
 $$\frac{P^* - c}{P^*} = -\frac{1}{\varepsilon}$$
 Your optimal margin, as a fraction of price, is exactly the <strong>reciprocal of elasticity magnitude</strong>. Nothing else about the demand curve matters — not the constant $A$, not the price level. Price sensitivity alone sets the markup.
 </div>
@@ -36,7 +36,7 @@ Substituting back: $(P^*-c)/P^* = -1/\varepsilon$ — the Lerner index, a centur
   </div>
 </details>
 
-## A deliberately awkward example
+## $10 cost, elasticity magnitude 1.2 to 6
 
 Marginal cost $c$ is **$10**. Watch the optimal price and margin swing as elasticity magnitude changes:
 
@@ -59,7 +59,7 @@ Marginal cost $c$ is **$10**. Watch the optimal price and margin swing as elasti
 At $\lvert\varepsilon\rvert = 2.5$ — a fairly typical figure for a mid-sensitivity discretionary category — the optimal price works out to **$16.67**, a 40% margin over the **$10** cost. Push sensitivity up to $\lvert\varepsilon\rvert=5$, closer to a commodity staple with easy substitutes, and the optimal margin nearly halves to 20%, landing at **$12.50**.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The unit-elasticity blowup</span>
 The formula only has a finite, positive-margin solution when $\lvert\varepsilon\rvert > 1$. As elasticity magnitude approaches 1 from above, the optimal price explodes toward infinity — the model's way of saying that near-unit-elastic demand has no profit-maximizing price at all under this framework, only ever-larger margins chasing an ever-shrinking, barely price-reactive customer base. Real pricing stops well short of that limit for reasons the pure elasticity model doesn't capture: competition, customer goodwill, and regulatory attention on margins that look unreasonable.
 </div>
 

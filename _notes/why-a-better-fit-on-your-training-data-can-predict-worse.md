@@ -1,5 +1,5 @@
 ---
-title: "Why a better fit on your training data can predict worse"
+title: "A better fit on your training data can predict worse"
 topic: "Bias-variance tradeoff"
 module: "Machine Learning"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "James, G., Witten, D., Hastie, T., Tibshirani, R., <em>An Introduction to Statistical Learning</em>, ch. 2 — the practitioner-level version of the same argument."
 ---
 
-Two models can be trained on the exact same data, and the one with the *lower* training error can be the one you should throw away. That sounds like a contradiction — isn't fitting the data the entire point of fitting a model? It is, but "fitting the data you have" and "fitting the relationship that generated it" are different goals, and past a certain point every extra bit of training accuracy comes from the first at the expense of the second.
+Fit a degree-2 polynomial to nine noisy points and it leaves real error on the table: a training MSE of 2.9. Push to degree 7 and that error nearly disappears, down to 1.3 — the curve threads through almost every point. On new data, though, the ranking flips: the degree-2 fit scores 2.3, the degree-7 fit 4.1. **The model with the better training fit is the one you should throw away.** "Fitting the data you have" and "fitting the relationship that generated it" are different goals, and past a certain point every extra bit of training accuracy is bought entirely from the first at the expense of the second.
 
 ## The setup
 
@@ -22,11 +22,11 @@ $$\mathbb{E}\big[(y - \hat f(x))^2\big] = \underbrace{\big(f(x) - \mathbb{E}[\ha
 **Bias** is how wrong the model's average prediction is — a model too simple to represent the true relationship will be systematically off no matter how much data you give it. **Variance** is how much the fitted model would change if you retrained it on a different sample of the same underlying data — a model flexible enough to chase individual data points will swing wildly from one training set to the next. Training error only ever sees bias. Test error sees both, plus the noise floor $\sigma^2$ that no model can remove.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Bias always falls; variance is the price</span>
 Adding flexibility to a model always <strong>reduces bias, or leaves it unchanged</strong> — a more flexible family can always fit the training data at least as well. But added flexibility also <strong>increases variance</strong>, because the model now has more freedom to fit whatever noise happens to be in this particular sample. Training error only tracks the first effect. Test error tracks both, which is why the two curves part ways.
 </div>
 
-## A concrete fit
+## The discount curve, fit at degrees 1 through 7
 
 Suppose the true relationship between a discount percentage and conversion lift is a gentle, single-peaked curve — lift rises with the discount, then falls as heavy discounts start reading as a signal of low quality:
 
@@ -77,12 +77,12 @@ which is the decomposition above. Nothing here required $\hat f$ to be linear or
   </div>
 </details>
 
-## What this means in practice
+## Two different knobs on variance
 
 This is a different knob from the one in the <a href="/notes/ridge-shrinks-correlated-predictors/" class="font-semibold text-royal hover:text-midnight">ridge regression note</a>. There, the model family was fixed and a penalty $\lambda$ shrank the coefficients within it. Here, the model family itself is growing — degree 7 can represent every function degree 2 can, plus far more. Shrinkage and model selection are two different ways of buying back variance; a production pipeline typically uses both, not one instead of the other.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The training-only evaluation trap</span>
 The floor is $\sigma^2$, the irreducible noise in the outcome itself — no amount of model selection removes it, and mistaking a low training error for a low <em>total</em> error is the single most common way overfitting reaches production. A model evaluated only on the data it was trained on has no way to see variance at all; it needs a held-out test set, or resampling such as cross-validation, before "how well does this fit" can be trusted as "how well will this predict."
 </div>
 

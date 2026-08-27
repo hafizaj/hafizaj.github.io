@@ -1,5 +1,5 @@
 ---
-title: "Why a non-zero y-axis can turn a flat trend into a crisis"
+title: "The same five numbers, three axis floors, three different stories"
 topic: "Chart axis truncation"
 module: "Data Wrangling and Visualisation"
 date: 2026-08-26
@@ -11,14 +11,14 @@ sources:
   - "Tufte, E. R., <em>The Visual Display of Quantitative Information</em> — the 'lie factor' concept this note's distortion factor is a special case of."
 ---
 
-A chart is read before it's read. The eye compares bar heights, or the steepness of a line, well before anyone gets to the axis labels — and a lot of very ordinary charting decisions quietly weaponise that. The most common one is also the easiest to miss: where the y-axis is allowed to start.
+Five quarters of a metric move from 100 to 101 to 99 to 103 to 102 — a wobble of at most 4 points around a flat average. Redraw those exact same numbers with the y-axis floor nudged from 0 up to 90, and the real 4% gap between two quarters renders as a 44% jump in bar height; push the floor to 97 and the same gap renders as 200%. Not one number changed. **The chart didn't lie about a single value — it just moved where zero was.** The eye compares bar heights, or the steepness of a line, well before anyone gets to the axis labels, and a lot of very ordinary charting decisions quietly weaponise that. The most common one is also the easiest to miss: where the y-axis is allowed to start.
 
 ## The setup
 
 A bar's height is supposed to be a visual stand-in for its value. That only works if the axis starts at zero — otherwise the rendered height is proportional to *value minus the axis floor*, not to the value itself, and the reader has no way to tell the difference just by looking. Two values that differ by 4% in reality can be made to differ by 4%, 44%, or 200% on screen, purely by choosing where the axis starts.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Why the floor is a hidden denominator</span>
 A zero-based axis makes bar height <strong>proportional to the value</strong> — a fair encoding. Any other floor makes bar height proportional to the value's <strong>distance above the floor</strong>, which is a different, and generally smaller, number. Shrinking the denominator without telling the reader is what does the damage.
 </div>
 
@@ -55,12 +55,12 @@ The factor $\dfrac{v_1}{v_1-y_0}$ is the exact distortion multiplier, and it dep
   </div>
 </details>
 
-## What this means in practice
+## When a zoomed axis is honest, and when it isn't
 
 A non-zero axis is not always dishonest — a line chart of a stock index or a physiological measurement that never approaches zero can reasonably zoom into the range where the actual variation lives, and error bars or confidence bands are routinely (and legitimately) shown on a zoomed axis. The line is intent and disclosure: a zoomed axis presented as a zoomed axis, with the floor labelled and the reason stated, is a legitimate design choice. A zoomed axis that lets a bar chart's height imply proportionality it doesn't have is the same technique used to mislead.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">Why bars pay for this and lines mostly don't</span>
 Bar charts and area charts encode value as <strong>length from a baseline</strong> — the reader's visual system assumes that baseline is zero unless told otherwise, so truncating it breaks the encoding's basic promise. Line charts are read more by slope than by absolute height, so the same truncation is less severe there, though a steep-looking line on a truncated axis still overstates volatility. When in doubt: default axes to zero for anything encoded as bar height or area, and reserve zoomed axes — clearly labelled — for line charts where the reader's actual question is "how did this move," not "how big is this."
 </div>
 

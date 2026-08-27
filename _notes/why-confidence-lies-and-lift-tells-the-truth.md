@@ -1,5 +1,5 @@
 ---
-title: "Why confidence lies and lift tells the truth in basket analysis"
+title: "Confidence lies about which products sell each other"
 topic: "Market basket analysis"
 module: "Retail Analytics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Brin, S., Motwani, R., Ullman, J. D. & Tsur, S. (1997), 'Dynamic Itemset Counting and Implication Rules for Market Basket Data' — introduced lift to correct confidence's blind spot."
 ---
 
-Market basket analysis usually starts with **confidence**: of the customers who bought A, what fraction also bought B? It sounds like exactly the right question. It has a specific, common failure mode that quietly makes weak or even negative associations look like strong ones.
+Two cross-sell rules can post the exact same confidence — 50% of A's buyers also bought B — and mean opposite things: one nearly doubles B's odds, the other actively suppresses them. The gap has nothing to do with A. It's entirely explained by how popular B already was before A ever entered the picture. **Confidence never asks how common B is on its own.**
 
 ## The setup
 
@@ -20,12 +20,12 @@ $$\text{support}(X) = P(X), \qquad \text{confidence}(A\!\to\!B) = P(B\mid A) = \
 Confidence tells you how often B shows up alongside A. It never asks how often B shows up *anyway*.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Why confidence can't see B's popularity</span>
 $$\text{lift}(A\!\to\!B) = \frac{\text{support}(A\cap B)}{\text{support}(A)\cdot\text{support}(B)} = \frac{\text{confidence}(A\!\to\!B)}{\text{support}(B)}$$
 Lift divides confidence by B's baseline popularity. <strong>Lift &gt; 1</strong> means A genuinely raises the chance of B above baseline. <strong>Lift = 1</strong> means A tells you nothing — B was exactly that likely anyway. <strong>Lift &lt; 1</strong> means A makes B <em>less</em> likely than baseline: a real, negative signal that plain confidence can't see at all.
 </div>
 
-## A deliberately awkward pair of examples
+## Same confidence, opposite verdicts
 
 Out of 100 transactions:
 
@@ -53,7 +53,7 @@ Out of 100 transactions:
 </div>
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The popular-consequent trap</span>
 Ranking candidate cross-sell or bundle rules by confidence alone systematically favours pairings with a popular consequent — toothpaste, milk, bread, anything nearly everyone buys — regardless of whether the antecedent adds anything. Ranking by lift instead surfaces the pairings a customer's basket actually predicts, which is usually a smaller, less obvious, and far more commercially useful list.
 </div>
 

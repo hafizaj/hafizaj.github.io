@@ -1,5 +1,5 @@
 ---
-title: "Why battery arbitrage needs a price spread, not just a price gap"
+title: "1.18× is the arbitrage floor a battery actually needs"
 topic: "Storage economics"
 module: "Energy Analytics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Zafirakis, D. et al. (2016), 'The value of arbitrage for energy storage', <em>Applied Energy</em> — round-trip efficiency and the breakeven spread."
 ---
 
-A grid-scale battery's simplest business model is arbitrage: charge when electricity is cheap, discharge when it's expensive, keep the difference. The obvious-sounding rule — "any positive price gap is a profitable trade" — is wrong, because every charge-discharge cycle loses energy. The question isn't whether the high price beats the low price. It's whether it beats the low price by *enough*.
+Charge at **$50**/MWh on a modern battery running 0.85 round-trip efficiency, and breakeven isn't a price a dollar or two above **$50** — it's **$58.82**, a 1.176× multiple away. The obvious-sounding rule — "any positive price gap is a profitable trade" — is wrong, because every charge-discharge cycle loses energy. **The question isn't whether the high price beats the low price. It's whether it beats it by enough.**
 
 ## The setup
 
@@ -20,11 +20,11 @@ Buy 1 MWh at the low price $P_{\text{low}}$. Round-trip efficiency $\eta < 1$ me
 $$\text{profit} = \eta \, P_{\text{high}} - P_{\text{low}}$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">A ratio requirement, not a dollar gap</span>
 Breakeven is $\eta P_{\text{high}} = P_{\text{low}}$, which rearranges to $P_{\text{high}}/P_{\text{low}} = 1/\eta$. This is a <strong>ratio</strong> requirement, not a difference. A battery doesn't need the high price to beat the low price by some fixed dollar amount — it needs the high price to beat the low price by a fixed <em>multiple</em>, set entirely by how efficient the round trip is.
 </div>
 
-## A deliberately awkward number
+## The $58.82 breakeven at 85% efficiency
 
 For a modern lithium-ion system with $\eta = 0.85$ (a realistic round-trip efficiency):
 
@@ -55,10 +55,10 @@ Set profit to zero and solve for the price ratio directly: $\eta P_{\text{high}}
   </div>
 </details>
 
-## What this means in practice
+## Efficiency isn't the binding constraint
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">Capital and degradation, not efficiency, decide it</span>
 Real wholesale markets frequently swing 2 to 4 times between overnight lows and evening peaks — comfortably clearing the roughly 1.18× threshold a modern battery needs on efficiency grounds alone. The efficiency loss is real, but for most grid-scale arbitrage it is a smaller drag on profitability than the two costs everyone underestimates instead: capital amortisation and cycling degradation, both of which keep accumulating even on trades that clear the efficiency threshold comfortably.
 </div>
 

@@ -1,5 +1,5 @@
 ---
-title: "Why aggregating across groups can flip which treatment looks better"
+title: "Can a treatment win in every subgroup and still lose overall?"
 topic: "Confounding"
 module: "Causal Modelling"
 date: 2026-08-26
@@ -11,18 +11,18 @@ sources:
   - "Pearl, J., <em>Causality</em>, 2nd ed. — the formal treatment via causal graphs and the backdoor criterion."
 ---
 
-Here is a comparison that should be impossible: Treatment A beats Treatment B among easy cases. Treatment A beats Treatment B among hard cases. And Treatment B beats Treatment A overall, by a wide margin. Nobody's data is wrong. Nobody made an arithmetic mistake. This is Simpson's paradox, and once you see the mechanism it stops being a paradox at all — it becomes a warning about a specific, nameable failure: comparing two groups without asking what decided who ended up in each one.
+Treatment A beats Treatment B among easy cases, 95% to 90%. Treatment A beats Treatment B among hard cases too, 25% to 20%. Pool the two groups together, and Treatment B comes out ahead overall, 83.6% to 31.4% — more than twice as effective. Nobody's data is wrong, nobody made an arithmetic mistake, and neither treatment changed between the subgroup analysis and the aggregate one. This is Simpson's paradox, and once you see the mechanism it stops being a paradox at all — it becomes a warning about a specific, nameable failure: comparing two groups without asking what decided who ended up in each one.
 
 ## The setup
 
 Split patients into two severity groups, easy and hard. Within each group, record how many patients got each treatment and how many recovered. The **overall** recovery rate for a treatment is a weighted average of its two subgroup rates, where the weights are how many patients in that treatment happened to be easy versus hard.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">What makes the overall rate a fair comparison</span>
 The overall rate is only a fair comparison if the treatments were given to **similarly composed** groups of patients. If one treatment was disproportionately given to the harder cases, its overall rate is dragged down by that composition — not by anything wrong with the treatment.
 </div>
 
-## A deliberately awkward example
+## The 220-patient reversal
 
 Suppose Treatment A is genuinely better in both groups — by 5 to 6 percentage points, not a huge gap:
 
@@ -77,7 +77,7 @@ At $s=0$ the two lines give 60% and 55% — A ahead, correctly reflecting that A
 
 That crossover point is the whole story in one number: it takes only a **9% skew** in how the two treatments were allocated to completely overwhelm a genuine 5–6 point treatment effect, because the *between-group* gap (95%/90% for easy patients versus 25%/20% for hard ones — a roughly 70-point difference) so heavily outweighs the *within-group* gap. Any allocation process that is even mildly non-random with respect to severity — sicker patients steered toward one treatment, for whatever clinical reason — is enough to invert the comparison.
 
-## What this means in practice
+## Stratifying without introducing new bias
 
 The fix is not "adjust for everything you have data on." It is to identify the variable that affects **both** who received which treatment and how likely they were to recover — the confounder — and compare within its strata, or reweight to a common reference distribution across it.
 

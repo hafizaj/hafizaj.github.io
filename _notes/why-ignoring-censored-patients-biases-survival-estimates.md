@@ -1,5 +1,5 @@
 ---
-title: "Why ignoring censored patients makes survival look shorter than it is"
+title: "What happens to the patients still alive when a trial ends?"
 topic: "Survival analysis"
 module: "Healthcare & Medical Analytics"
 date: 2026-08-26
@@ -11,18 +11,18 @@ sources:
   - "Kalbfleisch, J. D. & Prentice, R. L., <em>The Statistical Analysis of Failure Time Data</em> — the standard reference on censoring conventions."
 ---
 
-Eight patients enter a study. By the time it ends, five have had the event being tracked — call it relapse — at known times. Three have not: the study simply finished before anything happened to them. Those three are **censored**, not missing. You know, with certainty, that they survived at least as long as they were observed. You just don't know for how much longer.
+Eight patients enter a study. Five relapse at known times before it ends. The other three don't — not because nothing happened, but because the study ran out of time before anything could. What do you do with them? Drop them, and you throw away real information. Count their last known-good moment as an event, and you invent one that never happened. Both look like reasonable shortcuts, and **both push the survival estimate in the same wrong direction: down.** Those three are censored, not missing. You know, with certainty, that they survived at least as long as they were observed — you just don't know for how much longer.
 
 ## The setup
 
 Naive instincts about what to do with censored patients are all, in a specific and provable sense, wrong in the same direction.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">A lower bound, not a missing value</span>
 A censored patient's true event time is <strong>unknown but bounded below</strong> — it is at least their censoring time, possibly much longer. Any method that treats their observed time as if it were their true event time, or drops them from the analysis entirely, throws away exactly the information that says "at least this long" and replaces it with something smaller or nothing at all. Both moves can only push an estimate of survival time downward, never up.
 </div>
 
-## A deliberately awkward example
+## Eight patients, three censored
 
 Eight patients, months to relapse (E) or last known relapse-free (C):
 
@@ -66,7 +66,7 @@ A common instinct: since censoring is annoying, just treat every recorded time a
 </div>
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The shorter-study trap</span>
 The bias is always in the same direction and it compounds with study length. A short follow-up window censors more patients, and each one is treated by the naive method as if their good outcome were actually a bad one — the shorter the study, the worse a naive estimate gets, precisely when it is least likely to be caught in review. The same failure appears outside medicine: customer-churn "average lifetime" calculated by dropping still-active customers, or product reliability estimated by treating units still working at the end of a test as failures.
 </div>
 

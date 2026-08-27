@@ -1,5 +1,5 @@
 ---
-title: "Why targeting your likeliest buyers wastes most of your promo budget"
+title: "Targeting your likeliest buyers wastes most of your promo budget"
 topic: "Uplift modelling"
 module: "Retail Analytics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Gutierrez, P. & Gérardy, J-Y. (2017), 'Causal Inference and Uplift Modelling: A Review of the Literature' — the modern survey of the field."
 ---
 
-A standard response model answers "how likely is this customer to buy if I send them a promotion?" and targets whoever scores highest. That question sounds like exactly what a retailer needs, and it is the wrong question. It can't tell the difference between a customer who buys *because* of the promotion and one who was always going to buy — and paying to convert someone who needed no convincing is pure margin lost, not a marketing win.
+Send a promotion to whoever a response model ranks highest, and the results look great: an 82% purchase rate in the top segment. Almost none of that is the promotion working — 80 percentage points of it would have happened with no spend at all. A standard response model answers "how likely is this customer to buy if I send them a promotion?" and targets whoever scores highest. That sounds like exactly what a retailer needs. **It's the wrong question.** It can't tell the difference between a customer who buys *because* of the promotion and one who was always going to buy — and paying to convert someone who needed no convincing is pure margin lost, not a marketing win.
 
 ## The setup
 
@@ -20,7 +20,7 @@ Run the promotion as a genuine randomized test: some customers see it (treated),
 $$\text{uplift} = P(\text{buy} \mid \text{treated}) - P(\text{buy} \mid \text{control})$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Why raw purchase probability isn't uplift</span>
 $P(\text{buy}\mid\text{treated})$ alone can't distinguish a customer who needed the promotion from one who didn't. A customer can score 0.82 on that measure and still be almost worthless to target, if 0.80 of that was going to happen without you spending a cent.
 </div>
 
@@ -31,7 +31,7 @@ Every customer falls into one of four types, by how they'd behave with and witho
 | **Would buy with promo** | Sure thing — wasted spend | Persuadable — the target |
 | **Wouldn't buy with promo** | Sleeping dog — promo backfires | Lost cause — wasted spend |
 
-## A deliberately awkward test result
+## Four segments from one randomized test
 
 Four segments of 300 (100 for sleeping dogs), each with its own treated and control purchase rate from a real randomized test:
 
@@ -67,7 +67,7 @@ Sort by raw treated-group purchase rate and Sure Things wins easily at 82% — t
 Sort by uplift instead, and Persuadables wins at +35 percentage points, delivering **105** incremental purchases from a segment of the same size — **17.5× the incremental impact**, targeting a group the naive ranking would have placed *behind* Sleeping Dogs.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The sleeping-dogs trap</span>
 A response model doesn't just miss the best segment — it can actively recommend the worst one. Sleeping Dogs still post a respectable 40% treated purchase rate, high enough to look attractive on raw response alone. Targeting them destroys 20 purchases that would have happened without any spend at all: over-marketing pushes some real customers to unsubscribe, switch to a competitor, or simply feel spammed into not buying. A raw-probability model has no way to see this coming, because it never looks at the control group at all.
 </div>
 

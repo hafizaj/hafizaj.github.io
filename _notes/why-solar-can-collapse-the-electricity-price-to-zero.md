@@ -1,5 +1,5 @@
 ---
-title: "Why solar can collapse the electricity price to zero — and why that's a problem"
+title: "Solar can push the electricity price to zero — and that's a problem"
 topic: "Merit-order dispatch"
 module: "Energy Analytics"
 date: 2026-08-26
@@ -11,18 +11,18 @@ sources:
   - "Kirschen, D. S. & Strbac, G., <em>Fundamentals of Power System Economics</em> — the standard treatment of merit-order dispatch."
 ---
 
-A wholesale electricity market does not price power at the average cost of generation. It prices power at the cost of the single most expensive generator still needed to meet demand at that instant — every cheaper generator running at the same time gets paid that same price, regardless of how much cheaper it was to produce. This is a uniform-price auction, and it is the mechanism behind one of the strangest facts in modern grids: solar power can push the market price of electricity to zero, in the middle of the day, while demand is nowhere near zero.
+Push enough solar onto a grid and the wholesale price of electricity can fall to zero in the middle of a sunny afternoon — not at 3 a.m. when demand is genuinely slack, but at the hour households are running air conditioners and demand is nowhere near zero. The textbook explanation of market pricing — that price reflects the marginal generator's cost — is true and gives no hint why this happens. **Cheap, zero-marginal-cost supply doesn't lower the price by averaging with the expensive stuff; it lowers the price by knocking the most expensive generator off the margin entirely**, and if that knockout reaches deep enough into the stack, the price can hit zero while demand is still very much being served.
 
 ## The setup
 
 Generators bid into the market in order of marginal cost, cheapest first — the **merit order**. The market clearing price is the marginal cost of the *last* generator whose capacity is needed to satisfy demand:
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">It's displacement, not dilution</span>
 Cheap, must-run generation — wind, solar, nuclear — doesn't lower the price by averaging with the expensive stuff. It lowers the price by <strong>displacing</strong> the most expensive generator from the margin entirely, so a small amount of free supply can have an outsized effect on price if it happens to push the market past a cheap-to-expensive boundary in the stack.
 </div>
 
-## A deliberately awkward stack
+## A five-generator merit-order stack
 
 Five tranches of generation, cheapest first:
 
@@ -61,7 +61,7 @@ Now let solar output track the actual shape of a day instead of a fixed penetrat
 The belly is the mechanism above, playing out over a single day: the market price collapses through the middle of the day as solar displaces expensive marginal generation, then has to climb an unusually steep ramp back up in a few hours as the sun sets and demand keeps rising. That ramp is an operational problem, not just a pricing one — it requires bringing fast-responding generation online quickly, right as the grid's cheapest resource disappears.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The stack doesn't stop at zero</span>
 At high enough solar penetration, net demand can fall so low that inflexible baseload plants — nuclear especially, which is slow and expensive to shut down and restart — would rather bid a <strong>negative</strong> price than stop running. Paying the grid to keep taking their output is cheaper than a shutdown-restart cycle. This is the real mechanism behind the negative wholesale prices increasingly observed on high-solar grids: not a market malfunction, but must-run generators being pushed below the bottom of a stack that was never designed to go negative.
 </div>
 

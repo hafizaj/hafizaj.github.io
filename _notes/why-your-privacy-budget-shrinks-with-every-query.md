@@ -1,5 +1,5 @@
 ---
-title: "Why your privacy budget shrinks every time you ask a question"
+title: "How much of your privacy budget is left after ten queries?"
 topic: "Differential privacy"
 module: "Data Management & Ethics"
 date: 2026-08-26
@@ -11,7 +11,7 @@ sources:
   - "Dwork, C. & Roth, A., <em>The Algorithmic Foundations of Differential Privacy</em> — the standard reference, including the composition theorems."
 ---
 
-Differential privacy is usually explained as a single number, $\varepsilon$, that trades off privacy against accuracy: smaller $\varepsilon$ means more noise and more privacy, larger $\varepsilon$ means less noise and less privacy. That framing is correct but incomplete in a way that causes real production mistakes — $\varepsilon$ is not a per-query dial. It is a budget, and it depletes.
+Run the same ε = 0.1 query against a dataset ten separate times, and every individual result looks comfortably private — 0.1 reads like a strong guarantee wherever it's quoted. Add those ten releases up under composition, though, and the system you've actually built provides ε = 1.0, ten times weaker than the number printed next to any one query. Differential privacy is usually explained as a single dial, $\varepsilon$: smaller means more noise and more privacy, larger means less noise and less privacy. That's true, and it's almost beside the point. **$\varepsilon$ is not a per-query dial — it's a budget, and it depletes with every question you ask.**
 
 ## The setup
 
@@ -20,11 +20,11 @@ The Laplace mechanism answers a numeric query by adding noise drawn from a Lapla
 $$\text{noise} \sim \text{Laplace}\!\left(0, \frac{\Delta}{\varepsilon}\right), \qquad \text{std. dev.} = \sqrt{2}\,\frac{\Delta}{\varepsilon}$$
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">Privacy comes from noise, not secrecy</span>
 For a count query, $\Delta = 1$ — one person can change a count by at most one. Smaller $\varepsilon$ means a larger noise scale, which is the entire mechanism: privacy comes from making the true answer statistically hard to pin down against the noise, not from hiding it outright.
 </div>
 
-## A deliberately awkward example
+## What happens to a count of 340 as ε shrinks
 
 A query returns a true count of 340. Watch the noise standard deviation as $\varepsilon$ shrinks:
 
@@ -66,7 +66,7 @@ Noise grows **linearly** in the number of queries you plan to run, for a fixed t
 </div>
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">When the advertised ε and the actual ε diverge</span>
 The most common real-world failure is applying the same ε to every query in an interactive dashboard or API without tracking cumulative spend. Fifty queries each run at "ε = 1" is not an ε = 1 system — under sequential composition it is ε = 50, a far weaker guarantee than the number quoted anywhere in the documentation. A privacy budget has to be tracked and depleted across the system's entire lifetime, not reset with every request.
 </div>
 

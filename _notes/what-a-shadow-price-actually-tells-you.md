@@ -11,7 +11,7 @@ sources:
   - "Bertsimas, D. & Tsitsiklis, J. N., <em>Introduction to Linear Optimization</em> — for the formal duality theory behind it."
 ---
 
-"What would one more hour of labour be worth to us?" is a shadow-price question, and most people answer it with a single fixed number pulled from a solver's sensitivity report. That number is real, but it comes with an expiry date the report rarely states out loud — and forgetting the expiry date is where shadow prices go wrong in practice.
+Pull a shadow price off a solver's sensitivity report and it reads like a fixed number — say, £1.80 an hour for labour. Push past the range the report was computed on, though, and that number quietly stops applying: a different constraint takes over, and the true marginal value becomes something else entirely, without the report ever raising a flag. The report isn't wrong, it's just answering a narrower question than it looks like it's answering. **A shadow price is a local slope, not a fixed price tag.**
 
 ## The setup
 
@@ -20,7 +20,7 @@ $$\max\; z = 4x + 3y \quad \text{s.t.} \quad 2x + y \le 18 \;(\text{Resource A})
 Checking the four corners of the feasible region — $(0,0)$, $(9,0)$, $(0,8)$, and the intersection of the two resource constraints — the optimum sits at $(6,6)$ with $z^\* = 42$, where **both** constraints are binding.
 
 <div class="callout callout-key" markdown="1">
-<span class="callout-label">The one thing to hold on to</span>
+<span class="callout-label">A slope, not a sticker price</span>
 A shadow price is the rate of change of the optimal objective value as you relax one binding constraint by a unit — nothing more. It is a property of the optimum's current geometry, not an inherent value stamped on the resource. A non-binding constraint's shadow price is always exactly zero, no matter how scarce that resource looks on paper.
 </div>
 
@@ -63,7 +63,7 @@ $$z^*(t) = \begin{cases} 3t & 0 \le t \le 8 \\ \dfrac{9t+48}{5} & 8 \le t \le 48
 The slope of that curve **is** the shadow price, and it changes twice: once at $t=8$, when Resource B stops being the only thing that matters, and again at $t=48$, when Resource A stops mattering at all and the optimum sits permanently at $(24,0)$. The 1.8 figure quoted from a solver's output is only the middle segment's slope — correct at $t=18$, meaningless at $t=100$.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">Where this bites</span>
+<span class="callout-label">The unstated expiry date</span>
 Quoting a shadow price without its valid range is the single most common misuse of sensitivity analysis. "Labour is worth £1.80 an hour, so any amount of overtime under £1.80 is a good deal" is only true up to the point where a different constraint takes over — buying enough overtime will eventually shift which constraint binds, and the true marginal value at that point is a different number, trending toward zero as the resource stops being scarce at all.
 </div>
 

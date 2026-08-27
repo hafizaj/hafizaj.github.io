@@ -1,8 +1,11 @@
-# Maps each project's `title` front-matter value to an abstract project
-# mark (assets/images/module-marks/*.png — same directory as the notes'
-# module marks, shared asset system), rendered atop its card on /work/
-# and on its own project page. Custom, on-brand, no stock photography.
+# Maps each project's `title` front-matter value to a project mark
+# (assets/images/module-marks/*.png — same directory as the notes' module
+# marks, shared asset system), rendered atop its card on /work/ and on its
+# own project page. Usually a custom abstract Canva mark; "Busserbot" is
+# the one exception — it reuses the project's own real CAD render pulled
+# from its GitHub repo rather than a commissioned abstract mark.
 "Multi-market cashflow forecasting system": "cashflow"
 "Risk register consolidation and intelligence dashboards": "risk-register"
 "Scent Genome Engine": "scent-genome"
 "Reputational risk monitoring platform": "social-media-risk"
+"Busserbot": "busserbot"

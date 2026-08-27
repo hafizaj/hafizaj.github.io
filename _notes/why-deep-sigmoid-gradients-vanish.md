@@ -2,7 +2,7 @@
 title: "A sigmoid's gradient tops out at 0.25 — that's the vanishing-gradient problem"
 topic: "Backpropagation"
 module: "Deep Learning & Neural Networks"
-date: 2026-08-26
+date: 2026-03-10
 reading_time: 8
 summary: "Backpropagation multiplies a gradient signal through every layer it passes. When each layer's multiplier is reliably below one — which a saturating activation like sigmoid all but guarantees — the product collapses geometrically with depth, and early layers stop learning."
 prerequisites: "The chain rule, and what a partial derivative of a loss with respect to a weight represents."

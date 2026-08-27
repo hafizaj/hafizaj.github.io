@@ -2,7 +2,7 @@
 title: "Pooling warehouses can halve your safety stock — if demand actually cooperates"
 topic: "Inventory pooling"
 module: "Logistics & Supply Chain Analytics"
-date: 2026-08-26
+date: 2026-05-12
 reading_time: 8
 summary: "Consolidating regional stock into one location is supposed to buy you the square root law: pool n warehouses and safety stock drops by a factor of √n. That's only true if demand across locations is independent — and the moment it isn't, the benefit shrinks, or disappears completely."
 prerequisites: "Variance of a sum of random variables, and what safety stock is for."

@@ -20,12 +20,12 @@ layout: default
   </div>
 </section>
 
-<section class="py-16 sm:py-20">
-  <div class="mx-auto max-w-6xl px-6">
+<section class="py-14 sm:py-16">
+  <div class="mx-auto max-w-4xl px-6">
     {% assign notes = site.notes | where_exp: "n", "n.draft != true" | where: "module", page.title | sort: 'date' | reverse %}
-    <div class="grid gap-6 md:grid-cols-2">
+    <div class="border-t border-ink/80">
       {% for note in notes %}
-        {% include note-card.html note=note %}
+        {% include note-card.html note=note in_module=true %}
       {% endfor %}
     </div>
   </div>

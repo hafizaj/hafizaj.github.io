@@ -2,7 +2,7 @@
 title: "What happens to the patients still alive when a trial ends?"
 topic: "Survival analysis"
 module: "Healthcare & Medical Analytics"
-date: 2026-08-26
+date: 2026-05-26
 reading_time: 9
 summary: "Some patients in a study are still fine when the study ends — you just don't know what happens to them next. Treat that unknown as if it were known, and every reasonable-looking way of doing it pushes your estimate of survival in the same wrong direction: down."
 prerequisites: "What a survival probability means, and basic conditional probability."

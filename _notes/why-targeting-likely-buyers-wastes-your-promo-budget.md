@@ -2,7 +2,7 @@
 title: "Targeting your likeliest buyers wastes most of your promo budget"
 topic: "Uplift modelling"
 module: "Retail Analytics"
-date: 2026-08-26
+date: 2026-07-21
 reading_time: 9
 summary: "The obvious way to target a promotion is to find customers most likely to buy. That predicts the wrong thing. It can't tell apart a customer who buys because of your promotion from one who was always going to buy anyway — and in the worst case, it can even target the customers your promotion actively drives away."
 prerequisites: "What a randomized treatment/control test is, and basic conditional probability."

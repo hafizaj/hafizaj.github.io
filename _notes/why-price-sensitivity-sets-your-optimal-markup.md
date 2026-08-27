@@ -2,7 +2,7 @@
 title: "Price sensitivity alone sets your optimal markup"
 topic: "Pricing"
 module: "Retail Analytics"
-date: 2026-08-26
+date: 2026-07-07
 reading_time: 7
 summary: "You don't need to know your customers' willingness to pay to find the profit-maximizing price — just how sensitive demand is to price. That single number pins down the optimal markup exactly, and it explains why some categories carry razor-thin margins while others carry huge ones by design, not accident."
 prerequisites: "What price elasticity of demand means, and basic calculus (one derivative)."

@@ -4,51 +4,81 @@ title: Notes
 description: "Technical notes by Hafizuddin Jaafar on machine learning, causal inference, analytics, and applied Azure AI architecture — written from first principles while studying MSc Business Analytics at Imperial College London and working in Microsoft's AI Business Solutions practice."
 ---
 
+{% assign all_notes = site.notes | where_exp: "n", "n.draft != true" %}
+{% assign module_list = all_notes | map: 'module' | uniq %}
+
 <section class="border-b border-mist bg-white">
-  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+  <div class="mx-auto max-w-4xl px-6 py-14 sm:py-16">
     <span class="label-pill bg-royal/10 text-royal">Technical notes</span>
-    <h1 class="mt-6 max-w-3xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Working things out in public.</h1>
-    <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">
+    <h1 class="mt-6 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Working things out in public.</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">
       Short pieces on the methods I use and the ones I am still learning: what the maths actually says,
-      why it behaves the way it does, and where it breaks. Written from first principles, with the
-      derivations you can open and the parameters you can move.
+      why it behaves the way it does, and where it breaks — with the derivations you can open and the
+      parameters you can move.
     </p>
-    <p class="mt-4 max-w-2xl text-sm leading-7 text-muted">
-      Much of this comes out of my MSc at Imperial College London, and some out of day-to-day work in
-      Microsoft's AI Business Solutions practice. None of it reproduces course material, problem sets,
-      model solutions, or proprietary Microsoft content — the explanations, notation, and mistakes are
-      my own.
-    </p>
+    <div class="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-mist pt-5 font-mono text-xs uppercase tracking-widest text-muted">
+      <span><span class="font-semibold text-ink">{{ all_notes.size }}</span> notes</span>
+      <span><span class="font-semibold text-ink">{{ module_list.size }}</span> subjects</span>
+      <span>Imperial MSc &amp; Microsoft field notes</span>
+    </div>
   </div>
 </section>
 
-<section class="py-16 sm:py-20">
-  <div class="mx-auto max-w-6xl px-6">
-    {% assign notes = site.notes | where_exp: "n", "n.draft != true" | sort: 'date' | reverse %}
-    {% if notes.size > 0 %}
-      <div class="grid gap-6 md:grid-cols-2">
-        {% assign seen_hub_modules = "" %}
-        {% for note in notes %}
-          {% assign hub = site.data.note_hubs[note.module] %}
-          {% if hub %}
-            {% unless seen_hub_modules contains note.module %}
-              {% assign seen_hub_modules = seen_hub_modules | append: note.module | append: "|" %}
-              {% assign hub_notes = notes | where: "module", note.module %}
-              {% include note-hub-card.html module=note.module hub=hub count=hub_notes.size %}
-            {% endunless %}
-          {% else %}
-            {% include note-card.html note=note %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="rounded-xl border border-mist bg-white p-10 text-center">
-        <p class="font-display text-xl font-bold">First note landing shortly.</p>
-        <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-muted">The template is built; the writing is next.</p>
-      </div>
-    {% endif %}
+{% assign notes = all_notes | sort: 'date' | reverse %}
+
+{% if notes.size > 0 %}
+<!-- COLLECTIONS — modules deep enough to have their own page -->
+{% assign hub_modules = "" %}
+{% for note in notes %}
+  {% assign hub = site.data.note_hubs[note.module] %}
+  {% if hub %}{% unless hub_modules contains note.module %}{% assign hub_modules = hub_modules | append: note.module | append: "|" %}{% endunless %}{% endif %}
+{% endfor %}
+{% assign hub_module_list = hub_modules | split: "|" %}
+
+{% if hub_module_list.size > 0 %}
+<section class="py-12 sm:py-14">
+  <div class="mx-auto max-w-4xl px-6">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 class="font-display text-sm font-bold uppercase tracking-widest text-ink">Collections</h2>
+      <span class="font-mono text-xs text-muted">Subjects with several notes</span>
+    </div>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {% for m in hub_module_list %}
+        {% assign hub = site.data.note_hubs[m] %}
+        {% assign hub_notes = notes | where: "module", m %}
+        {% include note-hub-card.html module=m hub=hub count=hub_notes.size %}
+      {% endfor %}
+    </div>
   </div>
 </section>
+{% endif %}
+
+<!-- THE INDEX — everything else, newest first -->
+<section class="border-t border-mist bg-white py-12 sm:py-14">
+  <div class="mx-auto max-w-4xl px-6">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 class="font-display text-sm font-bold uppercase tracking-widest text-ink">Every other note</h2>
+      <span class="font-mono text-xs text-muted">Newest first</span>
+    </div>
+    <div class="mt-4 border-t border-ink/80">
+      {% for note in notes %}
+        {% unless hub_modules contains note.module %}
+          {% include note-card.html note=note %}
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="py-14 sm:py-16">
+  <div class="mx-auto max-w-4xl px-6">
+    <div class="rounded-xl border border-mist bg-white p-10 text-center">
+      <p class="font-display text-xl font-bold">First note landing shortly.</p>
+      <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-muted">The template is built; the writing is next.</p>
+    </div>
+  </div>
+</section>
+{% endif %}
 
 <section class="border-t border-mist bg-white py-14">
   <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">

@@ -2,7 +2,7 @@
 title: "1.18× is the arbitrage floor a battery actually needs"
 topic: "Storage economics"
 module: "Energy Analytics"
-date: 2026-08-26
+date: 2026-06-23
 reading_time: 7
 summary: "Buy electricity cheap, store it, sell it expensive — the obvious battery business model. Round-trip efficiency means every cycle loses energy, which sets a hard minimum on how big the price spread has to be before that trade is even breakeven, before capital cost or degradation enter the picture at all."
 prerequisites: "Nothing beyond basic algebra."

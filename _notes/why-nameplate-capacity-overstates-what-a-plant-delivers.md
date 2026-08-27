@@ -2,7 +2,7 @@
 title: "A 100 MW plant rarely delivers 100 MW"
 topic: "Capacity factor"
 module: "Energy Analytics"
-date: 2026-08-26
+date: 2026-06-16
 reading_time: 7
 summary: "A 100 MW solar farm and a 100 MW gas plant are not the same asset, even on paper. One runs a fifth of the time it could; the other runs most of it. The gap between them is capacity factor, and it changes both how much energy a plant actually delivers and how its true cost per unit of energy compares to its headline size."
 prerequisites: "Nothing beyond basic algebra and unit conversion."

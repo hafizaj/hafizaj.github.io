@@ -2,7 +2,7 @@
 title: "What a shadow price actually tells you (and where it stops being true)"
 topic: "Linear programming"
 module: "Optimisation & Decision Models"
-date: 2026-08-26
+date: 2026-02-24
 reading_time: 9
 summary: "A shadow price is not a fixed number attached to a resource. It's the local slope of how far your optimum can move — and that slope changes the moment a different constraint takes over."
 prerequisites: "Linear programming in two variables, and reading a feasible region off a set of inequalities."

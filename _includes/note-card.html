@@ -1,24 +1,29 @@
 {% comment %}
-  Single note card. Pass include.note. Shared by the notes index and the
-  per-module hub pages so both stay visually identical.
+  One note as an editorial index row. Pass include.note. Shared by the
+  notes index and the per-module hub pages. Typographic hierarchy does
+  the work here rather than a card: eyebrow topic, display-weight title,
+  a clamped summary, and mono metadata — the marks live in the
+  collections band and on the note pages themselves.
 {% endcomment %}
 {% assign note = include.note %}
-{% assign mark = site.data.module_marks[note.module] %}
-<a href="{{ note.url }}" class="group flex h-full flex-col overflow-hidden rounded-xl border border-mist bg-white transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
-  {% if mark %}
-  <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="550" loading="lazy" class="aspect-[2/1] w-full border-b border-mist object-cover transition-transform duration-300 group-hover:scale-105">
+{% comment %} On a module hub page the mark and module name are already in
+   the page header, so they're suppressed per-row via include.in_module.
+   Deliberately named row_mark, not mark: note-hub.html assigns `mark` for
+   its own header banner and that value leaks into this include, so reusing
+   the name would show the module mark on every row regardless. {% endcomment %}
+{% assign row_mark = null %}
+{% unless include.in_module %}{% assign row_mark = site.data.module_marks[note.module] %}{% endunless %}
+<a href="{{ note.url }}" class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 gap-y-1 border-b border-mist py-5 transition-colors hover:border-royal sm:gap-x-6">
+  {% if row_mark %}
+  <img src="/assets/images/module-marks/{{ row_mark }}.png" alt="" width="96" height="96" loading="lazy"
+       class="col-start-1 row-span-3 hidden h-11 w-11 translate-y-1.5 rounded border border-mist bg-white object-cover transition-transform duration-300 group-hover:scale-110 sm:block">
   {% endif %}
-  <div class="flex h-full flex-col p-7">
-    <div class="flex items-baseline justify-between gap-3">
-      <span class="eyebrow text-royal">{{ note.topic }}</span>
-      <span class="font-mono text-xs text-muted">{{ note.date | date: "%b %Y" }}</span>
-    </div>
-    <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
-    <h2 class="mt-4 font-display text-xl font-bold leading-snug">{{ note.title }}</h2>
-    <p class="mt-2 text-sm leading-7 text-muted">{{ note.summary }}</p>
-    <p class="mt-auto pt-5 font-mono text-xs text-muted">
-      {% if note.reading_time %}{{ note.reading_time }} min{% endif %}
-      {% if note.module %} · {{ note.module }}{% endif %}
-    </p>
-  </div>
+  <span class="eyebrow col-start-2 text-royal">{{ note.topic }}</span>
+  <span class="col-start-3 row-start-1 justify-self-end whitespace-nowrap font-mono text-xs text-muted">{{ note.date | date: "%b %Y" }}</span>
+  <h2 class="col-start-2 col-end-4 font-display text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-royal sm:text-[1.35rem]">{{ note.title }}</h2>
+  <p class="col-start-2 col-end-4 line-clamp-1 text-sm leading-6 text-muted">{{ note.summary }}</p>
+  <p class="col-start-2 col-end-4 font-mono text-[0.7rem] uppercase tracking-widest text-muted">
+    {% if note.reading_time %}{{ note.reading_time }} min{% endif %}
+    {% unless include.in_module %}{% if note.module %} &middot; {{ note.module }}{% endif %}{% endunless %}
+  </p>
 </a>

@@ -2,7 +2,7 @@
 title: "Does adding more assets actually diversify a portfolio?"
 topic: "Portfolio theory"
 module: "Financial Analytics"
-date: 2026-08-26
+date: 2026-02-10
 reading_time: 9
 summary: "Adding more assets to a portfolio doesn't automatically reduce risk. What buys you a lower-risk frontier is how those assets move relative to each other — and at the extreme, correlation alone can eliminate risk entirely."
 prerequisites: "Expected value and variance of a weighted sum of two random variables."

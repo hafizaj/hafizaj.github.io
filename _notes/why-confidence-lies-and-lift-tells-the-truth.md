@@ -2,7 +2,7 @@
 title: "Confidence lies about which products sell each other"
 topic: "Market basket analysis"
 module: "Retail Analytics"
-date: 2026-08-26
+date: 2026-07-14
 reading_time: 7
 summary: "Two products can share the exact same confidence score — 'half the people who buy A also buy B' — and mean completely opposite things: one a genuinely strong association, the other actively negative. The difference is entirely explained by how popular B already was."
 prerequisites: "Basic conditional probability."

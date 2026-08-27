@@ -2,7 +2,7 @@
 title: "Solar can push the electricity price to zero — and that's a problem"
 topic: "Merit-order dispatch"
 module: "Energy Analytics"
-date: 2026-08-26
+date: 2026-06-09
 reading_time: 9
 summary: "Wholesale electricity markets clear at the cost of the most expensive generator still needed — not the average. Add enough zero-marginal-cost solar and that price can fall all the way to zero long before demand does, which is exactly the mechanism behind the grid's famous 'duck curve.'"
 prerequisites: "What marginal cost means, and how a uniform-price auction clears."

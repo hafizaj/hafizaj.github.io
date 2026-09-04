@@ -1,0 +1,19 @@
+{% comment %}
+  A configured module hub rendered as a large collection field. Pass
+  include.module, include.hub, include.count, and include.start_title.
+{% endcomment %}
+{% assign mark = site.data.module_marks[include.module] %}
+<a href="{{ include.hub.url | relative_url }}" class="note-hub-card">
+  <span class="note-hub-card-body">
+    <span class="note-hub-card-kicker">{{ include.count }} notes · Collection</span>
+    <span class="note-hub-card-title">{{ include.module }}</span>
+    <span class="note-hub-card-teaser">{{ include.hub.teaser }}</span>
+    {% if include.start_title %}
+    <span class="note-hub-card-start">Start with “{{ include.start_title }}” <span aria-hidden="true">&rarr;</span></span>
+    {% endif %}
+  </span>
+  {% if mark %}
+  <img src="{{ '/assets/images/module-marks/' | append: mark | append: '.png' | relative_url }}"
+       alt="" width="256" height="256" loading="lazy">
+  {% endif %}
+</a>

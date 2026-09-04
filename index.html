@@ -1,151 +1,290 @@
 ---
 layout: default
 title: Home
+description: "Hafizuddin Jaafar, AI and cloud solution architect. I build fraud detection, forecasting, and automation systems on Azure, and now drive Copilot and agentic AI adoption at Microsoft. MSc Business Analytics at Imperial College London."
 ---
 
-<!-- ═══════════════════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════════════════════ -->
-<section class="hero" id="home">
-  <div class="hero__bg"></div>
-  <div class="hero__grid"></div>
-  <div class="container">
-    <div class="hero__content">
-      <div class="hero__eyebrow">{{ site.tagline }}</div>
-      <h1 class="hero__title">
-        Hi, I'm<br>
-        <span class="line2">{{ site.title }}</span>
-      </h1>
-      <p class="hero__subtitle">
-        I build data-driven solutions on Azure, create intelligent Power Platform
-        applications, and obsess over poker theory and chess strategy in my spare time.
-      </p>
-      <div class="hero__tags">
-        <span class="tag">Data Science</span>
-        <span class="tag">Azure Architect</span>
-        <span class="tag">Power Platform</span>
-        <span class="tag">Machine Learning</span>
-        <span class="tag">♠ Poker</span>
-        <span class="tag">♟ Chess</span>
+<!-- HERO -->
+<section class="on-midnight grain relative overflow-hidden bg-midnight text-white">
+  <div class="relative mx-auto max-w-6xl px-6 pb-16 pt-16 sm:pt-20 lg:pb-24">
+    <div class="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+      <div>
+        <span class="rise label-pill bg-ember font-semibold text-midnight">AI &amp; Cloud Solution Architect · London</span>
+        <h1 class="rise rise-1 mt-7 font-display text-[clamp(2.75rem,6.5vw,5rem)] font-extrabold leading-[1.02] tracking-tight">
+          I build AI systems that scale.
+        </h1>
+        <p class="rise rise-2 mt-6 max-w-xl text-lg leading-8 text-white/75">
+          From fraud detection at <strong class="font-semibold text-white">AstraZeneca</strong> to risk
+          platforms at the <strong class="font-semibold text-white">Central Bank of Malaysia</strong>, I turn
+          messy data into automation that ships and keeps running. Now I'm driving Copilot and agentic AI
+          adoption at <strong class="font-semibold text-white">Microsoft</strong>, while finishing an MSc in
+          Business Analytics at <strong class="font-semibold text-white">Imperial College London</strong>.
+        </p>
+        <div class="rise rise-3 mt-9 flex flex-wrap gap-3">
+          <a href="#" data-mail="{{ site.email_b64 }}" class="rounded-lg bg-ember px-7 py-3.5 text-sm font-bold text-midnight transition-transform hover:-translate-y-0.5">Email me</a>
+          <a href="/work/" class="rounded-lg border-2 border-white/30 px-7 py-3.5 text-sm font-bold text-white transition-colors hover:border-ember hover:text-ember">See the work</a>
+        </div>
       </div>
-      <div class="hero__cta">
-        <a href="#portfolio" class="btn btn--primary">View My Work</a>
-        <a href="/about/" class="btn btn--outline">About Me</a>
+
+      <div class="rise rise-2 lg:justify-self-end">
+        <div class="relative max-w-sm">
+          <div class="aspect-[4/5] w-full overflow-hidden rounded-2xl border-4 border-ember">
+            <img src="/assets/images/pic_raya.jpg" alt="Hafiz in baju melayu under cherry blossoms in London on Hari Raya" width="420" height="525"
+                 class="h-full w-full object-cover object-[58%_72%]">
+          </div>
+          <div class="absolute -bottom-6 left-0 rounded-xl bg-white px-5 py-3 shadow-2xl sm:-left-6">
+            <p class="font-display text-2xl font-extrabold leading-none text-midnight">4&times;</p>
+            <p class="mt-1.5 max-w-[11rem] font-mono text-[0.62rem] uppercase tracking-wider text-muted">Microsoft certified · Azure Solutions Architect Expert</p>
+          </div>
+        </div>
+        <p class="mt-8 font-mono text-xs uppercase tracking-widest text-white/80">Open to senior AI, data &amp; architecture roles</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     PORTFOLIO
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="portfolio">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-header__label">Work</div>
-      <h2>Portfolio</h2>
-      <p>A selection of data science, cloud architecture, and Power Platform projects.</p>
+<!-- PROOF STRIP -->
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-6">
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-2 sm:justify-between">
+      <span class="font-mono text-xs font-medium uppercase tracking-widest text-muted">Where I've worked &amp; studied</span>
+      <img src="/assets/logos/astrazeneca.png" alt="AstraZeneca" class="logo-cloud-img">
+      <img src="/assets/logos/bnm.svg" alt="Central Bank of Malaysia" class="logo-cloud-img">
+      <img src="/assets/logos/imperial.png" alt="Imperial College London" class="logo-cloud-img">
+      <img src="/assets/logos/ucla.png" alt="UCLA" class="logo-cloud-img">
     </div>
+  </div>
+</section>
 
-    <!-- Filter Bar -->
-    <div class="filter-bar fade-in">
-      <button class="filter-btn active" data-filter="all">All Projects</button>
-      <button class="filter-btn" data-filter="data-science">🧠 Data Science</button>
-      <button class="filter-btn" data-filter="azure">☁ Azure Solutions</button>
-      <button class="filter-btn" data-filter="power-platform">⚡ Power Platform</button>
-    </div>
-
-    <!-- Project Cards -->
-    <div class="projects-grid">
+<!-- WORK -->
+<section id="work" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <span class="label-pill bg-royal/10 text-royal">Selected work</span>
+    <h2 class="mt-5 max-w-2xl font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Things I've built.</h2>
+    <p class="mt-4 max-w-2xl text-muted">Enterprise systems that are still running today, plus a GenAI experiment I loved building. Numbers included, because claims are cheap.</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
       {% for project in sorted_projects %}
-        {% include project-card.html project=project %}
+        {% assign accent = 'royal' %}
+        {% assign is_odd = forloop.index0 | modulo: 2 %}
+        {% if is_odd == 1 %}{% assign accent = 'indigo' %}{% endif %}
+        {% include project-card.html project=project accent=accent %}
       {% endfor %}
     </div>
-
+    <a href="/work/" class="mt-8 inline-block text-sm font-bold text-royal transition-colors hover:text-midnight">All projects, grouped by capability &rarr;</a>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SKILLS SNAPSHOT
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="skills" style="background: var(--bg2);">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-header__label">Expertise</div>
-      <h2>Core Skills</h2>
-      <p>Technologies and disciplines I work with day-to-day.</p>
+<!-- IMPACT SPLIT: hours saved -->
+<section class="bg-indigo">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-16 sm:py-20 lg:grid-cols-[3fr_2fr] lg:items-center">
+    <div>
+      <p class="font-display text-[clamp(3.5rem,9vw,6rem)] font-extrabold leading-none text-white">{{ site.data.facts.hours_saved_annually }}</p>
+      <p class="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-white/75">hours of manual work eliminated, every year</p>
     </div>
-    <div class="skills-grid">
-      {% for group in site.data.skills.groups %}
-      <div class="skill-group fade-in">
-        <div class="skill-group__icon">{{ group.icon }}</div>
-        <div class="skill-group__title">{{ group.title }}</div>
-        <ul class="skill-group__list">
-          {% for skill in group.skills %}
-          <li>{{ skill }}</li>
-          {% endfor %}
-        </ul>
+    <div>
+      <p class="text-lg leading-8 text-white/85">Across {{ site.data.facts.projects_delivered }} automation projects during Malaysia's first nationwide digital transformation at AstraZeneca. Not prototypes: systems that shipped, got adopted by hundreds of people, and kept running long after I moved to the next problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <span class="label-pill bg-royal/10 text-royal">Experience</span>
+    <h2 class="mt-5 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Where I've built.</h2>
+  </div>
+
+  <div class="mt-10 bg-royal">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 py-14 lg:grid-cols-[2fr_3fr] lg:items-center">
+      <div class="order-2 lg:order-1">
+        <p class="font-mono text-xs uppercase tracking-widest text-white/75">Nov 2022 - Sep 2025<br>Senior Solution Architect · AstraZeneca</p>
+        <p class="mt-3 text-lg leading-8 text-white/85">Led a cross-regional team across Malaysia's first nationwide digital transformation, building the fraud detection, forecasting, and automation systems the business now runs on.</p>
       </div>
-      {% endfor %}
+      <div class="order-1 lg:order-2 lg:text-right">
+        <p class="font-display text-[clamp(3.5rem,9vw,6rem)] font-extrabold leading-none text-white">{{ site.data.facts.projects_delivered }}</p>
+        <p class="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-white/75">automation projects delivered</p>
+      </div>
     </div>
-    <div style="text-align: center; margin-top: 3rem;" class="fade-in">
-      <a href="/about/" class="btn btn--outline">Full Profile & Certifications</a>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-6 py-10">
+    <div class="space-y-6">
+      <div class="flex flex-col gap-1 border-b border-mist pb-6 sm:flex-row sm:items-baseline sm:gap-6">
+        <span class="shrink-0 font-mono text-xs text-royal sm:w-44">Sep 2021 - Nov 2022</span>
+        <p class="text-sm leading-7 text-muted"><strong class="font-semibold text-ink">Digital Graduate Analyst, Central Bank of Malaysia.</strong> Consolidated 52 departmental datasets into one risk intelligence platform, saving 5,000 reporting hours a year.</p>
+      </div>
+      <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-6">
+        <span class="shrink-0 font-mono text-xs text-royal sm:w-44">Jun 2020 - Jun 2021</span>
+        <p class="text-sm leading-7 text-muted"><strong class="font-semibold text-ink">VP of Technology, Xavier Optics (Los Angeles).</strong> Built the business case that secured $225,000 in Phase 1 SBIR funding for a novel AR/VR optical element.</p>
+      </div>
+    </div>
+    <a href="/about/" class="mt-8 inline-block text-sm font-bold text-royal transition-colors hover:text-midnight">The full history →</a>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section id="skills" class="border-t border-mist py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <span class="label-pill bg-royal/10 text-royal">Capabilities</span>
+    <h2 class="mt-5 max-w-2xl font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Toolkit.</h2>
+    <div class="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <h3 class="font-mono text-xs font-medium uppercase tracking-[0.16em] text-indigo">Azure &amp; cloud</h3>
+        <span class="mt-2 block h-0.5 w-10 bg-indigo" aria-hidden="true"></span>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag">Solutions Architect Expert</span>
+          <span class="skill-tag">Security Engineer</span>
+          <span class="skill-tag">Azure Administrator</span>
+          <span class="skill-tag">Azure DevOps</span>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-muted">Cloud solution architecture, identity &amp; access, and governance. Four Microsoft certifications, including Azure Solutions Architect Expert.</p>
+      </div>
+      <div>
+        <h3 class="font-mono text-xs font-medium uppercase tracking-[0.16em] text-royal">Machine learning &amp; AI</h3>
+        <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">scikit-learn</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">OpenAI API</span>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-muted">Anomaly &amp; fraud detection, time-series forecasting, NLP &amp; sentiment analysis, RAG pipelines.</p>
+      </div>
+      <div>
+        <h3 class="font-mono text-xs font-medium uppercase tracking-[0.16em] text-ember">Power Platform</h3>
+        <span class="mt-2 block h-0.5 w-10 bg-ember" aria-hidden="true"></span>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag">Power BI &amp; DAX</span>
+          <span class="skill-tag">Power Apps</span>
+          <span class="skill-tag">Power Automate</span>
+          <span class="skill-tag">Dataverse</span>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-muted">Canvas &amp; model-driven apps, advanced DAX, and M365 integration, certified as a Power BI Data Analyst.</p>
+      </div>
+      <div>
+        <h3 class="font-mono text-xs font-medium uppercase tracking-[0.16em] text-muted">Engineering</h3>
+        <span class="mt-2 block h-0.5 w-10 bg-muted" aria-hidden="true"></span>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="skill-tag">SQL &amp; MySQL</span>
+          <span class="skill-tag">Neo4j</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Docker</span>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-muted">SQL, REST API design &amp; ETL pipelines, Agile delivery, technical documentation.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     HOBBIES TEASER
-═══════════════════════════════════════════════════════════════ -->
-<section class="section" id="hobbies">
-  <div class="container">
-    <div class="section-header fade-in">
-      <div class="section-header__label">Beyond Work</div>
-      <h2>Serious Hobbies</h2>
-      <p>When I'm not building data pipelines, you'll find me at the poker table or the chessboard.</p>
+<!-- FINANCE DOMAIN -->
+<section id="finance" class="border-t border-mist bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <span class="label-pill bg-indigo/10 text-indigo">Domain depth</span>
+    <h2 class="mt-5 max-w-2xl font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Finance is home turf.</h2>
+    <p class="mt-4 max-w-2xl text-muted">Systems land differently when you speak the language of the function. I've built for most corners of a finance organisation, from back office controls to deal work, and I passed CFA Level 1 to keep the domain knowledge honest.</p>
+  </div>
+
+  <div class="mt-10 bg-indigo">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 py-14 lg:grid-cols-[3fr_2fr] lg:items-center">
+      <div>
+        <p class="font-display text-[clamp(3.5rem,9vw,6rem)] font-extrabold leading-none text-white">{{ site.data.facts.capex_assets }}</p>
+        <p class="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-white/75">IT assets tracked through a CAPEX consolidation dashboard</p>
+      </div>
+      <div>
+        <p class="text-lg leading-8 text-white/85">Automated ETL with fraud-detection ML surfaces missing or inaccurate asset records before the annual review, cutting {{ site.data.facts.capex_audit_hours }} auditing hours a year.</p>
+      </div>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="hobby-cards">
-      <!-- Poker card -->
-      <a href="/poker/" style="text-decoration: none;" class="fade-in">
-        <div class="project-card" style="border-color: rgba(255,107,53,0.2);">
-          <div class="card__category" style="color: var(--accent2);">♠ ♥ ♦ ♣ &nbsp;&nbsp;Poker</div>
-          <h3 class="card__title">Texas Hold'em & Tournament Strategy</h3>
-          <p class="card__desc">
-            {{ site.data.poker.stats[0].value }} cash game player with a serious study
-            routine built around GTO solvers and hand history review.
-          </p>
-          <div class="card__tech">
-            {% for stat in site.data.poker.stats %}
-            <span>{{ stat.value }} {{ stat.label }}</span>
-            {% endfor %}
-          </div>
-          <span class="card__link" style="color: var(--accent2);">Explore my poker journey →</span>
-        </div>
-      </a>
-      <!-- Chess card -->
-      <a href="/chess/" style="text-decoration: none;" class="fade-in">
-        <div class="project-card" style="border-color: rgba(167,139,250,0.2);">
-          <div class="card__category" style="color: var(--accent3);">♟ Chess</div>
-          <h3 class="card__title">Rapid & Classical — Attacking Player</h3>
-          <p class="card__desc">
-            Rated {{ site.data.chess.stats[0].value }} on Lichess. Passionate about
-            opening preparation, tactical puzzles, and endgame studies.
-          </p>
-          <div class="card__tech">
-            {% for stat in site.data.chess.stats %}
-            <span>{{ stat.value }} {{ stat.label }}</span>
-            {% endfor %}
-          </div>
-          <span class="card__link" style="color: var(--accent3);">Explore my chess journey →</span>
-        </div>
-      </a>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-6 py-10">
+    <div class="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+      <div>
+        <p class="font-mono text-xs font-semibold uppercase tracking-widest text-indigo">FP&amp;A &amp; treasury</p>
+        <p class="mt-2 text-sm leading-7 text-muted">Multi-market cashflow forecasting at 95% accuracy, presented to senior finance leadership in Warsaw.</p>
+      </div>
+      <div>
+        <p class="font-mono text-xs font-semibold uppercase tracking-widest text-indigo">Controls &amp; audit</p>
+        <p class="mt-2 text-sm leading-7 text-muted">Expense fraud ML on 11,000+ monthly claims and a CAPEX consolidation dashboard tracking 15,000+ IT assets.</p>
+      </div>
+      <div>
+        <p class="font-mono text-xs font-semibold uppercase tracking-widest text-indigo">Budgeting &amp; planning</p>
+        <p class="mt-2 text-sm leading-7 text-muted">A universal budgeting tool spanning multiple therapy areas, cutting rework by 60%.</p>
+      </div>
+      <div>
+        <p class="font-mono text-xs font-semibold uppercase tracking-widest text-indigo">Central banking</p>
+        <p class="mt-2 text-sm leading-7 text-muted">Risk intelligence and asset risk scoring for regulators at Bank Negara Malaysia.</p>
+      </div>
+      <div>
+        <p class="font-mono text-xs font-semibold uppercase tracking-widest text-indigo">Deals &amp; funding</p>
+        <p class="mt-2 text-sm leading-7 text-muted">Built the market case that secured $225,000 in Phase 1 SBIR government funding.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<style>
-@media (max-width: 640px) {
-  .hobby-cards { grid-template-columns: 1fr !important; }
-}
-</style>
+<!-- BEYOND WORK -->
+<section id="beyond" class="border-t border-mist py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-6">
+    <span class="label-pill bg-ember font-semibold text-midnight">Off the clock</span>
+    <h2 class="mt-5 max-w-2xl font-display text-3xl font-extrabold tracking-tight sm:text-4xl">When I'm not working.</h2>
+    <div class="mt-10 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+      <figure class="justify-self-center lg:justify-self-start">
+        <img src="/assets/images/pic_hiking.jpg" alt="Hafiz photographing the sunset over the Thames with the O2 arena on the skyline" width="340" height="453" class="block w-[340px] max-w-full rounded-2xl border-4 border-indigo">
+        <figcaption class="mt-3 font-mono text-xs uppercase tracking-widest text-muted">Chasing sunsets on the Thames path</figcaption>
+      </figure>
+      <div>
+        <p class="max-w-xl leading-8 text-muted">Most of my free time goes to games that punish sloppy thinking: estimating probabilities, weighing incomplete information, staying calm under pressure. The rest goes to the gym, live music, long walks with a camera, and the occasional ballgame.</p>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          <a href="/poker/" class="group rounded-xl border-2 border-mist bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-indigo hover:shadow-lg">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-lg font-bold">Poker</h3>
+              <iconify-icon icon="ph:spade" width="22" class="text-indigo" aria-hidden="true"></iconify-icon>
+            </div>
+            <p class="mt-3 text-sm leading-7 text-muted">Five years studying decision-making under uncertainty: range construction, expected value, and simulation.</p>
+            <p class="mt-4 font-mono text-xs font-semibold text-indigo">Try the win-probability calculator →</p>
+          </a>
+          <a href="/chess/" class="group rounded-xl border-2 border-mist bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-royal hover:shadow-lg">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-lg font-bold">Chess</h3>
+              <iconify-icon icon="ph:horse" width="22" class="text-royal" aria-hidden="true"></iconify-icon>
+            </div>
+            <p class="mt-3 text-sm leading-7 text-muted">Attacking player, 1.e4. Rated 1200 on Chess.com and climbing.</p>
+            <p class="mt-4 font-mono text-xs font-semibold text-royal">Openings, study plan &amp; resources →</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="on-midnight grain relative overflow-hidden bg-midnight py-20 text-white sm:py-24">
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+      <div>
+        <span class="label-pill bg-ember font-semibold text-midnight">Contact</span>
+        <h2 class="mt-5 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Say hello.</h2>
+        <p class="mt-4 max-w-lg leading-8 text-white/75">If you're hiring for AI or cloud architecture, or you just want to compare notes on a hard data problem, my inbox is open.</p>
+        <div class="mt-8 max-w-md space-y-3 text-sm leading-7 text-white/75">
+          <p><span class="font-mono font-semibold text-white">Email</span> <span data-mail="{{ site.email_b64 }}" data-mail-text>···</span></p>
+          <p><span class="font-mono font-semibold text-white">Based in</span> London, open to global opportunities</p>
+          <p><span class="font-mono font-semibold text-white">Replies</span> usually within a day</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a href="#" data-mail="{{ site.email_b64 }}" class="rounded-lg bg-ember px-6 py-3 text-sm font-bold text-midnight transition-transform hover:-translate-y-0.5">Email me</a>
+        <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-lg border-2 border-white/30 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-ember hover:text-ember">
+          <iconify-icon icon="simple-icons:linkedin" width="16" aria-hidden="true"></iconify-icon>LinkedIn
+        </a>
+        <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-lg border-2 border-white/30 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-ember hover:text-ember">
+          <iconify-icon icon="simple-icons:github" width="16" aria-hidden="true"></iconify-icon>GitHub
+        </a>
+        <a href="/assets/hafizuddin-jaafar-resume.pdf" download="Hafizuddin-Jaafar-Resume.pdf" class="flex items-center gap-2 rounded-lg border-2 border-white/30 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-ember hover:text-ember">
+          <iconify-icon icon="ph:download-simple" width="16" aria-hidden="true"></iconify-icon>Resume
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

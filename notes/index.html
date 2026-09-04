@@ -1,0 +1,192 @@
+---
+layout: default
+title: Notes
+description: "Technical notes by Hafizuddin Jaafar on machine learning, causal inference, analytics, and applied Azure AI architecture — written from first principles while studying MSc Business Analytics at Imperial College London and working in Microsoft's AI Business Solutions practice."
+---
+
+{% assign all_notes = site.notes | where_exp: "n", "n.draft != true" %}
+{% assign module_list = all_notes | map: "module" | uniq | sort %}
+{% assign featured_notes = all_notes | where: "featured", true %}
+{% assign featured_note = featured_notes | first %}
+{% assign notes = all_notes | sort: "index_order" %}
+{% assign interactive_count = 0 %}
+{% for note in all_notes %}
+  {% if note.content contains 'data-widget=' %}
+    {% assign interactive_count = interactive_count | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+<script defer src="{{ '/assets/js/notes.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/notes-index.js' | relative_url }}"></script>
+
+<section class="notes-hero on-midnight">
+  <div class="notes-hero-inner">
+    <div class="notes-hero-copy">
+      <span class="label-pill rise bg-ember font-semibold text-midnight">Technical notes</span>
+      <h1 class="rise rise-1">Open an idea.<br>Move the pieces.</h1>
+      <p class="rise rise-2">
+        AI, analytics, and systems explained from first principles—with derivations you can open and
+        parameters you can move.
+      </p>
+      <!-- The stamp in the artwork below carries these three derived counts, but the
+           whole art stack is aria-hidden, so the same figures are stated here in a
+           form a screen reader can announce. Both read from the same Liquid values. -->
+      <span class="sr-only">{{ all_notes.size }} notes across {{ module_list.size }} subjects, {{ interactive_count }} of them with interactive figures.</span>
+      <div class="notes-hero-actions rise rise-3">
+        {% if featured_note %}
+        <a href="{{ featured_note.url | relative_url }}" class="notes-button notes-button-primary">Start with a featured note</a>
+        {% endif %}
+        <a href="#all-notes" class="notes-button">Browse every note</a>
+      </div>
+    </div>
+
+    <div class="notes-art-stack" aria-hidden="true">
+      <span class="notes-art-stamp">{{ all_notes.size }} notes · {{ module_list.size }} subjects · {{ interactive_count }} interactives</span>
+      <span class="notes-art-card notes-art-card-one">
+        <img src="{{ '/assets/images/module-marks/azure.png' | relative_url }}" alt="" width="320" height="320">
+      </span>
+      <span class="notes-art-card notes-art-card-two">
+        <img src="{{ '/assets/images/module-marks/network-analytics.png' | relative_url }}" alt="" width="320" height="320">
+      </span>
+      <span class="notes-art-card notes-art-card-three">
+        <img src="{{ '/assets/images/module-marks/retail.png' | relative_url }}" alt="" width="320" height="320">
+      </span>
+    </div>
+  </div>
+</section>
+
+{% if notes.size > 0 %}
+<section class="notes-collections" aria-labelledby="collections-heading">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="notes-section-head">
+      <div>
+        <p class="eyebrow text-royal">Collections</p>
+        <h2 id="collections-heading">Pick a system to explore.</h2>
+      </div>
+      <p>Three subjects with a path through them</p>
+    </div>
+
+    <div class="notes-collection-grid">
+      {% for hub_pair in site.data.note_hubs %}
+        {% assign m = hub_pair[0] %}
+        {% assign hub = hub_pair[1] %}
+        {% assign hub_notes = notes | where: "module", m %}
+        {% assign start_note = hub_notes | first %}
+        {% if hub.start %}
+          {% assign configured_start_notes = hub_notes | where: "slug", hub.start %}
+          {% assign configured_start_note = configured_start_notes | first %}
+          {% if configured_start_note %}{% assign start_note = configured_start_note %}{% endif %}
+        {% endif %}
+        {% include note-hub-card.html module=m hub=hub count=hub_notes.size start_title=start_note.title %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if featured_note %}
+<section class="notes-feature" aria-labelledby="feature-heading">
+  <div class="notes-feature-copy">
+    <p class="eyebrow">Featured explorable</p>
+    <h2 id="feature-heading">{{ featured_note.title }}</h2>
+    <p class="notes-feature-takeaway">{{ featured_note.takeaway }}</p>
+    <p class="notes-feature-summary">{{ featured_note.summary }}</p>
+    <a href="{{ featured_note.url | relative_url }}">Open the featured note <span aria-hidden="true">&rarr;</span></a>
+  </div>
+
+  <div class="notes-spotlight on-midnight">
+    <div class="widget" data-widget="privacy-budget">
+      <div class="widget-head">
+        <span class="widget-title">Per-query noise std. dev. · queries planned (k)</span>
+        <span class="widget-readout" data-readout>k = 1</span>
+      </div>
+      <div class="widget-canvas-wrap">
+        <canvas role="img" aria-label="Per-query noise standard deviation rising linearly as the number of planned queries increases, for a fixed total privacy budget"></canvas>
+      </div>
+      <div class="widget-controls">
+        <div class="widget-row">
+          <label for="index-privacy-k">k</label>
+          <input type="range" id="index-privacy-k" min="1" max="50" step="1" value="1">
+        </div>
+      </div>
+      <p class="widget-caption">This holds the total budget fixed at ε = 1 and asks: given that you're planning k queries, not one, how much noise does each one need to stay inside that budget? A dashboard with 50 questions needs fifty times the noise per answer that a single question would.</p>
+      <p class="widget-noscript">This figure needs JavaScript. The featured note carries the same argument in a table and derivation.</p>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section id="all-notes" class="notes-index" aria-labelledby="all-notes-heading">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="notes-section-head">
+      <div>
+        <p class="eyebrow text-royal">The full index</p>
+        <h2 id="all-notes-heading">Browse every note.</h2>
+      </div>
+      <p>Curated from first principles to field notes</p>
+    </div>
+
+    <form class="notes-filter" data-notes-filter>
+      <div class="notes-filter-select">
+        <label for="notes-module">Subject</label>
+        <select id="notes-module" name="module">
+          <option value="all">All subjects</option>
+          {% for module in module_list %}
+          <option value="{{ module | escape }}">{{ module }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>Provenance</legend>
+        <div class="notes-filter-buttons">
+          <button type="button" value="all" data-filter="provenance" aria-pressed="true">All</button>
+          <button type="button" value="academic" data-filter="provenance" aria-pressed="false">Academic</button>
+          <button type="button" value="professional" data-filter="provenance" aria-pressed="false">Professional</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Format</legend>
+        <div class="notes-filter-buttons">
+          <button type="button" value="all" data-filter="format" aria-pressed="true">All</button>
+          <button type="button" value="interactive" data-filter="format" aria-pressed="false">Interactive</button>
+          <button type="button" value="reading" data-filter="format" aria-pressed="false">Reading</button>
+        </div>
+      </fieldset>
+
+      <p data-notes-count aria-live="polite">Showing {{ notes.size }} of {{ notes.size }} notes</p>
+    </form>
+
+    <div class="notes-index-list">
+      {% for note in notes %}
+        {% include note-card.html note=note heading_level=3 %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="py-14 sm:py-16">
+  <div class="mx-auto max-w-4xl px-6">
+    <div class="rounded-xl border border-mist bg-white p-10 text-center">
+      <p class="font-display text-xl font-bold">First note landing shortly.</p>
+      <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-muted">The template is built; the writing is next.</p>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="notes-method">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+    <div>
+      <p class="eyebrow text-muted">How these are written</p>
+      <p>
+        Every note states its assumptions, shows the derivation rather than asserting the result, and
+        ends with the failure modes. Where a parameter matters, you can move it and watch what happens.
+        Where recall matters more than reading, the answer is hidden until you have tried.
+      </p>
+    </div>
+    <div class="lg:justify-self-end">
+      <a href="#" data-mail="{{ site.email_b64 }}">Found an error? Tell me</a>
+    </div>
+  </div>
+</section>

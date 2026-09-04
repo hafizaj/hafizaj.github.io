@@ -1,0 +1,176 @@
+---
+layout: default
+---
+
+<!-- KaTeX renders the maths in the browser. GitHub Pages cannot run a
+     server-side maths plugin, so kramdown leaves $…$ and $$…$$ as literal
+     text (see math_engine: null in _config.yml) and auto-render picks it up. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+        integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+<script defer src="{{ '/assets/js/notes.js' | relative_url }}"></script>
+
+{% assign mark = site.data.module_marks[page.module] %}
+{% assign module_hub = site.data.note_hubs[page.module] %}
+{% capture module_context %}{% if page.provenance == 'professional' %}From my AB-100 study, Microsoft AI Business Solutions{% else %}Studied in {{ page.module }}, Imperial College London{% endif %}{% endcapture %}
+{% assign ordered_notes = site.notes | sort: 'index_order' %}
+{% assign next_note = nil %}
+{% assign current_in_hub = false %}
+{% if module_hub and module_hub.order %}
+  {% assign hub_next_slug = nil %}
+  {% for slug in module_hub.order %}
+    {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+    {% if current_in_hub %}
+      {% assign hub_next_slug = slug %}
+      {% break %}
+    {% endif %}
+    {% if page.url == expected_url %}
+      {% assign current_in_hub = true %}
+    {% endif %}
+  {% endfor %}
+  {% if hub_next_slug %}
+    {% assign slug = hub_next_slug %}
+    {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+    {% assign hub_next_note = ordered_notes | where: "url", expected_url | first %}
+    {% assign next_note = hub_next_note %}
+  {% endif %}
+{% endif %}
+{% unless next_note %}
+  {% for candidate in ordered_notes %}
+    {% if candidate.published != false and candidate.index_order > page.index_order %}
+      {% assign candidate_in_current_hub = false %}
+      {% if current_in_hub %}
+        {% for slug in module_hub.order %}
+          {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+          {% if candidate.url == expected_url %}
+            {% assign candidate_in_current_hub = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% unless candidate_in_current_hub %}
+        {% assign next_note = candidate %}
+        {% break %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+
+<article class="mx-auto max-w-6xl px-6 py-14 sm:py-16">
+  <header class="note-hero{% unless mark %} note-hero-without-art{% endunless %}">
+    <div class="note-hero-copy">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <p class="eyebrow text-royal">{{ page.topic | default: 'Technical note' }}</p>
+        <span class="font-mono text-[0.65rem] text-mist" aria-hidden="true">/</span>
+        <p class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+          {% if page.provenance == 'professional' %}Professional field note{% else %}Academic note{% endif %}
+          {% if page.level %} · {{ page.level }}{% endif %}
+        </p>
+      </div>
+      <span class="mt-3 block h-0.5 w-12 bg-ember" aria-hidden="true"></span>
+      <h1 class="mt-6 max-w-4xl font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]">{{ page.title }}</h1>
+      {% if page.takeaway %}
+      <p class="note-takeaway">{{ page.takeaway }}</p>
+      {% endif %}
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted">
+        {% if page.style == 'editorial' %}<span class="uppercase tracking-widest">By Hafizuddin Jaafar</span>{% endif %}
+        {% if page.date %}<span>Published {{ page.date | date: "%d %b %Y" }}</span>{% endif %}
+        {% if page.updated %}<span>Updated {{ page.updated | date: "%d %b %Y" }}</span>{% endif %}
+        {% if page.provenance == 'professional' and page.reviewed_on %}<span>Reviewed {{ page.reviewed_on | date: "%d %b %Y" }}</span>{% endif %}
+        {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
+        {% if page.module %}
+          {% if module_hub %}
+          <a href="{{ module_hub.url }}" class="text-royal hover:text-midnight">{{ module_context | strip }}</a>
+          {% else %}
+          <span>{{ module_context | strip }}</span>
+          {% endif %}
+        {% endif %}
+      </div>
+      <p class="note-prerequisites">
+        <span>You only need</span>
+        {% if page.prerequisites %}{{ page.prerequisites }}{% else %}the question above; this note introduces the rest as it goes.{% endif %}
+      </p>
+    </div>
+    {% if mark %}
+    <div class="note-hero-art" aria-hidden="true">
+      <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="367">
+    </div>
+    {% endif %}
+  </header>
+
+  <details class="note-mobile-toc lg:hidden" data-note-mobile-toc data-note-toc-surface>
+    <summary>On this page</summary>
+    <nav data-note-toc aria-label="Table of contents"></nav>
+  </details>
+
+  <div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14">
+    <aside class="lg:order-last">
+      <div class="sticky top-24">
+        <div class="hidden lg:block" data-note-toc-surface>
+          <p class="eyebrow text-muted">On this page</p>
+          <nav data-note-toc class="mt-4 space-y-2 text-sm leading-6" aria-label="Table of contents"></nav>
+        </div>
+        <div class="border-mist lg:mt-7 lg:border-t lg:pt-5">
+          <button type="button" id="recall-mode" class="recall-btn" aria-pressed="false">Test yourself</button>
+          <p class="mt-2 max-w-sm font-mono text-[0.65rem] leading-5 text-muted">Collapses every answer so you can recall before reading.</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="min-w-0 max-w-3xl">
+      <div class="note-prose{% if page.style == 'editorial' %} note-editorial{% endif %}" data-note-body>
+        {{ content }}
+      </div>
+
+      <!-- Every published note is source_schema 2, so sources are structured
+           objects only: an anchored, numbered reference list that the inline
+           .source-ref links in the body point at. The flat-string branch that
+           carried unmigrated notes during the migration has been removed. -->
+      {% if page.sources %}
+      <section class="note-sources" aria-labelledby="sources-heading">
+        <p class="eyebrow text-muted">Sources and further reading</p>
+        <h2 id="sources-heading" class="sr-only">Sources and further reading</h2>
+        <ol>
+          {% for source in page.sources %}
+            <li id="source-{{ source.id }}">
+              <a href="{{ source.url }}" rel="noopener" class="note-source-link">
+                {{ source.title }}
+                <span class="sr-only">(external source)</span>
+              </a>
+              {% if source.author %}<span>{{ source.author }}</span>{% endif %}
+              {% if source.organisation %}<span>{{ source.organisation }}</span>{% endif %}
+              {% if source.publication %}<span>{{ source.publication }}</span>{% endif %}
+              {% if source.year %}<span>{{ source.year }}</span>{% endif %}
+              <p><strong>Used for:</strong> {{ source.supports }}</p>
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
+      {% endif %}
+
+      <footer class="mt-10 rounded-xl border border-mist bg-white p-5 text-sm leading-7 text-muted">
+        {% if page.provenance == 'professional' %}
+        Written from my own understanding while working through Microsoft's AB-100 curriculum and my role in AI Business Solutions.
+        Any errors are mine. No proprietary Microsoft material is reproduced here.
+        {% else %}
+        Written from my own understanding while studying {{ page.module | default: 'at Imperial College London' }}.
+        Any errors are mine. No course material, problem sets, or model solutions are reproduced here.
+        {% endif %}
+        <a href="#" data-mail="{{ site.email_b64 }}" class="font-semibold text-royal hover:text-midnight">Tell me if something is wrong &rarr;</a>
+      </footer>
+
+      <nav class="note-next" aria-label="Continue reading">
+        {% if next_note %}
+        <a href="{{ next_note.url | relative_url }}" class="note-next-primary">
+          <span class="eyebrow text-royal">Next note</span>
+          <span>{{ next_note.title }} <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        {% endif %}
+        <a href="{{ '/notes/' | relative_url }}" class="note-next-all">Browse every note <span aria-hidden="true">&rarr;</span></a>
+      </nav>
+    </div>
+  </div>
+</article>

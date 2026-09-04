@@ -1,0 +1,42 @@
+{% comment %}
+  Project card. Revision 4 card grammar: the accent lives in the eyebrow and
+  its short rule, not in a thick top border. Rounded corners now read cleanly,
+  and the colour still encodes the capability group. Pass accent="royal" |
+  "indigo" | "ember" (defaults to royal). Class strings are written out in
+  full so Tailwind's scanner can see them.
+{% endcomment %}
+{% case include.accent %}
+  {% when 'indigo' %}
+    {% assign accent_text = 'text-indigo' %}
+    {% assign accent_rule = 'bg-indigo' %}
+    {% assign accent_hover = 'hover:border-indigo group-hover:text-indigo' %}
+  {% when 'ember' %}
+    {% assign accent_text = 'text-ember' %}
+    {% assign accent_rule = 'bg-ember' %}
+    {% assign accent_hover = 'hover:border-ember group-hover:text-ember' %}
+  {% else %}
+    {% assign accent_text = 'text-royal' %}
+    {% assign accent_rule = 'bg-royal' %}
+    {% assign accent_hover = 'hover:border-royal group-hover:text-royal' %}
+{% endcase %}
+{% assign mark = site.data.project_marks[project.title] %}
+<a href="{{ project.url }}" class="group flex h-full flex-col overflow-hidden rounded-xl border border-mist bg-white transition-all hover:-translate-y-0.5 hover:shadow-lg {{ accent_hover }}">
+  {% if mark %}
+  <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="550" loading="lazy" class="aspect-[2/1] w-full border-b border-mist object-cover transition-transform duration-300 group-hover:scale-105">
+  {% endif %}
+  <div class="flex h-full flex-col p-7">
+    <div class="flex items-baseline justify-between gap-3">
+      <span class="eyebrow {{ accent_text }}">{{ project.category }}</span>
+      <span class="font-mono text-xs text-muted">{{ project.org }}</span>
+    </div>
+    <span class="mt-2 block h-0.5 w-10 {{ accent_rule }}" aria-hidden="true"></span>
+    <h3 class="mt-4 font-display text-xl font-bold leading-snug">{{ project.title }}</h3>
+    <p class="mt-2 text-sm leading-7 text-muted">{{ project.description }}</p>
+    <p class="mt-auto border-t border-mist pt-4 text-sm leading-6 text-muted"><span class="font-mono font-semibold text-ink">{{ project.impact }}</span> {{ project.impact_label }}</p>
+    <div class="mt-4 flex flex-wrap gap-2">
+      {% for tech in project.tech limit:4 %}
+      <span class="rounded border border-mist px-2 py-0.5 font-mono text-[11px] text-muted">{{ tech }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</a>

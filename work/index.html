@@ -1,0 +1,147 @@
+---
+layout: default
+title: Projects
+description: "Selected work by Hafizuddin Jaafar: AI and agentic systems, data platforms, and automation at scale, built at AstraZeneca and the Central Bank of Malaysia."
+---
+
+<!-- HEADER -->
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <span class="label-pill bg-royal/10 text-royal">Selected work</span>
+    <h1 class="mt-6 max-w-3xl font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Projects.</h1>
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">
+      Systems that shipped, got adopted, and kept running: fraud detection and forecasting for a global
+      pharma finance function, risk intelligence for a central bank, and GenAI work of my own. Each one
+      below opens into the problem, what I built, and what it changed.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="#" data-mail="{{ site.email_b64 }}" class="rounded-lg bg-royal px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5">Email me</a>
+      <a href="/assets/hafizuddin-jaafar-resume.pdf" download="Hafizuddin-Jaafar-Resume.pdf" class="flex items-center gap-2 rounded-lg border-2 border-mist px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-royal hover:text-royal">
+        <iconify-icon icon="ph:download-simple" width="16" aria-hidden="true"></iconify-icon>Download resume
+      </a>
+    </div>
+
+    <div class="mt-14 grid gap-x-10 gap-y-8 border-t border-mist pt-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div><p class="font-display text-3xl font-extrabold text-royal">{{ site.data.facts.projects_delivered }}</p><p class="mt-1 text-sm text-muted">automation projects delivered</p></div>
+      <div><p class="font-display text-3xl font-extrabold text-royal">{{ site.data.facts.hours_saved_annually }}</p><p class="mt-1 text-sm text-muted">hours saved annually</p></div>
+      <div><p class="font-display text-3xl font-extrabold text-royal">8</p><p class="mt-1 text-sm text-muted">markets in production</p></div>
+      <div><p class="font-display text-3xl font-extrabold text-royal">4&times;</p><p class="mt-1 text-sm text-muted">Microsoft certified</p></div>
+    </div>
+  </div>
+</section>
+
+{% assign ai_projects = site.projects | where: 'group', 'ai' | sort: 'date' | reverse %}
+{% assign data_projects = site.projects | where: 'group', 'data' | sort: 'date' | reverse %}
+{% assign automation_projects = site.projects | where: 'group', 'automation' | sort: 'date' | reverse %}
+{% assign personal_projects = site.projects | where: 'group', 'personal' | sort: 'date' | reverse %}
+
+<!-- AI & AGENTS -->
+<section id="ai" class="py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <span class="eyebrow text-indigo">AI &amp; agents</span>
+          <span class="mt-2 block h-0.5 w-10 bg-indigo" aria-hidden="true"></span>
+          <h2 class="mt-4 font-display text-3xl font-extrabold tracking-tight">Retrieval, generation, explainability.</h2>
+          <p class="mt-4 leading-8 text-muted">Where the model output has to justify itself before anyone will act on it. The pattern is the same in a consumer prototype and an enterprise decision-support system: retrieve, generate, then show your reasoning.</p>
+      </div>
+      <div class="grid gap-6">
+      {% for project in ai_projects %}
+        {% include project-card.html project=project accent='indigo' %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA PLATFORMS -->
+<section id="data" class="border-t border-mist bg-white py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <span class="eyebrow text-royal">Data platforms &amp; analytics</span>
+          <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
+          <h2 class="mt-4 font-display text-3xl font-extrabold tracking-tight">One view where there were fifty-two.</h2>
+          <p class="mt-4 leading-8 text-muted">Both of these were built inside Malaysia's central bank, on the same problem from two directions: risk that lives in scattered internal spreadsheets, and risk that builds in public conversation before anyone files a report.</p>
+      </div>
+      <div class="grid gap-6">
+      {% for project in data_projects %}
+        {% include project-card.html project=project accent='royal' %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATION AT SCALE -->
+<section id="automation" class="border-t border-mist py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <span class="eyebrow text-ember">Automation at scale</span>
+          <span class="mt-2 block h-0.5 w-10 bg-ember" aria-hidden="true"></span>
+          <h2 class="mt-4 font-display text-3xl font-extrabold tracking-tight">Built once, run everywhere.</h2>
+          <p class="mt-4 leading-8 text-muted">Finance systems that had to survive eight markets, each with its own currency, calendar, and reporting habits. Standardising the inputs was most of the work; the forecast was the easy part.</p>
+      </div>
+      <div class="grid gap-6">
+      {% for project in automation_projects %}
+        {% include project-card.html project=project accent='ember' %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if personal_projects.size > 0 %}
+<!-- ACADEMIC & PERSONAL -->
+<section id="personal" class="border-t border-mist bg-white py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <span class="eyebrow text-royal">Academic &amp; personal builds</span>
+          <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
+          <h2 class="mt-4 font-display text-3xl font-extrabold tracking-tight">Robotics, before any of this paid the bills.</h2>
+          <p class="mt-4 leading-8 text-muted">Coursework, not shipped work — kept separate from the case studies above on purpose. The engineering problems were still real: arm kinematics, and getting subsystems designed by seven different people to work as one machine.</p>
+      </div>
+      <div class="grid gap-6">
+      {% for project in personal_projects %}
+        {% include project-card.html project=project accent='royal' %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CONTEXT -->
+<section class="bg-royal">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-14 sm:py-16 lg:grid-cols-[3fr_2fr] lg:items-center">
+    <div>
+      <p class="font-display text-[clamp(3rem,8vw,5rem)] font-extrabold leading-none text-white">{{ site.data.facts.projects_delivered }}</p>
+      <p class="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-white/75">automation projects delivered at AstraZeneca</p>
+    </div>
+    <div>
+      <p class="text-lg leading-8 text-white/85">The pages above are the ones worth reading end to end. They sit inside a much larger programme: Malaysia's first nationwide digital transformation, where my team upskilled {{ site.data.facts.employees_upskilled }} people and took {{ site.data.facts.hours_saved_annually }} hours of manual work out of the business every year.</p>
+      <a href="/about/" class="mt-5 inline-block rounded-lg bg-white px-6 py-3 text-sm font-bold text-royal transition-transform hover:-translate-y-0.5">The full history &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="on-midnight grain relative overflow-hidden bg-midnight py-16 text-white sm:py-20">
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+      <div>
+        <span class="label-pill bg-ember font-semibold text-midnight">Contact</span>
+        <h2 class="mt-5 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Want the detail behind any of these?</h2>
+        <p class="mt-4 max-w-lg leading-8 text-white/75">Some of this work sits under pharma and central-bank confidentiality, so the write-ups stay at the architecture level. Happy to go deeper in conversation.</p>
+      </div>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a href="#" data-mail="{{ site.email_b64 }}" class="rounded-lg bg-ember px-6 py-3 text-sm font-bold text-midnight transition-transform hover:-translate-y-0.5">Email me</a>
+        <a href="https://linkedin.com/in/{{ site.social.linkedin }}" target="_blank" rel="noopener" class="flex items-center gap-2 rounded-lg border-2 border-white/30 px-6 py-3 text-sm font-bold text-white transition-colors hover:border-ember hover:text-ember">
+          <iconify-icon icon="simple-icons:linkedin" width="16" aria-hidden="true"></iconify-icon>LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

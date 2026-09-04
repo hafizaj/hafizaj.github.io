@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" role="img"
+     aria-labelledby="cf-title cf-desc" font-family="'IBM Plex Mono', ui-monospace, monospace">
+  <title id="cf-title">Multi-market cashflow forecasting architecture</title>
+  <desc id="cf-desc">Source systems SAP, BlackLine and Quantum feed a Python ETL layer that standardises each of eight markets' actuals. The standardised actuals feed a forecasting layer that produces forward cash positions, which are published to a consolidated Power BI dashboard. Power Automate workflows drive the submission and refresh cycle around the pipeline.</desc>
+
+  <defs>
+    <marker id="cf-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#44536B"/>
+    </marker>
+  </defs>
+
+  <rect width="920" height="340" fill="#FFFFFF"/>
+
+  <!-- Stage labels -->
+  <g font-size="10" letter-spacing="1.6" fill="#44536B">
+    <text x="24" y="34">SOURCE SYSTEMS</text>
+    <text x="252" y="34">STANDARDISE</text>
+    <text x="470" y="34">FORECAST</text>
+    <text x="690" y="34">DELIVER</text>
+  </g>
+
+  <!-- Source systems -->
+  <g>
+    <rect x="24" y="52" width="168" height="46" rx="6" fill="#FFFFFF" stroke="#D9E2EF"/>
+    <text x="40" y="80" font-size="13" fill="#0A1B33">SAP</text>
+    <rect x="24" y="112" width="168" height="46" rx="6" fill="#FFFFFF" stroke="#D9E2EF"/>
+    <text x="40" y="140" font-size="13" fill="#0A1B33">BlackLine</text>
+    <rect x="24" y="172" width="168" height="46" rx="6" fill="#FFFFFF" stroke="#D9E2EF"/>
+    <text x="40" y="200" font-size="13" fill="#0A1B33">Quantum</text>
+  </g>
+  <text x="24" y="248" font-size="11" fill="#44536B">8 markets · own currency,</text>
+  <text x="24" y="264" font-size="11" fill="#44536B">calendar &amp; reporting habits</text>
+
+  <!-- ETL -->
+  <rect x="252" y="52" width="176" height="166" rx="8" fill="#F6F8FB" stroke="#1D4FD8" stroke-width="1.5"/>
+  <text x="272" y="82" font-size="13" fill="#0A1B33">Python ETL</text>
+  <line x1="272" y1="94" x2="312" y2="94" stroke="#1D4FD8" stroke-width="2"/>
+  <g font-size="11" fill="#44536B">
+    <text x="272" y="120">· ingest per market</text>
+    <text x="272" y="140">· normalise currency</text>
+    <text x="272" y="160">· align calendars</text>
+    <text x="272" y="180">· reconcile actuals</text>
+  </g>
+
+  <!-- Forecast -->
+  <rect x="470" y="52" width="176" height="166" rx="8" fill="#F6F8FB" stroke="#5B21B6" stroke-width="1.5"/>
+  <text x="490" y="82" font-size="13" fill="#0A1B33">Forecasting layer</text>
+  <line x1="490" y1="94" x2="530" y2="94" stroke="#5B21B6" stroke-width="2"/>
+  <g font-size="11" fill="#44536B">
+    <text x="490" y="120">· forward cash</text>
+    <text x="490" y="138">  positions</text>
+    <text x="490" y="164">· multiple payment</text>
+    <text x="490" y="182">  types</text>
+  </g>
+
+  <!-- Delivery -->
+  <rect x="690" y="52" width="200" height="166" rx="8" fill="#FFFFFF" stroke="#D9E2EF"/>
+  <text x="710" y="82" font-size="13" fill="#0A1B33">Power BI</text>
+  <line x1="710" y1="94" x2="750" y2="94" stroke="#1D4FD8" stroke-width="2"/>
+  <g font-size="11" fill="#44536B">
+    <text x="710" y="120">· one consolidated</text>
+    <text x="710" y="138">  dashboard</text>
+    <text x="710" y="164">· finance teams drill</text>
+    <text x="710" y="182">  into drivers</text>
+  </g>
+
+  <!-- Flow arrows -->
+  <g stroke="#44536B" stroke-width="1.4" marker-end="url(#cf-arrow)" fill="none">
+    <path d="M 192 135 L 246 135"/>
+    <path d="M 428 135 L 464 135"/>
+    <path d="M 646 135 L 684 135"/>
+  </g>
+
+  <!-- Power Automate orchestration band -->
+  <rect x="252" y="264" width="638" height="46" rx="6" fill="#FFFFFF" stroke="#FF8A00" stroke-dasharray="4 3"/>
+  <text x="272" y="292" font-size="12" fill="#0A1B33">Power Automate — submission &amp; refresh cycle around the pipeline</text>
+  <g stroke="#FF8A00" stroke-width="1.2" stroke-dasharray="3 3" fill="none">
+    <path d="M 340 264 L 340 224"/>
+    <path d="M 558 264 L 558 224"/>
+    <path d="M 790 264 L 790 224"/>
+  </g>
+</svg>

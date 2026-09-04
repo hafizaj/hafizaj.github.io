@@ -1,0 +1,204 @@
+---
+layout: null
+permalink: /resume/
+title: "Hafizuddin Jaafar — Resume"
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hafizuddin Jaafar — Resume</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+  :root {
+    --ink: #0A1B33; --royal: #1D4FD8; --indigo: #5B21B6; --ember: #FF8A00;
+    --midnight: #042448; --paper: #F6F8FB; --mist: #D9E2EF; --slate: #44536B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #e3e9f2;
+    font-family: "Instrument Sans", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace; }
+
+  .page-scroll { overflow-x: auto; }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 10mm auto;
+    padding: 10mm 16mm;
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(4, 36, 72, 0.16);
+  }
+
+  /* ── Header ───────────────────────────────────────────── */
+  header.head { padding-bottom: 3mm; border-bottom: 1.4pt solid var(--ink); }
+  header.head h1 { margin: 0; font-size: 19pt; font-weight: 800; letter-spacing: -.01em; }
+  header.head p.title { margin: .8mm 0 0; font-size: 9.6pt; color: var(--slate); font-weight: 500; }
+  header.head .contact {
+    margin-top: 2mm; display: flex; flex-wrap: wrap; gap: 1mm 5mm;
+    font-size: 8.2pt; color: var(--slate);
+  }
+  header.head .contact a { color: var(--royal); text-decoration: none; }
+  header.head .highlights {
+    margin-top: 2mm; font-size: 8.2pt; color: var(--slate);
+  }
+  header.head .highlights strong { color: var(--ink); font-weight: 700; }
+  header.head .highlights .sep { color: var(--mist); margin: 0 1.6mm; }
+
+  /* ── Section headers ──────────────────────────────────── */
+  h2.section-title {
+    margin: 2.8mm 0 0; padding-bottom: .7mm; border-bottom: 0.8pt solid var(--mist);
+    font-family: "IBM Plex Mono", monospace; font-size: 8.4pt; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--royal);
+  }
+
+  /* ── Roles / entries ──────────────────────────────────── */
+  .entry { margin-top: 1.3mm; }
+  .entry .row1 { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .entry h3 { margin: 0; font-size: 9.6pt; font-weight: 700; }
+  .entry .when { flex: none; font-size: 7.7pt; color: var(--slate); font-weight: 500; }
+  .entry .org { margin: .2mm 0 0; font-size: 8.2pt; color: var(--slate); font-style: italic; }
+  .entry ul { margin: .7mm 0 0; padding-left: 3.6mm; font-size: 8.2pt; line-height: 1.26; color: var(--ink); }
+  .entry ul li { margin-top: .35mm; }
+  .entry ul li strong { font-weight: 600; }
+  .entry p.tools { margin: .7mm 0 0; font-size: 7.7pt; color: var(--slate); }
+  .entry p.tools strong { color: var(--ink); font-weight: 600; }
+  .entry p.note { margin: .5mm 0 0; font-size: 8.2pt; line-height: 1.26; color: var(--ink); }
+  .entry p.note strong { font-weight: 600; }
+
+  /* ── Achievements ─────────────────────────────────────── */
+  .achievements .row { margin-top: 1.3mm; font-size: 8.2pt; line-height: 1.26; color: var(--ink); }
+  .achievements .when { color: var(--slate); font-weight: 500; }
+  .achievements .row strong { font-weight: 600; }
+
+  /* ── Compact labeled sections (skills etc.) ──────────────*/
+  .labeled { margin-top: 1.4mm; font-size: 8.2pt; line-height: 1.34; color: var(--ink); }
+  .labeled .lbl { font-weight: 700; margin-right: 1.6mm; }
+  .labeled strong { font-weight: 600; }
+
+  @media print {
+    body { background: #fff; }
+    .page-scroll { overflow: visible; }
+    .page { width: auto; min-height: auto; margin: 0; box-shadow: none; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page-scroll">
+<div class="page">
+
+  <header class="head">
+    <h1 class="display">{{ site.title }}</h1>
+    <p class="title">{{ site.tagline }}</p>
+    <div class="contact">
+      <a href="#" data-mail="{{ site.email_b64 }}" data-mail-text>···</a>
+      <a href="https://linkedin.com/in/{{ site.social.linkedin }}">linkedin.com/in/{{ site.social.linkedin }}</a>
+      <span>London, UK</span>
+    </div>
+    <p class="highlights">
+      <strong>4 yrs</strong> industry experience<span class="sep">·</span><strong>{{ site.data.facts.projects_delivered }}</strong> automation projects delivered<span class="sep">·</span><strong>{{ site.data.facts.hours_saved_annually }}</strong> hours saved annually<span class="sep">·</span><strong>{{ site.data.facts.employees_upskilled }}</strong> employees upskilled
+    </p>
+  </header>
+
+  <section>
+    <h2 class="section-title">Experience</h2>
+
+    <article class="entry">
+      <div class="row1"><h3 class="display">Cloud Solution Architect, AI Business Solutions</h3><span class="when mono">Aug 2026 – Present</span></div>
+      <p class="org">Microsoft · Asia Pacific</p>
+      <ul>
+        <li>Architecting and driving customer adoption of <strong>Copilot, Microsoft 365 Agents, and Microsoft Foundry</strong> across Asia Pacific — leading architecture design sessions, building technical readiness, and connecting AI investments to measurable business outcomes</li>
+      </ul>
+      <p class="tools"><strong>Tools:</strong> Copilot, Microsoft 365 Agents, Microsoft Foundry, Copilot Studio, Azure AI</p>
+    </article>
+
+    <article class="entry">
+      <div class="row1"><h3 class="display">Senior Solution Architect</h3><span class="when mono">Nov 2022 – Sep 2025</span></div>
+      <p class="org">AstraZeneca · Kuala Lumpur, Malaysia</p>
+      <ul>
+        <li>Led a cross-regional team supporting <strong>{{ site.data.facts.projects_delivered }} automation projects</strong> across Malaysia's first nationwide digital transformation, upskilling {{ site.data.facts.employees_upskilled }} employees and delivering <strong>{{ site.data.facts.hours_saved_annually }} hours of savings annually</strong></li>
+        <li>Built an end-to-end <strong>multi-market cashflow forecasting system</strong> integrating SAP, BlackLine, and Quantum into one consolidated Power BI dashboard across 8 markets — cut planning-cycle time by <strong>60%</strong> and reconciliation effort by <strong>{{ site.data.facts.cashflow_hours_saved }} hours a year</strong></li>
+        <li>Built a Power BI and DAX-heavy <strong>CAPEX consolidation dashboard</strong> with automated ETL pipelines, surfacing missing or inaccurate records ahead of the annual review across <strong>{{ site.data.facts.capex_assets }} IT assets</strong></li>
+        <li>Led a Power Platform budget adjustment application for FP&amp;A, cutting budgeting rework by <strong>60%</strong> and releasing <strong>5,000+ annual hours</strong></li>
+      </ul>
+      <p class="tools"><strong>Tools:</strong> SAP, Power BI, DAX, Power Automate, Python</p>
+    </article>
+
+    <article class="entry">
+      <div class="row1"><h3 class="display">Digital Graduate Analyst, Innovation Lab &amp; Risk Management</h3><span class="when mono">Sep 2021 – Nov 2022</span></div>
+      <p class="org">Central Bank of Malaysia (BNM) · Kuala Lumpur, Malaysia</p>
+      <ul>
+        <li>Built asset vulnerability tracking using <strong>Python web scraping + Neo4j graph database</strong> for dependency mapping, improving SLA adherence by 30%</li>
+        <li>Consolidated 52 disparate departmental datasets into a centralised <strong>Power BI risk intelligence platform</strong>, eliminating {{ site.data.facts.bnm_reporting_hours }} hours of manual reporting annually</li>
+        <li>Built a multi-source <strong>social media analytics platform</strong> integrating LinkedIn, Facebook, Instagram, and Twitter APIs with NLP sentiment analysis and automated controversy flagging</li>
+      </ul>
+      <p class="tools"><strong>Tools:</strong> Python, Neo4j, NLP, Power BI, REST APIs, MySQL</p>
+    </article>
+
+    <article class="entry">
+      <div class="row1"><h3 class="display">VP of Technology</h3><span class="when mono">Jun 2020 – Jun 2021</span></div>
+      <p class="org">Xavier Optics · Los Angeles, US</p>
+      <ul>
+        <li>Built the market intelligence and business case for a novel AR/VR optical element, securing <strong>$225,000 in Phase 1 SBIR government funding</strong></li>
+      </ul>
+    </article>
+  </section>
+
+  <section>
+    <h2 class="section-title">Education</h2>
+
+    <article class="entry">
+      <div class="row1"><h3 class="display">MSc Business Analytics</h3><span class="when mono">Sep 2025 – Aug 2026</span></div>
+      <p class="org">Imperial College Business School · London, UK</p>
+      <p class="note">Modules: Advanced Machine Learning, Network Analytics, Financial Analytics, Causal Modelling. <strong>Yayasan Tun Ismail Excellence Award</strong>, given to 3 recipients nationally.</p>
+    </article>
+
+    <article class="entry">
+      <div class="row1"><h3 class="display">BSc Electrical Engineering (Cum Laude, GPA 3.8)</h3><span class="when mono">Sep 2017 – Jun 2021</span></div>
+      <p class="org">University of California, Los Angeles (UCLA) · Los Angeles, US</p>
+      <p class="note">Dean's Honors List (multiple quarters). <strong>Yayasan Khazanah Global Scholarship</strong> recipient.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2 class="section-title">Key achievements</h2>
+    <div class="achievements">
+      <p class="row"><span class="when mono">2023 – 2024</span> — <strong>Finance Excellence Award, AstraZeneca.</strong> Built a Python forecasting engine reconciling SAP data into real-time cash flow intelligence, cutting {{ site.data.facts.cashflow_hours_saved }} hours of manual reconciliation a year.</p>
+      <p class="row"><span class="when mono">2023 – 2024</span> — <strong>Finance Process Champion, AstraZeneca.</strong> Built a CAPEX consolidation dashboard tracking {{ site.data.facts.capex_assets }} IT assets with fraud-detection ML built in, cutting {{ site.data.facts.capex_audit_hours }} auditing hours a year.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Skills &amp; certifications</h2>
+    <p class="labeled"><span class="lbl">Technical:</span>Python (pandas, NumPy, scikit-learn) · Machine learning (supervised &amp; unsupervised) · Anomaly &amp; fraud detection · NLP &amp; sentiment analysis · Time-series forecasting · Feature engineering · SQL &amp; MySQL · Graph databases (Neo4j) · Power BI &amp; Tableau · Power Platform (Apps, Automate) · R · Advanced Excel &amp; VBA</p>
+    <p class="labeled"><span class="lbl">Certifications:</span>Azure Solutions Architect Expert · Azure Security Engineer Associate · Azure Administrator Associate · Power BI Data Analyst Associate</p>
+    <p class="labeled"><span class="lbl">Finance:</span><strong>CFA Level 1</strong> (passed, May 2026) · Financial &amp; valuation modelling · Investment &amp; portfolio analysis · Regulatory reporting · FP&amp;A, treasury &amp; controls automation</p>
+    <p class="labeled"><span class="lbl">Languages:</span>English (native) · Malay (native)</p>
+  </section>
+
+</div>
+</div>
+<script>
+  // Runs synchronously (no defer) so the address is in place before a
+  // print-to-pdf snapshot is taken, not just for on-screen visitors.
+  document.querySelectorAll('[data-mail]').forEach(function (el) {
+    var email = atob(el.getAttribute('data-mail'));
+    if (el.tagName === 'A') el.href = 'mailto:' + email;
+    if (el.hasAttribute('data-mail-text')) el.textContent = email;
+    el.removeAttribute('data-mail');
+  });
+</script>
+</body>
+</html>

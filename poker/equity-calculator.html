@@ -1,0 +1,1167 @@
+---
+layout: default
+title: Win Probability Calculator
+---
+
+<style>
+/* ══════════════════════════════════════════════════════════════
+   EQUITY CALCULATOR (brand felt)
+══════════════════════════════════════════════════════════════ */
+
+.calc-page {
+  position: relative;
+  padding: 3rem 0 4.5rem;
+  overflow: hidden;
+}
+
+/* ── Page header ── */
+.calc-header {
+  max-width: 1000px;
+  margin: 0 auto 1.75rem;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+.calc-header__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.calc-header__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-top: 0.5rem;
+}
+.calc-header__sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Main felt surface ── */
+.felt-surface {
+  max-width: 1000px;  /* was 860px */
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.felt-card {
+  background: radial-gradient(ellipse 85% 75% at 50% 35%, #0b3a6e 0%, #062244 78%, #041a35 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 10px #0a1b33,
+    0 0 0 11px rgba(255,138,0,0.3),
+    0 30px 80px rgba(4,26,53,0.5);
+}
+
+
+/* Inner felt texture */
+.felt-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg,  rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 3px);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* Radial light */
+.felt-card::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 70%;
+  background: radial-gradient(ellipse, rgba(91,33,182,0.55) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── HJ Watermark ── */
+.felt-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 18rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.025);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+/* ── Suit decorations ── */
+.felt-suits {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.felt-suit {
+  position: absolute;
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.04);
+}
+.felt-suit--tl { top: 16px; left: 20px; }
+.felt-suit--tr { top: 16px; right: 20px; }
+.felt-suit--bl { bottom: 16px; left: 20px; }
+.felt-suit--br { bottom: 16px; right: 20px; }
+
+/* ── Inner layout ── */
+.felt-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Hand areas ── */
+.hands-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.hand-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hand-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,138,0,0.85);
+  text-align: center;
+}
+
+.hand-cards { display: flex; gap: 8px; justify-content: center; }
+
+/* ── Playing cards ── */
+.pcard {
+  width: 64px;
+  height: 90px;
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.6);
+}
+
+.pcard:hover { transform: translateY(-6px) rotate(-2deg); box-shadow: 4px 10px 20px rgba(0,0,0,0.7); }
+
+.pcard--empty {
+  background: rgba(0,0,0,0.25);
+  border: 2px dashed rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+  font-size: 1.5rem;
+}
+
+.pcard--face {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 7px;
+}
+
+.pcard--face .cr { font-family: var(--font-display); font-size: 1rem; font-weight: 900; line-height: 1; }
+.pcard--face .cs { font-size: 0.7rem; line-height: 1; margin-top: 1px; }
+.pcard--face .cc { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+.pcard--face .cb { display: flex; flex-direction: column; align-items: flex-end; transform: rotate(180deg); }
+.pcard--face .cb .cr { font-size: 1rem; }
+.pcard.red  .pcard--face, .pcard.red  { color: #c0392b; }
+.pcard.black .pcard--face, .pcard.black { color: #1a1714; }
+
+/* Board cards slightly smaller */
+.pcard--board { width: 54px; height: 76px; }
+.pcard--board .cc { font-size: 1.6rem; }
+.pcard--board .cr { font-size: 0.85rem; }
+
+/* ── Equity bars ── */
+.equity-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.eq-pct {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.eq-bar-wrap {
+  width: 100%;
+  height: 5px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.eq-bar { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+.eq-bar--you  { background: linear-gradient(90deg, #ff8a00, #ffb35c); }
+.eq-bar--opp  { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+
+/* VS divider */
+.vs-divider {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: rgba(255,138,0,0.6);
+  text-align: center;
+  text-shadow: 0 0 20px rgba(255,138,0,0.3);
+}
+
+/* ── Board section ── */
+.board-section {
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.board-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+.board-cards { display: flex; gap: 6px; }
+
+/* ── Divider line ── */
+.felt-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,138,0,0.3), transparent);
+  margin: 1.5rem 0;
+}
+
+/* ── Action buttons ── */
+.calc-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.felt-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.felt-btn--primary {
+  background: #ff8a00;
+  color: #042448;
+  box-shadow: 0 2px 8px rgba(255,138,0,0.35);
+}
+.felt-btn--primary:hover { filter: brightness(1.15); transform: translateY(-1px); }
+
+.felt-btn--deal {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.felt-btn--deal:hover { background: rgba(255,255,255,0.18); transform: translateY(-1px); }
+
+.felt-btn--secondary {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.felt-btn--secondary:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
+
+.felt-btn--danger {
+  background: rgba(192,57,43,0.15);
+  color: rgba(220,80,60,0.9);
+  border: 1px solid rgba(192,57,43,0.2);
+}
+.felt-btn--danger:hover { background: rgba(192,57,43,0.25); transform: translateY(-1px); }
+
+.felt-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
+
+.spacer { flex: 1; }
+
+/* ── Results ── */
+.results-panel {
+  margin-top: 1.5rem;
+  background: rgba(0,0,0,0.35);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255,138,0,0.18);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.result-item {}
+.result-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 4px;
+}
+.result-val {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.result-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.6;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.75rem;
+}
+
+/* ── Outs panel ── */
+.outs-panel {
+  margin-top: 1rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,138,0,0.18);
+}
+
+.outs-header {
+  background: rgba(0,0,0,0.4);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.outs-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.outs-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 3px;
+}
+
+.outs-prob {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ff8a00;
+}
+
+.outs-situation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.02);
+}
+
+.sit-hand { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: #fff; }
+.sit-label-lose { font-family: var(--font-mono); font-size: 0.62rem; color: #c0392b; margin-top: 3px; }
+.sit-label-win  { font-family: var(--font-mono); font-size: 0.62rem; color: #ff8a00; margin-top: 3px; }
+.sit-vs { font-family: var(--font-mono); font-size: 0.65rem; color: rgba(255,255,255,0.25); text-align: center; }
+
+.outs-math {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,138,0,0.06);
+}
+.outs-math-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 6px;
+}
+.outs-math-formula {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #ff8a00;
+  margin-bottom: 4px;
+}
+.outs-math-tip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.25);
+}
+
+.outs-cards-section { padding: 1rem 1.25rem; }
+.outs-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ff8a00;
+  margin-bottom: 6px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+.outs-group-label:first-child { margin-top: 0; }
+
+.outs-cards-row { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.out-card {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+}
+.out-card.red { background: rgba(192,57,43,0.15); border-color: rgba(192,57,43,0.3); color: #e74c3c; }
+
+/* ── Card picker ── */
+.card-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.card-picker-modal {
+  background: #0a1b33;
+  border: 1px solid rgba(255,138,0,0.3);
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 340px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+}
+
+.picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.picker-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,138,0,0.9);
+}
+
+.picker-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+}
+.picker-close:hover { color: #fff; }
+
+.picker-suits {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.picker-suit {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  background: rgba(0,0,0,0.3);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.picker-suit.active { border-color: rgba(255,138,0,0.6); background: rgba(255,138,0,0.12); }
+.picker-suit.red { color: #e74c3c; }
+
+.picker-ranks {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.picker-rank {
+  padding: 6px 2px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  background: rgba(0,0,0,0.3);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: all 0.12s;
+  text-align: center;
+}
+.picker-rank:hover:not(:disabled) { border-color: rgba(255,138,0,0.5); background: rgba(255,138,0,0.12); color: #fff; }
+.picker-rank:disabled { opacity: 0.2; cursor: not-allowed; }
+
+.picker-clear {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(192,57,43,0.15);
+  border: 1px solid rgba(192,57,43,0.25);
+  border-radius: 6px;
+  color: rgba(220,80,60,0.8);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.picker-clear:hover { background: rgba(192,57,43,0.3); }
+
+@media (max-width: 640px) {
+  .hands-row { grid-template-columns: 1fr; gap: 1rem; }
+  .vs-divider { transform: rotate(90deg); }
+  .results-grid { grid-template-columns: repeat(2,1fr); }
+  .felt-card { padding: 1.5rem 1rem; }
+  .pcard { width: 52px; height: 74px; }
+  .pcard--face .cc { font-size: 1.5rem; }
+}
+</style>
+
+<!-- ═══════════════════ PAGE ═══════════════════ -->
+<div class="calc-page">
+  <div class="calc-header">
+    <p class="calc-header__label">Interactive tool</p>
+    <h1 class="calc-header__title">Win probability calculator</h1>
+    <div class="calc-header__sub">Monte Carlo simulation, 10,000 runs per calculation, with outs analysis on the flop and turn.</div>
+  </div>
+
+  <div class="felt-surface">
+    <div class="felt-card">
+      <div class="felt-watermark">HJ</div>
+      <div class="felt-suits">
+        <div class="felt-suit felt-suit--tl">♠</div>
+        <div class="felt-suit felt-suit--tr">♥</div>
+        <div class="felt-suit felt-bl">♦</div>
+        <div class="felt-suit felt-suit--br">♣</div>
+      </div>
+
+      <div class="felt-inner">
+
+        <!-- HANDS ROW -->
+        <div class="hands-row">
+          <!-- Hand A -->
+          <div class="hand-zone">
+            <div class="hand-label">Hand A</div>
+            <div class="hand-cards">
+              <div class="pcard pcard--empty" id="pc0" data-hand="hand1" data-slot="0">+</div>
+              <div class="pcard pcard--empty" id="pc1" data-hand="hand1" data-slot="1">+</div>
+            </div>
+            <div class="equity-display">
+              <div class="eq-bar-wrap"><div class="eq-bar eq-bar--you" id="bar1" style="width:50%"></div></div>
+              <div class="eq-pct" id="pct1">50.0%</div>
+            </div>
+          </div>
+
+          <div class="vs-divider">VS</div>
+
+          <!-- Hand B -->
+          <div class="hand-zone">
+            <div class="hand-label">Hand B</div>
+            <div class="hand-cards">
+              <div class="pcard pcard--empty" id="oc0" data-hand="hand2" data-slot="0">+</div>
+              <div class="pcard pcard--empty" id="oc1" data-hand="hand2" data-slot="1">+</div>
+            </div>
+            <div class="equity-display">
+              <div class="eq-bar-wrap"><div class="eq-bar eq-bar--opp" id="bar2" style="width:50%"></div></div>
+              <div class="eq-pct" id="pct2">50.0%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOARD -->
+        <div class="board-section">
+          <div class="board-label">Community Cards</div>
+          <div class="board-cards">
+            <div class="pcard pcard--board pcard--empty" id="bc0" data-hand="board" data-slot="0">+</div>
+            <div class="pcard pcard--board pcard--empty" id="bc1" data-hand="board" data-slot="1">+</div>
+            <div class="pcard pcard--board pcard--empty" id="bc2" data-hand="board" data-slot="2">+</div>
+            <div class="pcard pcard--board pcard--empty" id="bc3" data-hand="board" data-slot="3" style="opacity:0.4">+</div>
+            <div class="pcard pcard--board pcard--empty" id="bc4" data-hand="board" data-slot="4" style="opacity:0.4">+</div>
+          </div>
+        </div>
+
+        <div class="felt-divider"></div>
+
+        <!-- ACTIONS -->
+        <div class="calc-actions">
+          <button class="felt-btn felt-btn--primary" id="calcBtn">Calculate probability</button>
+          <button class="felt-btn felt-btn--deal" id="dealBtn">Deal hands</button>
+          <button class="felt-btn felt-btn--secondary" id="flopBtn">Deal flop</button>
+          <button class="felt-btn felt-btn--secondary" id="hitBtn" disabled>Turn →</button>
+          <div class="spacer"></div>
+          <button class="felt-btn felt-btn--danger" id="resetBtn">Reset</button>
+        </div>
+
+        <!-- RESULTS -->
+        <div id="resultsWrap" style="display:none">
+          <div class="results-panel">
+            <div class="results-grid">
+              <div class="result-item">
+                <div class="result-lbl">Win</div>
+                <div class="result-val" id="resWin">-</div>
+              </div>
+              <div class="result-item">
+                <div class="result-lbl">Tie</div>
+                <div class="result-val" id="resTie">-</div>
+              </div>
+              <div class="result-item">
+                <div class="result-lbl">Lose</div>
+                <div class="result-val" id="resLose">-</div>
+              </div>
+              <div class="result-item">
+                <div class="result-lbl">Simulations</div>
+                <div class="result-val" id="resSims">10,000</div>
+              </div>
+            </div>
+            <div class="result-note" id="resultNote"></div>
+          </div>
+          <div id="outsWrap"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card picker modal -->
+<div class="card-picker-overlay" id="pickerOverlay" style="display:none">
+  <div class="card-picker-modal">
+    <div class="picker-header">
+      <div class="picker-title">Select a card</div>
+      <button class="picker-close" id="pickerClose">✕</button>
+    </div>
+    <div class="picker-suits" id="pickerSuits">
+      <button class="picker-suit active" data-suit="s">♠</button>
+      <button class="picker-suit red" data-suit="h">♥</button>
+      <button class="picker-suit red" data-suit="d">♦</button>
+      <button class="picker-suit" data-suit="c">♣</button>
+    </div>
+    <div class="picker-ranks" id="pickerRanks"></div>
+    <button class="picker-clear" id="pickerClear">Clear this card</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   POKER EQUITY ENGINE
+══════════════════════════════════════════════════════════════ */
+const RANKS = ['2','3','4','5','6','7','8','9','T','J','Q','K','A'];
+const SUITS = ['s','h','d','c'];
+const RANK_VAL = Object.fromEntries(RANKS.map((r,i)=>[r,i+2]));
+const RED_SUITS = ['h','d'];
+const SUIT_SYM = {s:'♠',h:'♥',d:'♦',c:'♣'};
+
+let state = {
+  hand1: [null,null],
+  hand2: [null,null],
+  board: [null,null,null,null,null],
+  picking: null,
+  pickerSuit: 's'
+};
+
+function fullDeck() {
+  const d=[];
+  for(const r of RANKS) for(const s of SUITS) d.push(r+s);
+  return d;
+}
+
+function shuffle(a) {
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+/* Hand evaluator */
+function rankHand(cards) {
+  const ranks = cards.map(c=>RANK_VAL[c[0]]).sort((a,b)=>b-a);
+  const suits = cards.map(c=>c[1]);
+  const rankCount={};
+  ranks.forEach(r=>rankCount[r]=(rankCount[r]||0)+1);
+  const counts=Object.values(rankCount).sort((a,b)=>b-a);
+  const uniqueRanks=[...new Set(ranks)].sort((a,b)=>b-a);
+  const suitCount={};
+  suits.forEach(s=>suitCount[s]=(suitCount[s]||0)+1);
+  const flushSuit=Object.keys(suitCount).find(s=>suitCount[s]>=5);
+  const flushCards=flushSuit?cards.filter(c=>c[1]===flushSuit).map(c=>RANK_VAL[c[0]]).sort((a,b)=>b-a):null;
+
+  function straightHigh(rks){
+    const u=[...new Set(rks)].sort((a,b)=>b-a);
+    if(u.includes(14)&&u.includes(2)&&u.includes(3)&&u.includes(4)&&u.includes(5))return 5;
+    for(let i=0;i<=u.length-5;i++){
+      let ok=true;
+      for(let j=0;j<4;j++)if(u[i+j]-u[i+j+1]!==1){ok=false;break;}
+      if(ok)return u[i];
+    }
+    return 0;
+  }
+
+  const sfH=flushCards?straightHigh(flushCards):0;
+  const strH=straightHigh(ranks);
+  const top5=(base,tb)=>base*1e10+tb.reduce((acc,v,i)=>acc+v*Math.pow(15,4-i),0);
+
+  if(sfH>=8)return top5(8,[sfH]);
+  if(counts[0]===4){const q=+Object.keys(rankCount).find(k=>rankCount[k]===4);const k=uniqueRanks.find(r=>r!==q);return top5(7,[q,k]);}
+  if(counts[0]===3&&counts[1]>=2){const t=+Object.keys(rankCount).find(k=>rankCount[k]===3);const p=+Object.keys(rankCount).filter(k=>rankCount[k]>=2&&+k!==t).sort((a,b)=>b-a)[0];return top5(6,[t,p]);}
+  if(flushCards)return top5(5,flushCards.slice(0,5));
+  if(strH)return top5(4,[strH]);
+  if(counts[0]===3){const t=+Object.keys(rankCount).find(k=>rankCount[k]===3);const ks=uniqueRanks.filter(r=>r!==t).slice(0,2);return top5(3,[t,...ks]);}
+  if(counts[0]===2&&counts[1]===2){const ps=Object.keys(rankCount).filter(k=>rankCount[k]===2).map(Number).sort((a,b)=>b-a);const k=uniqueRanks.find(r=>!ps.includes(r));return top5(2,[...ps,k]);}
+  if(counts[0]===2){const p=+Object.keys(rankCount).find(k=>rankCount[k]===2);const ks=uniqueRanks.filter(r=>r!==p).slice(0,3);return top5(1,[p,...ks]);}
+  return top5(0,uniqueRanks.slice(0,5));
+}
+
+function best5(hole,board){
+  const all=[...hole,...board];
+  let best=-Infinity;
+  for(let i=0;i<all.length;i++)for(let j=i+1;j<all.length;j++){
+    const five=all.filter((_,idx)=>idx!==i&&idx!==j);
+    const s=rankHand(five);
+    if(s>best)best=s;
+  }
+  return best;
+}
+
+function handName(score){
+  if(score>=8e10)return'Straight Flush';
+  if(score>=7e10)return'Four of a Kind';
+  if(score>=6e10)return'Full House';
+  if(score>=5e10)return'Flush';
+  if(score>=4e10)return'Straight';
+  if(score>=3e10)return'Three of a Kind';
+  if(score>=2e10)return'Two Pair';
+  if(score>=1e10)return'One Pair';
+  return'High Card';
+}
+
+function monteCarlo(h1,h2,board,sims=10000){
+  const known=[...h1,...h2,...board].filter(Boolean);
+  const deck=fullDeck().filter(c=>!known.includes(c));
+  const needed=5-board.filter(Boolean).length;
+  let wins=0,ties=0,losses=0;
+  for(let i=0;i<sims;i++){
+    shuffle(deck);
+    const run=[...board.filter(Boolean),...deck.slice(0,needed)];
+    const s1=best5(h1,run),s2=best5(h2,run);
+    if(s1>s2)wins++;else if(s1===s2)ties++;else losses++;
+  }
+  return{wins,ties,losses,sims};
+}
+
+function findOuts(loser,winner,board){
+  const boardCards=board.filter(Boolean);
+  if(boardCards.length<3||boardCards.length>4)return null;
+  const known=[...loser,...winner,...board].filter(Boolean);
+  const deck=fullDeck().filter(c=>!known.includes(c));
+  const outs=[];
+  if(boardCards.length===4){
+    deck.forEach(c=>{
+      const s1=best5(loser,[...boardCards,c]);
+      const s2=best5(winner,[...boardCards,c]);
+      if(s1>s2)outs.push(c);
+    });
+  } else {
+    deck.forEach(turn=>{
+      const after=deck.filter(c=>c!==turn);
+      let wins=0;
+      after.forEach(river=>{const s1=best5(loser,[...boardCards,turn,river]);const s2=best5(winner,[...boardCards,turn,river]);if(s1>s2)wins++;});
+      if(wins/after.length>0.5)outs.push(turn);
+    });
+  }
+  return outs;
+}
+
+function groupOuts(outs,loser,board){
+  const boardCards=board.filter(Boolean);
+  const known=[...loser,...board].filter(Boolean);
+  const groups={};
+  outs.forEach(card=>{
+    let name;
+    if(boardCards.length===4){
+      name=handName(best5(loser,[...boardCards,card]));
+    } else {
+      const after=fullDeck().filter(c=>!known.includes(c)&&c!==card);
+      const counts={};
+      const samples=Math.min(20,after.length);
+      for(let i=0;i<samples;i++){const n=handName(best5(loser,[...boardCards,card,after[i]]));counts[n]=(counts[n]||0)+1;}
+      name=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+    }
+    if(!groups[name])groups[name]=[];
+    groups[name].push(card);
+  });
+  return groups;
+}
+
+/* ── UI rendering ── */
+function cardHTML(card, extraClass='') {
+  if(!card) return null;
+  const r=card[0], s=card[1];
+  const isRed=RED_SUITS.includes(s);
+  const sym=SUIT_SYM[s];
+  return `<div class="pcard pcard--face ${isRed?'red':'black'} ${extraClass}">
+    <div class="cf-top"><div class="cr">${r}</div><div class="cs">${sym}</div></div>
+    <div class="cc">${sym}</div>
+    <div class="cf-bot"><div class="cr">${r}</div><div class="cs">${sym}</div></div>
+  </div>`;
+}
+
+// Add missing CSS for card face layout
+document.head.insertAdjacentHTML('beforeend',`<style>
+.pcard--face {
+  background: #fff;
+  border-radius: 7px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px;
+}
+.card-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.card-label .rank { font-size: 1.2rem; }
+.card-label .suit { font-size: 0.85rem; }
+.card-center-suit {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+.pcard--board.pcard--face .card-label .rank { font-size: 1rem; }
+.pcard--board.pcard--face .card-center-suit { font-size: 1.8rem; }
+.pcard.red  { color: #c0392b; }
+.pcard.black { color: #1a1714; }
+</style>`);
+
+function updateCardEl(id, card, extraClass='') {
+  const el = document.getElementById(id);
+  if(!el) return;
+  // Preserve data attributes
+  const hand = el.dataset.hand;
+  const slot = el.dataset.slot;
+  if(card) {
+    const r = card[0], s = card[1];
+    const isRed = RED_SUITS.includes(s);
+    const sym = SUIT_SYM[s];
+    el.className = `pcard pcard--face ${isRed?'red':'black'} ${extraClass}`;
+    el.innerHTML = `
+      <div class="card-label">
+        <span class="rank">${r}</span>
+        <span class="suit">${sym}</span>
+      </div>
+      <div class="card-center-suit">${sym}</div>`;
+  } else {
+    el.className = `pcard pcard--empty ${extraClass}`;
+    el.textContent = '+';
+  }
+  el.dataset.hand = hand;
+  el.dataset.slot = slot;
+}
+
+function updateUI() {
+  state.hand1.forEach((c,i)=>updateCardEl(`pc${i}`,c));
+  state.hand2.forEach((c,i)=>updateCardEl(`oc${i}`,c));
+  state.board.forEach((c,i)=>{
+    updateCardEl(`bc${i}`,c,'pcard--board');
+    const el=document.getElementById(`bc${i}`);
+    if(el) {
+      el.dataset.hand='board';
+      el.dataset.slot=i;
+      // Dim turn/river slots until flop is set
+      const flopSet=state.board.slice(0,3).filter(Boolean).length===3;
+      if(i>=3) el.style.opacity = flopSet ? '1' : '0.4';
+    }
+  });
+  updateHitBtn();
+}
+
+function updateHitBtn(){
+  const btn=document.getElementById('hitBtn');
+  const n=state.board.filter(Boolean).length;
+  btn.disabled=n<3||n>=5;
+  btn.textContent=n===3?'Turn →':n===4?'River →':'Hit →';
+}
+
+function getUsed(excludeTarget) {
+  let cards=[...state.hand1,...state.hand2,...state.board].filter(Boolean);
+  if(excludeTarget){
+    const {target,slot}=excludeTarget;
+    const arr=target==='hand1'?state.hand1:target==='hand2'?state.hand2:state.board;
+    const current=arr[slot];
+    if(current) cards=cards.filter(c=>c!==current);
+  }
+  return cards;
+}
+
+/* ── Picker ── */
+function openPicker(target, slot) {
+  state.picking={target,slot};
+  document.getElementById('pickerOverlay').style.display='flex';
+  renderRanks();
+}
+
+function closePicker(){
+  document.getElementById('pickerOverlay').style.display='none';
+  state.picking=null;
+}
+
+function renderRanks(){
+  const used=getUsed(state.picking);
+  const container=document.getElementById('pickerRanks');
+  container.innerHTML=RANKS.map(r=>{
+    const code=r+state.pickerSuit;
+    const disabled=used.includes(code);
+    return`<button class="picker-rank" data-rank="${r}" ${disabled?'disabled':''}>${r}</button>`;
+  }).join('');
+  container.querySelectorAll('.picker-rank').forEach(btn=>{
+    if(!btn.disabled) btn.addEventListener('click',()=>selectCard(btn.dataset.rank+state.pickerSuit));
+  });
+}
+
+function selectCard(card){
+  const{target,slot}=state.picking;
+  if(target==='hand1')state.hand1[slot]=card;
+  else if(target==='hand2')state.hand2[slot]=card;
+  else state.board[slot]=card;
+  closePicker();
+  updateUI();
+  if(state.hand1.every(Boolean)&&state.hand2.every(Boolean))calculate();
+}
+
+/* ── Calculation ── */
+function calculate(){
+  const h1=state.hand1,h2=state.hand2;
+  if(!h1.every(Boolean)||!h2.every(Boolean)){alert('Please select both hole cards for each hand.');return;}
+  const btn=document.getElementById('calcBtn');
+  btn.textContent='Calculating…';btn.disabled=true;
+  setTimeout(()=>{
+    const{wins,ties,losses,sims}=monteCarlo(h1,h2,state.board,10000);
+    const wp=wins/sims*100,tp=ties/sims*100,lp=losses/sims*100;
+    const eq=((wins+ties*.5)/sims*100).toFixed(1);
+    const oppEq=(100-parseFloat(eq)).toFixed(1);
+    document.getElementById('pct1').textContent=eq+'%';
+    document.getElementById('pct2').textContent=oppEq+'%';
+    document.getElementById('bar1').style.width=eq+'%';
+    document.getElementById('bar2').style.width=oppEq+'%';
+    document.getElementById('resWin').textContent=wp.toFixed(1)+'%';
+    document.getElementById('resTie').textContent=tp.toFixed(1)+'%';
+    document.getElementById('resLose').textContent=lp.toFixed(1)+'%';
+    document.getElementById('resSims').textContent=sims.toLocaleString();
+    const boardCards=state.board.filter(Boolean);
+    const street=['preflop','preflop','preflop','flop','turn','river'][boardCards.length]||'river';
+    document.getElementById('resultNote').textContent=`${h1.join(' ')} vs ${h2.join(' ')} ${street}: win probability ${eq}% · Monte Carlo ${sims.toLocaleString()} sims`;
+    // Outs
+    const loser=parseFloat(eq)>=50?h2:h1;
+    const winner=parseFloat(eq)>=50?h1:h2;
+    if(boardCards.length>=3&&boardCards.length<=4){
+      const outs=findOuts(loser,winner,state.board);
+      const groups=groupOuts(outs,loser,state.board);
+      const winScore=best5(winner,boardCards);
+      const loseScore=best5(loser,boardCards);
+      const streetsLeft=boardCards.length===3?'turn or river':'river';
+      const prob=boardCards.length===4
+        ?(outs.length/44*100).toFixed(1)
+        :((1-((45-outs.length)/45)*((44-outs.length)/44))*100).toFixed(1);
+      const mathLine = boardCards.length === 4
+        ? `${outs.length} ÷ 44 = ${prob}%`
+        : `1 − (${45 - outs.length}/45 × ${44 - outs.length}/44) = ${prob}%`;
+      const tipLine=boardCards.length===3
+        ?`Rule of thumb: outs × 4 on flop (${outs.length*4}%), outs × 2 on turn (${outs.length*2}%)`
+        :`Rule of thumb: outs × 2 on river (${outs.length*2}%)`;
+      const outsHTML=Object.entries(groups).map(([hand,cards])=>`
+        <div class="outs-group-label">${hand} <span style="color:rgba(255,255,255,0.3)">(${cards.length} out${cards.length!==1?'s':''})</span></div>
+        <div class="outs-cards-row">${cards.map(c=>{
+          const isRed=RED_SUITS.includes(c[1]);
+          return`<span class="out-card ${isRed?'red':''}">${c[0]}${SUIT_SYM[c[1]]}</span>`;
+        }).join('')}</div>
+      `).join('');
+      document.getElementById('outsWrap').innerHTML=`
+        <div class="outs-panel">
+          <div class="outs-header">
+            <div><div class="outs-subtitle">Outs Analysis · ${streetsLeft}</div><div class="outs-title">${outs.length} outs to win</div></div>
+            <div style="text-align:right"><div class="outs-subtitle">Approx probability</div><div class="outs-prob">${prob}%</div></div>
+          </div>
+          <div class="outs-situation">
+            <div><div class="sit-hand">${loser.join(' ')}</div><div class="sit-label-lose">${handName(loseScore)} ← losing</div></div>
+            <div class="sit-vs">vs</div>
+            <div><div class="sit-hand">${winner.join(' ')}</div><div class="sit-label-win">${handName(winScore)} ← ahead</div></div>
+          </div>
+          <div class="outs-math">
+            <div class="outs-math-label">How the probability is calculated</div>
+            <div class="outs-math-formula">${mathLine}</div>
+            <div class="outs-math-tip">${tipLine}</div>
+          </div>
+          <div class="outs-cards-section">
+            <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px">Cards that give you the win</div>
+            ${outs.length>0?outsHTML:'<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;">No clean outs. Drawing dead.</p>'}
+          </div>
+        </div>`;
+    } else {
+      document.getElementById('outsWrap').innerHTML='';
+    }
+    document.getElementById('resultsWrap').style.display='block';
+    btn.textContent='Recalculate';btn.disabled=false;
+  },50);
+}
+
+function randomCard(exclude){
+  const avail=fullDeck().filter(c=>!exclude.includes(c));
+  return avail[Math.floor(Math.random()*avail.length)];
+}
+
+function dealHands(){
+  state.hand1=[null,null];state.hand2=[null,null];state.board=[null,null,null,null,null];
+  state.hand1[0]=randomCard([]);
+  state.hand1[1]=randomCard([...state.hand1.filter(Boolean)]);
+  state.hand2[0]=randomCard([...state.hand1]);
+  state.hand2[1]=randomCard([...state.hand1,...state.hand2.filter(Boolean)]);
+  updateUI();calculate();
+}
+
+function randomFlop(){
+  state.board=[null,null,null,null,null];
+  const used=[...state.hand1,...state.hand2].filter(Boolean);
+  for(let i=0;i<3;i++)state.board[i]=randomCard([...used,...state.board.filter(Boolean)]);
+  updateUI();
+  if(state.hand1.every(Boolean)&&state.hand2.every(Boolean))calculate();
+}
+
+function hit(){
+  const next=state.board.findIndex(c=>c===null);
+  if(next===-1||next>4)return;
+  const used=[...state.hand1,...state.hand2,...state.board].filter(Boolean);
+  state.board[next]=randomCard(used);
+  updateUI();
+  if(state.hand1.every(Boolean)&&state.hand2.every(Boolean))calculate();
+}
+
+function reset(){
+  state={hand1:[null,null],hand2:[null,null],board:[null,null,null,null,null],picking:null,pickerSuit:'s'};
+  document.getElementById('pct1').textContent='50.0%';
+  document.getElementById('pct2').textContent='50.0%';
+  document.getElementById('bar1').style.width='50%';
+  document.getElementById('bar2').style.width='50%';
+  document.getElementById('resultsWrap').style.display='none';
+  document.getElementById('outsWrap').innerHTML='';
+  document.getElementById('calcBtn').textContent='Calculate probability';
+  updateUI();
+}
+
+/* ── Event wiring ── */
+document.querySelector('.felt-inner').addEventListener('click', e => {
+  const card = e.target.closest('[data-hand]');
+  if (!card) return;
+  const hand = card.dataset.hand;
+  const slot = parseInt(card.dataset.slot);
+  const target = hand === 'board' ? 'board' : hand === 'hand1' ? 'hand1' : 'hand2';
+  openPicker(target, slot);
+});
+
+// ── Button listeners ──
+document.getElementById('pickerClose').addEventListener('click', closePicker);
+document.getElementById('pickerOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closePicker();
+});
+document.getElementById('pickerClear').addEventListener('click', () => {
+  const { target, slot } = state.picking;
+  if (target === 'hand1') state.hand1[slot] = null;
+  else if (target === 'hand2') state.hand2[slot] = null;
+  else state.board[slot] = null;
+  closePicker(); updateUI();
+});
+
+document.querySelectorAll('.picker-suit').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.picker-suit').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.pickerSuit = btn.dataset.suit;
+    renderRanks();
+  });
+});
+
+document.getElementById('calcBtn').addEventListener('click', calculate);
+document.getElementById('dealBtn').addEventListener('click', dealHands);
+document.getElementById('flopBtn').addEventListener('click', randomFlop);
+document.getElementById('hitBtn').addEventListener('click', hit);
+document.getElementById('resetBtn').addEventListener('click', reset);
+
+
+updateUI();
+</script>

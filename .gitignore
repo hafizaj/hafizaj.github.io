@@ -18,3 +18,17 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Agent workspaces
+.superpowers/
+.worktrees/
+
+# Node
+node_modules/
+
+# Private reference material
+__reference_files/
+
+# Camera originals
+*.HEIC
+_pdf/

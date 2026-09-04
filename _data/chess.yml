@@ -1,11 +1,9 @@
 # ============================================================
-# CHESS DATA — Update your stats, style, and resources here
+# CHESS DATA - Update your stats, style, and resources here
 # ============================================================
 
 stats:
-  - value: "1820"
-    label: "Lichess Rapid"
-  - value: "1750"
+  - value: "1200"
     label: "Chess.com Rapid"
   - value: "e4"
     label: "Preferred Opening"
@@ -15,13 +13,13 @@ stats:
 intro: >
   Chess became a serious hobby after reading about Magnus Carlsen's approach to
   preparation. The game demands a unique blend of creativity and calculation, pattern
-    recognition and pure logic. I play primarily online (Lichess & Chess.com) with
-  weekly OTB games at a local club.
+  recognition and pure logic. I play primarily on Chess.com, working through
+  tactics and openings whenever I get a spare half hour.
 
 style:
   title: "Playing Style"
   body: >
-    I am an attacking player by nature — I prefer sharp, dynamic positions where
+    I'm an attacking player by nature. I prefer sharp, dynamic positions where
     concrete calculation matters more than positional nuance. My favourite openings
     reflect this: the Italian Game, the King's Indian Attack, and the Sicilian
     Najdorf as Black. I'm actively working on improving my endgame technique,
@@ -30,7 +28,7 @@ style:
 openings:
   title: "Opening Repertoire"
   as_white:
-    - "1.e4 — Italian Game / Ruy Lopez"
+    - "1.e4: Italian Game / Ruy Lopez"
     - "King's Indian Attack vs French"
     - "London System (when I want a quiet game)"
   as_black:
@@ -43,7 +41,7 @@ study_approach:
   points:
     - 30 minutes of tactics puzzles daily (Lichess Puzzles)
     - Annotated game analysis with Stockfish
-    - Weekly game review — identifying recurring mistakes
+    - Weekly game review to spot recurring mistakes
     - Endgame studies (Silman's Complete Endgame Course)
     - Opening theory for current repertoire
 

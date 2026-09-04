@@ -1,0 +1,82 @@
+---
+layout: default
+title: Poker
+description: "Five years studying poker as applied probability: range construction, expected value, and decision-making under uncertainty, plus a Monte Carlo win-probability calculator I built."
+---
+
+<!-- HEADER -->
+<section class="border-b border-mist bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+      <div>
+        <span class="label-pill bg-indigo/10 text-indigo">Beyond work</span>
+        <h1 class="mt-6 flex items-center gap-3 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+          Poker
+          <iconify-icon icon="ph:spade" width="40" class="text-indigo" aria-hidden="true"></iconify-icon>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-muted">{{ site.data.poker.intro }}</p>
+      </div>
+      <div class="flex gap-8 lg:mt-2 lg:flex-col lg:gap-6">
+        {% for stat in site.data.poker.stats %}
+        <div>
+          <p class="font-display text-2xl font-extrabold text-indigo">{{ stat.value }}</p>
+          <p class="text-sm text-muted">{{ stat.label }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRY IT -->
+<section class="bg-indigo">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-14 sm:py-16 lg:grid-cols-[2fr_3fr] lg:items-center">
+    <div>
+      <p class="font-display text-[clamp(3rem,7vw,4.5rem)] font-extrabold leading-none text-white">10,000</p>
+      <p class="mt-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">simulations per calculation</p>
+    </div>
+    <div>
+      <p class="text-lg leading-8 text-white/85">I built a Monte Carlo calculator that estimates win probability for any two hands against any board. It runs the same style of simulation-based estimation I use professionally: play out the scenario thousands of times, read off the distribution.</p>
+      <a href="/poker/equity-calculator/" class="mt-5 inline-block rounded-lg bg-white px-6 py-3 text-sm font-bold text-indigo transition-transform hover:-translate-y-0.5">Open the win-probability calculator →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="border-t border-mist bg-white py-16 sm:py-20">
+  <div class="mx-auto grid max-w-6xl gap-6 px-6 md:grid-cols-2">
+
+    <div class="rounded-xl border border-mist bg-paper p-7">
+      <iconify-icon icon="ph:brain" width="26" class="text-indigo" aria-hidden="true"></iconify-icon>
+      <h3 class="mt-3 font-display text-lg font-bold">{{ site.data.poker.philosophy.title }}</h3>
+      <p class="mt-3 text-sm leading-7 text-muted">{{ site.data.poker.philosophy.body }}</p>
+    </div>
+
+    <div class="rounded-xl border border-mist bg-paper p-7">
+      <iconify-icon icon="ph:books" width="26" class="text-royal" aria-hidden="true"></iconify-icon>
+      <h3 class="mt-3 font-display text-lg font-bold">{{ site.data.poker.study_approach.title }}</h3>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-muted">
+        {% for point in site.data.poker.study_approach.points %}<li>{{ point }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="rounded-xl border border-mist bg-paper p-7">
+      <iconify-icon icon="ph:chart-scatter" width="26" class="text-ember" aria-hidden="true"></iconify-icon>
+      <h3 class="mt-3 font-display text-lg font-bold">The data science connection</h3>
+      <p class="mt-3 text-sm leading-7 text-muted">Poker sharpened skills that apply directly to ML: comfort with uncertainty, expected value thinking, updating beliefs on new evidence, and keeping emotions out of analytical decisions. Both reward rigorous process over results-oriented thinking.</p>
+    </div>
+
+    <div class="rounded-xl border border-mist bg-paper p-7">
+      <iconify-icon icon="ph:bookmark-simple" width="26" class="text-indigo" aria-hidden="true"></iconify-icon>
+      <h3 class="mt-3 font-display text-lg font-bold">{{ site.data.poker.resources.title }}</h3>
+      <div class="mt-4 space-y-3">
+        {% for item in site.data.poker.resources.items %}
+        <p class="text-sm leading-7 text-muted">
+          {% if item.url != "" %}<a href="{{ item.url }}" target="_blank" rel="noopener" class="font-semibold text-indigo hover:text-royal">{{ item.name }}</a>{% else %}<span class="font-semibold text-ink">{{ item.name }}</span>{% endif %}
+          <span class="font-mono text-xs"> · {{ item.type }}</span>
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

@@ -2,8 +2,9 @@
    noisy training set, evaluated against a fixed, separate test set. Degree
    is the reader's slider. True relationship, training points, test points,
    and noise are all fixed constants — verified offline (see the note) to
-   produce a genuine U-shaped test-MSE curve bottoming out at degree 2,
-   which happens to be the true polynomial order. */
+   put the test-MSE minimum at degree 2, which happens to be the true
+   polynomial order. The rise after it is not monotonic: degree 7 scores
+   4.13 against degree 6's 4.29, so the right arm is a trend, not a clean U. */
 (function () {
   'use strict';
 

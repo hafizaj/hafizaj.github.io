@@ -2,44 +2,78 @@
 title: "Solar can push the electricity price to zero — and that's a problem"
 topic: "Merit-order dispatch"
 module: "Energy Analytics"
-date: 2026-06-09
+date: 2026-08-26
+updated: 2026-09-04
+level: applied
+featured: false
+index_order: 17
+source_schema: 2
+takeaway: "In a marginal-price market, enough zero-cost supply drives the clearing price down to the lowest offer in the stack."
 reading_time: 9
-summary: "Wholesale electricity markets clear at the cost of the most expensive generator still needed — not the average. Add enough zero-marginal-cost solar and that price can fall all the way to zero long before demand does, which is exactly the mechanism behind the grid's famous 'duck curve.'"
+summary: "In a uniform-price wholesale market the clearing price is set by the last generator needed, so zero-marginal-cost solar lowers it by displacement rather than by averaging. Follow that far enough and the price hits the floor of the bid stack while demand is still fully served."
 prerequisites: "What marginal cost means, and how a uniform-price auction clears."
 sources:
-  - "California ISO (2013), the original 'duck curve' net-load chart — the canonical illustration of this effect."
-  - "Kirschen, D. S. & Strbac, G., <em>Fundamentals of Power System Economics</em> — the standard treatment of merit-order dispatch."
+  - id: ferc-primer-2020
+    author: "Federal Energy Regulatory Commission, Office of Enforcement"
+    title: "Energy Primer: A Handbook for Energy Market Basics, ‘Grid Operations’ and ‘Wholesale Electricity Markets’"
+    publication: "FERC, June 2020"
+    year: 2020
+    url: "https://www.ferc.gov/sites/default/files/2020-06/energy-primer-2020.pdf"
+    supports: "The supply stack sorted by marginal cost of production with dollars per MWh on the vertical axis and the cheapest units to the left, the clearing price as the intersection of aggregate supply and demand curves, cleared generators being paid that clearing price rather than their own offer, locational marginal price as the marginal cost of serving load, and negative prices arising in the Pacific Northwest when transmission is full and local load cannot absorb the generation."
+  - id: caiso-duck-2016
+    author: "California Independent System Operator"
+    title: "Fast Facts: What the duck curve tells us about managing a green grid"
+    publication: "California ISO, CommPR/2016"
+    year: 2016
+    url: "https://www.caiso.com/documents/flexibleresourceshelprenewables_fastfacts.pdf"
+    supports: "Net load defined as forecast load minus forecast production from variable generation, the mid-afternoon belly and evening arch that give the duck chart its name, the 8,000 MW morning ramp and 11,000 MW evening ramp, the spring requirement to supply an additional 13,000 MW within about three hours as solar output ends, and the statement that wholesale prices during oversupply can be very low and even go negative."
+  - id: eia-caiso-2025
+    author: "Lori Aniti, US Energy Information Administration"
+    title: "Solar and wind power curtailments are increasing in California (Today in Energy, 28 May 2025)"
+    publication: "US Energy Information Administration"
+    year: 2025
+    url: "https://www.eia.gov/todayinenergy/detail.php?id=65364"
+    supports: "The 2024 CAISO curtailment volume of 3.4 million MWh and its 29% year-on-year rise, solar as 93% of curtailed energy and spring as the peak season, the growth of California wind and solar photovoltaic capacity from 9.7 GW in 2014 to 28.2 GW in 2024, the requirement that a certain amount of gas generation stay online to meet NERC reliability standards and be ready to ramp in the evening, and solar supplying almost half of CAISO demand between 08:00 and 16:00 while demand rises later in the evening."
+  - id: kirschen-strbac-2004
+    author: "Daniel S. Kirschen & Goran Strbac"
+    title: "Fundamentals of Power System Economics, chapter 3, ‘Markets for Electrical Energy’"
+    publication: "Wiley, pp. 49–72; publisher copy is subscription-gated"
+    year: 2004
+    url: "https://doi.org/10.1002/0470020598.ch3"
+    supports: "The standard textbook treatment of energy market clearing and merit-order dispatch that the operational account in this note follows; every specific claim made here is also carried by the FERC and CAISO sources."
 ---
 
-Push enough solar onto a grid and the wholesale price of electricity can fall to zero in the middle of a sunny afternoon — not at 3 a.m. when demand is genuinely slack, but at the hour households are running air conditioners and demand is nowhere near zero. The textbook explanation of market pricing — that price reflects the marginal generator's cost — is true and gives no hint why this happens. **Cheap, zero-marginal-cost supply doesn't lower the price by averaging with the expensive stuff; it lowers the price by knocking the most expensive generator off the margin entirely**, and if that knockout reaches deep enough into the stack, the price can hit zero while demand is still very much being served.
+Adding cheap generation to a power system does not pull the price down by averaging with the expensive generation. In a uniform-price market it pulls the price down by **displacement**: the clearing price is whatever the last generator needed to serve demand costs, so removing that generator from the margin moves the price to whatever the next one down the stack costs. The steps can be large, they can be uneven, and pushed far enough they reach the bottom of the stack — while demand is still being met in full.
 
-## The setup
+## How a uniform-price auction picks its price
 
-Generators bid into the market in order of marginal cost, cheapest first — the **merit order**. The market clearing price is the marginal cost of the *last* generator whose capacity is needed to satisfy demand:
+Generating units are ranked by their marginal cost of production, cheapest to the left, most expensive to the right. FERC calls the resulting curve the **supply stack** and plots cost of production in dollars per MWh on the vertical axis; in the New York market the dispatch order runs wind, then hydroelectric, nuclear, and coal-, gas- and oil-fired units [1](#source-ferc-primer-2020){: .source-ref}. The market operator builds aggregate supply and demand curves from submitted offers and bids, and their intersection identifies the market-clearing price [1](#source-ferc-primer-2020){: .source-ref}.
 
-<div class="callout callout-key" markdown="1">
-<span class="callout-label">It's displacement, not dilution</span>
-Cheap, must-run generation — wind, solar, nuclear — doesn't lower the price by averaging with the expensive stuff. It lowers the price by <strong>displacing</strong> the most expensive generator from the margin entirely, so a small amount of free supply can have an outsized effect on price if it happens to push the market past a cheap-to-expensive boundary in the stack.
+Two features of that mechanism do the work in this note. Offers below the clearing price are scheduled, and generators whose offers clear are paid the clearing price rather than the price they offered [1](#source-ferc-primer-2020){: .source-ref}. And the price reflects the marginal cost of serving the next increment of load given the units actually dispatched, which is what a locational marginal price is [1](#source-ferc-primer-2020){: .source-ref}. This is the standard treatment of energy market clearing [4](#source-kirschen-strbac-2004){: .source-ref}.
+
+<div class="callout callout-note" markdown="1">
+<span class="callout-label">Scope</span>
+Everything below applies to markets that clear at a single marginal price, which is how the US regional transmission organisations and independent system operators described by FERC work [1](#source-ferc-primer-2020){: .source-ref}. A market that pays each generator its own offer, or that sets prices administratively, does not produce this behaviour, and the arithmetic here should not be carried across to one.
 </div>
 
-## A five-generator merit-order stack
+## Five tranches and a sliding net demand
 
-Five tranches of generation, cheapest first:
+The stack below is a teaching example, not a real market. Its numbers are chosen to make the steps legible:
 
-| Generator | Capacity (MW) | Marginal cost ($/MWh) |
-|---|---|---|
-| Wind | 2,000 | 0 |
-| Nuclear | 1,000 | 10 |
-| Coal | 1,500 | 30 |
-| Gas CCGT | 2,000 | 50 |
-| Gas peaker | 1,000 | 120 |
+| Tranche | Capacity (MW) | Marginal cost (USD/MWh) | Cumulative capacity (MW) |
+|---|---|---|---|
+| Wind | 2,000 | 0 | 2,000 |
+| Nuclear | 1,000 | 10 | 3,000 |
+| Coal | 1,500 | 30 | 4,500 |
+| Gas CCGT | 2,000 | 50 | 6,500 |
+| Gas peaker | 1,000 | 120 | 7,500 |
 
-Fix demand at 6,000 MW — a typical afternoon load — and add solar as a slider. Solar has near-zero marginal cost, so it doesn't join the stack; it simply reduces how much of the stack the market still has to dispatch, by reducing **net demand** (demand minus solar output).
+Demand is fixed at 6,000 MW. Solar enters at a marginal cost low enough that it is always dispatched, so rather than taking a place in the stack it subtracts from what the stack has to serve. That residual is **net demand** — the ISO definition is forecast load minus forecast production from variable generation such as wind and solar [2](#source-caiso-duck-2016){: .source-ref}. The clearing price is the marginal cost of the first tranche whose cumulative capacity reaches net demand.
 
 <div class="widget" data-widget="merit-order-stack">
   <div class="widget-head">
     <span class="widget-title">Merit-order stack · solar output</span>
-    <span class="widget-readout" data-readout>Solar = 0 MW</span>
+    <span class="widget-readout" data-readout>Solar = 0 MW   net demand = 6000 MW   marginal = Gas CCGT   price = <span>$</span>50/MWh</span>
   </div>
   <div class="widget-canvas-wrap"><canvas role="img" aria-label="Merit order supply stack with a vertical net-demand line showing which generator sets the market clearing price"></canvas></div>
   <div class="widget-controls">
@@ -48,47 +82,71 @@ Fix demand at 6,000 MW — a typical afternoon load — and add solar as a slide
       <input type="range" id="solar-mw" min="0" max="4000" step="10" value="0">
     </div>
   </div>
-  <p class="widget-caption">The bars are the stack, cheapest first. The vertical line is net demand — wherever it lands sets the price for every generator running, not just the marginal one. Push solar output up and watch the line slide left through the stack, taking the price with it.</p>
-  <p class="widget-noscript">This figure needs JavaScript. The table above carries the same argument at solar = 0.</p>
+  <p class="widget-caption">Bars are the five tranches in merit order. The horizontal axis is cumulative capacity in MW; the vertical axis is marginal cost in USD per MWh, ticked at 0, 30, 60, 90 and 120. The slider is solar output in MW, from 0 to 4,000 in 10 MW steps, and the vertical line is the resulting net demand of 6,000 MW minus solar. The zero-cost wind bar is drawn with a small minimum height so it does not vanish into the axis at zero.</p>
+  <p class="widget-noscript">This figure needs JavaScript. The table above and the four boundaries below carry the same argument.</p>
 </div>
 
-At solar = 0, net demand is 6,000 MW — the Gas CCGT tranche is marginal, price is **$50/MWh**. Push solar to 2,000 MW and net demand falls to 4,000 MW — Coal becomes marginal, price drops to **$30**. At 3,500 MW of solar, Nuclear is marginal at **$10**. By 4,000 MW of solar — two-thirds of total demand — Wind alone covers net demand and the price falls to **$0/MWh**, with 2,000 MW of demand still being served.
+Sliding the solar output up gives four prices and three step changes, and the steps do not arrive at even intervals:
 
-## The duck curve
+| Solar output (MW) | Net demand (MW) | Marginal tranche | Clearing price (USD/MWh) |
+|---|---|---|---|
+| 0 to 1,490 | 6,000 down to 4,510 | Gas CCGT | 50 |
+| 1,500 to 2,990 | 4,500 down to 3,010 | Coal | 30 |
+| 3,000 to 3,990 | 3,000 down to 2,010 | Nuclear | 10 |
+| 4,000 | 2,000 | Wind | 0 |
 
-Now let solar output track the actual shape of a day instead of a fixed penetration level: rising through the morning, peaking at midday, collapsing to zero by early evening — at almost exactly the moment household demand starts climbing as people get home and turn on lights, heating, and appliances. Net demand (demand minus solar) traces a shape with a deep midday belly and a steep late-afternoon climb: California ISO's 2013 chart, which made this famous, nicknamed the shape after the silhouette it traces — the **duck curve**.
+The first 1,500 MW of solar cuts the price by USD 20/MWh, from 50 to 30. The next 1,500 MW cuts it by USD 20 more, to 10. The 1,000 MW after that cuts it by only USD 10, to zero. And within any one of those bands, extra solar changes the *quantity* each tranche is dispatched for without changing the price at all: at 2,000 MW and at 2,500 MW of solar the price is USD 30/MWh either way. Price moves only when net demand crosses a tranche boundary.
 
-The belly is the mechanism above, playing out over a single day: the market price collapses through the middle of the day as solar displaces expensive marginal generation, then has to climb an unusually steep ramp back up in a few hours as the sun sets and demand keeps rising. That ramp is an operational problem, not just a pricing one — it requires bringing fast-responding generation online quickly, right as the grid's cheapest resource disappears.
+At the top of the slider, 4,000 MW of solar leaves net demand at 2,000 MW, exactly wind's capacity, and the clearing price is USD 0/MWh. **Demand has not fallen.** All 6,000 MW is still being served — 4,000 MW by solar and 2,000 MW by wind — and the price is zero because the marginal unit's offer is zero.
+
+<details class="reveal">
+  <summary>Why the boundary lands where it does<span class="reveal-tag">3 lines</span></summary>
+  <div class="reveal-body" markdown="1">
+The dispatch rule is: find the first tranche whose cumulative capacity is greater than or equal to net demand, and take its marginal cost. Cumulative capacities are 2,000, 3,000, 4,500, 6,500 and 7,500 MW. So the price changes exactly when net demand falls to 4,500, then 3,000, then 2,000 MW, which is at solar outputs of 1,500, 3,000 and 4,000 MW.
+
+The comparison uses "greater than or equal to", so at the knife edge — net demand of exactly 2,000 MW — wind alone covers it and sets the price. A rule using strict inequality would keep nuclear marginal at that single point. The convention matters only at three exact values and is stated here so the table can be checked.
+  </div>
+</details>
+
+## Where zero stops and negative begins
+
+In this stack the price cannot go below zero, no matter how much solar is added, because no tranche offers below zero. Zero is the floor of *this* bid stack, and that is the whole reason the two cases have to be kept apart:
+
+- A **zero** price means the marginal generator's offer is zero. Nothing unusual is happening; a zero-cost unit is setting the price.
+- A **negative** price means some generator is offering below zero — paying to keep producing. That requires a reason to run that is not the energy price.
+
+Those reasons are documented. CAISO reports that during oversupply, when generation exceeds real-time demand, wholesale prices "can be very low and even go negative in which generators have to pay utilities to take the energy" [2](#source-caiso-duck-2016){: .source-ref}. The EIA notes that CAISO curtails solar partly to keep a certain amount of gas generation online, both to comply with North American Electric Reliability Corporation reliability standards and to have units ready to ramp up in the evening [3](#source-eia-caiso-2025){: .source-ref}. A unit held online to meet a reliability standard, or held online so that it is in position to ramp when the sun sets, has a reason to keep producing that the energy price does not capture. FERC describes a separate route to the same outcome in the Pacific Northwest, where abundant hydro output combined with full transmission lines and insufficient local load drives off-peak prices negative [1](#source-ferc-primer-2020){: .source-ref}.
+
+The volumes involved are not trivial. CAISO curtailed 3.4 million MWh of utility-scale wind and solar in 2024, up 29% on 2023, with solar accounting for 93% of it and the spring the worst season — a period when solar output is relatively high and mild temperatures keep demand relatively low. Behind that is capacity growth from 9.7 GW of wind and solar photovoltaic in 2014 to 28.2 GW by the end of 2024 [3](#source-eia-caiso-2025){: .source-ref}.
+
+## The ramp the belly creates
+
+Let solar follow the shape of a real day instead of sitting at one level, and the net-demand curve acquires a mid-afternoon belly and an evening arch — the shape CAISO's own document reports the industry calls the duck chart [2](#source-caiso-duck-2016){: .source-ref}. The belly is the mechanism above playing out over hours: solar supplies almost half of CAISO's demand between 08:00 and 16:00, and demand then rises in the evening as people get home [3](#source-eia-caiso-2025){: .source-ref}.
+
+The arch is the operational half of the same story, and it has numbers attached. CAISO's analysis identifies a morning ramp of 8,000 MW, an evening ramp of 11,000 MW as the sun sets from around 16:00, and, on its spring net-load chart, a requirement to supply an additional 13,000 MW within approximately three hours to replace the electricity lost as solar output ends [2](#source-caiso-duck-2016){: .source-ref}.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">The stack doesn't stop at zero</span>
-At high enough solar penetration, net demand can fall so low that inflexible baseload plants — nuclear especially, which is slow and expensive to shut down and restart — would rather bid a <strong>negative</strong> price than stop running. Paying the grid to keep taking their output is cheaper than a shutdown-restart cycle. This is the real mechanism behind the negative wholesale prices increasingly observed on high-solar grids: not a market malfunction, but must-run generators being pushed below the bottom of a stack that was never designed to go negative.
+<span class="callout-label">The price signal and the reliability requirement point opposite ways</span>
+The midday hours that drive the clearing price toward the bottom of the stack are the same hours in which the system has to hold fast-ramping capacity ready for the evening. That is why CAISO curtails solar to keep gas online rather than simply taking the free energy [3](#source-eia-caiso-2025){: .source-ref}. Reading the low midday price as a signal that the system has spare capacity gets it backwards: at that moment the system is short of flexibility, not long on it, and the price is low precisely because the cheapest resource is abundant and the expensive one has been pushed off the margin.
 </div>
 
 <details class="reveal reveal-recall">
-  <summary>Why does the market clearing price equal the marginal generator's cost, not the average cost across the stack?<span class="reveal-tag">Recall</span></summary>
+  <summary>Why does adding 500 MW of solar sometimes move the price by USD 20/MWh and sometimes not at all?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-Because it's a uniform-price auction: every generator that clears gets paid the same price, set by the most expensive unit still needed. Averaging would underpay the marginal generator relative to its cost, which wouldn't clear the market.
+Because the price is set by which tranche is marginal, and that only changes when net demand crosses a cumulative-capacity boundary. Going from 1,000 MW to 1,500 MW of solar takes net demand from 5,000 to 4,500 MW, crossing out of Gas CCGT into Coal, a USD 20/MWh step. Going from 2,000 MW to 2,500 MW takes net demand from 4,000 to 3,500 MW, both inside Coal, so the price stays at USD 30/MWh and only the dispatched quantities change.
   </div>
 </details>
 
 <details class="reveal reveal-recall">
-  <summary>In the stack above, why does adding 2,000 MW of solar (from 0 to 2,000) drop the price by $20, while adding another 500 MW (2,000 to 2,500) only drops it a little further?<span class="reveal-tag">Recall</span></summary>
+  <summary>The clearing price is USD 0/MWh. What can and cannot be inferred about demand?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-The price only moves when net demand crosses from one tranche into a cheaper one. The first 2,000 MW of solar happens to push net demand exactly out of the Gas CCGT tranche and into Coal — a full $20 step. Further solar within the same tranche keeps chipping away at Coal's dispatched volume without changing the marginal price, until net demand crosses the next boundary.
+Nothing about demand being low. In the stack here, USD 0/MWh occurs with all 6,000 MW of demand served — 4,000 MW by solar and 2,000 MW by wind. What can be inferred is that the marginal unit offered zero, so every cleared generator is paid zero for that interval regardless of what it offered.
   </div>
 </details>
 
 <details class="reveal reveal-recall">
-  <summary>Why does the duck curve's steep evening ramp matter operationally, not just for pricing?<span class="reveal-tag">Recall</span></summary>
+  <summary>What has to be true for the price to go below zero rather than stopping at it?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-Because grid operators have to bring several thousand megawatts of generation online in a short window as solar output collapses and demand keeps rising — a fast-ramping requirement that only fast-responding plants (typically gas peakers) can meet, straining reliability and requiring extra reserve capacity that sits mostly idle the rest of the day.
-  </div>
-</details>
-
-<details class="reveal reveal-recall">
-  <summary>Why would a generator ever accept a negative price rather than simply switching off?<span class="reveal-tag">Recall</span></summary>
-  <div class="reveal-body" markdown="1">
-Because shutting down and restarting — especially for a plant like nuclear — carries its own real cost and operational risk. If that shutdown-restart cost exceeds what it would take to pay the market to keep absorbing their output for a few hours, bidding negative is the cheaper option.
+Some generator has to offer below zero, which means it has a reason to run that is not the energy price. Documented reasons include reliability requirements that keep a minimum amount of generation online, the need to have units positioned to ramp up later in the day, and transmission constraints that prevent output reaching load elsewhere. In a bid stack whose lowest offer is zero, no amount of additional zero-cost supply produces a negative price.
   </div>
 </details>

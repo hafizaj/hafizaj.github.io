@@ -13,51 +13,141 @@ layout: default
         integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
 <script defer src="{{ '/assets/js/notes.js' | relative_url }}"></script>
 
-<article class="mx-auto max-w-6xl px-6 py-14 sm:py-16">
-  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14">
-
-    <div class="min-w-0">
-      {% assign mark = site.data.module_marks[page.module] %}
-      {% if mark %}
-      <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="367"
-           class="mb-8 aspect-[3/1] w-full rounded-xl border border-mist object-cover">
+{% assign mark = site.data.module_marks[page.module] %}
+{% assign module_hub = site.data.note_hubs[page.module] %}
+{% capture module_context %}{% if page.provenance == 'professional' %}From my AB-100 study, Microsoft AI Business Solutions{% else %}Studied in {{ page.module }}, Imperial College London{% endif %}{% endcapture %}
+{% assign ordered_notes = site.notes | sort: 'index_order' %}
+{% assign next_note = nil %}
+{% assign current_in_hub = false %}
+{% if module_hub and module_hub.order %}
+  {% assign hub_next_slug = nil %}
+  {% for slug in module_hub.order %}
+    {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+    {% if current_in_hub %}
+      {% assign hub_next_slug = slug %}
+      {% break %}
+    {% endif %}
+    {% if page.url == expected_url %}
+      {% assign current_in_hub = true %}
+    {% endif %}
+  {% endfor %}
+  {% if hub_next_slug %}
+    {% assign slug = hub_next_slug %}
+    {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+    {% assign hub_next_note = ordered_notes | where: "url", expected_url | first %}
+    {% assign next_note = hub_next_note %}
+  {% endif %}
+{% endif %}
+{% unless next_note %}
+  {% for candidate in ordered_notes %}
+    {% if candidate.published != false and candidate.index_order > page.index_order %}
+      {% assign candidate_in_current_hub = false %}
+      {% if current_in_hub %}
+        {% for slug in module_hub.order %}
+          {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+          {% if candidate.url == expected_url %}
+            {% assign candidate_in_current_hub = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
       {% endif %}
-      <header class="border-b border-mist pb-8">
+      {% unless candidate_in_current_hub %}
+        {% assign next_note = candidate %}
+        {% break %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endunless %}
+
+<article class="mx-auto max-w-6xl px-6 py-14 sm:py-16">
+  <header class="note-hero{% unless mark %} note-hero-without-art{% endunless %}">
+    <div class="note-hero-copy">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
         <p class="eyebrow text-royal">{{ page.topic | default: 'Technical note' }}</p>
-        <span class="mt-2 block h-0.5 w-10 bg-royal" aria-hidden="true"></span>
-        <h1 class="mt-5 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">{{ page.title }}</h1>
-        {% if page.summary %}
-        <p class="mt-4 max-w-2xl text-lg leading-8 text-muted">{{ page.summary }}</p>
-        {% endif %}
-        <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted">
-          {% if page.style == 'editorial' %}<span class="uppercase tracking-widest">By Hafizuddin Jaafar</span>{% endif %}
-          {% if page.date %}<span>{{ page.date | date: "%d %b %Y" }}</span>{% endif %}
-          {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
-          {% if page.module %}
-          {% assign module_hub = site.data.note_hubs[page.module] %}
-          {% capture module_context %}{% if page.provenance == 'professional' %}From my AB-100 study, Microsoft AI Business Solutions{% else %}Studied in {{ page.module }}, Imperial College London{% endif %}{% endcapture %}
+        <span class="font-mono text-[0.65rem] text-mist" aria-hidden="true">/</span>
+        <p class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+          {% if page.provenance == 'professional' %}Professional field note{% else %}Academic note{% endif %}
+          {% if page.level %} · {{ page.level }}{% endif %}
+        </p>
+      </div>
+      <span class="mt-3 block h-0.5 w-12 bg-ember" aria-hidden="true"></span>
+      <h1 class="mt-6 max-w-4xl font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]">{{ page.title }}</h1>
+      {% if page.takeaway %}
+      <p class="note-takeaway">{{ page.takeaway }}</p>
+      {% endif %}
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs text-muted">
+        {% if page.style == 'editorial' %}<span class="uppercase tracking-widest">By Hafizuddin Jaafar</span>{% endif %}
+        {% if page.date %}<span>Published {{ page.date | date: "%d %b %Y" }}</span>{% endif %}
+        {% if page.updated %}<span>Updated {{ page.updated | date: "%d %b %Y" }}</span>{% endif %}
+        {% if page.provenance == 'professional' and page.reviewed_on %}<span>Reviewed {{ page.reviewed_on | date: "%d %b %Y" }}</span>{% endif %}
+        {% if page.reading_time %}<span>{{ page.reading_time }} min read</span>{% endif %}
+        {% if page.module %}
           {% if module_hub %}
           <a href="{{ module_hub.url }}" class="text-royal hover:text-midnight">{{ module_context | strip }}</a>
           {% else %}
           <span>{{ module_context | strip }}</span>
           {% endif %}
-          {% endif %}
-        </div>
-        {% if page.prerequisites %}
-        <p class="mt-4 text-sm leading-6 text-muted"><span class="font-mono text-xs uppercase tracking-widest text-royal">Assumes</span><br>{{ page.prerequisites }}</p>
         {% endif %}
-      </header>
+      </div>
+      <p class="note-prerequisites">
+        <span>You only need</span>
+        {% if page.prerequisites %}{{ page.prerequisites }}{% else %}the question above; this note introduces the rest as it goes.{% endif %}
+      </p>
+    </div>
+    {% if mark %}
+    <div class="note-hero-art" aria-hidden="true">
+      <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="367">
+    </div>
+    {% endif %}
+  </header>
 
-      <div class="note-prose mt-9{% if page.style == 'editorial' %} note-editorial{% endif %}" data-note-body>
+  <details class="note-mobile-toc lg:hidden" data-note-mobile-toc data-note-toc-surface>
+    <summary>On this page</summary>
+    <nav data-note-toc aria-label="Table of contents"></nav>
+  </details>
+
+  <div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14">
+    <aside class="lg:order-last">
+      <div class="sticky top-24">
+        <div class="hidden lg:block" data-note-toc-surface>
+          <p class="eyebrow text-muted">On this page</p>
+          <nav data-note-toc class="mt-4 space-y-2 text-sm leading-6" aria-label="Table of contents"></nav>
+        </div>
+        <div class="border-mist lg:mt-7 lg:border-t lg:pt-5">
+          <button type="button" id="recall-mode" class="recall-btn" aria-pressed="false">Test yourself</button>
+          <p class="mt-2 max-w-sm font-mono text-[0.65rem] leading-5 text-muted">Collapses every answer so you can recall before reading.</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="min-w-0 max-w-3xl">
+      <div class="note-prose{% if page.style == 'editorial' %} note-editorial{% endif %}" data-note-body>
         {{ content }}
       </div>
 
+      <!-- Every published note is source_schema 2, so sources are structured
+           objects only: an anchored, numbered reference list that the inline
+           .source-ref links in the body point at. The flat-string branch that
+           carried unmigrated notes during the migration has been removed. -->
       {% if page.sources %}
-      <section class="mt-14 border-t border-mist pt-7">
-        <p class="eyebrow text-muted">Where to read more</p>
-        <ul class="mt-4 space-y-2 text-sm leading-7 text-muted">
-          {% for s in page.sources %}<li>{{ s }}</li>{% endfor %}
-        </ul>
+      <section class="note-sources" aria-labelledby="sources-heading">
+        <p class="eyebrow text-muted">Sources and further reading</p>
+        <h2 id="sources-heading" class="sr-only">Sources and further reading</h2>
+        <ol>
+          {% for source in page.sources %}
+            <li id="source-{{ source.id }}">
+              <a href="{{ source.url }}" rel="noopener" class="note-source-link">
+                {{ source.title }}
+                <span class="sr-only">(external source)</span>
+              </a>
+              {% if source.author %}<span>{{ source.author }}</span>{% endif %}
+              {% if source.organisation %}<span>{{ source.organisation }}</span>{% endif %}
+              {% if source.publication %}<span>{{ source.publication }}</span>{% endif %}
+              {% if source.year %}<span>{{ source.year }}</span>{% endif %}
+              <p><strong>Used for:</strong> {{ source.supports }}</p>
+            </li>
+          {% endfor %}
+        </ol>
       </section>
       {% endif %}
 
@@ -72,18 +162,15 @@ layout: default
         <a href="#" data-mail="{{ site.email_b64 }}" class="font-semibold text-royal hover:text-midnight">Tell me if something is wrong &rarr;</a>
       </footer>
 
-      <p class="mt-9"><a href="/notes/" class="text-sm font-semibold text-royal transition-colors hover:text-midnight">&larr; All notes</a></p>
+      <nav class="note-next" aria-label="Continue reading">
+        {% if next_note %}
+        <a href="{{ next_note.url | relative_url }}" class="note-next-primary">
+          <span class="eyebrow text-royal">Next note</span>
+          <span>{{ next_note.title }} <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        {% endif %}
+        <a href="{{ '/notes/' | relative_url }}" class="note-next-all">Browse every note <span aria-hidden="true">&rarr;</span></a>
+      </nav>
     </div>
-
-    <aside class="hidden lg:block">
-      <div class="sticky top-24">
-        <p class="eyebrow text-muted">On this page</p>
-        <nav id="note-toc" class="mt-4 space-y-2 text-sm leading-6" aria-label="Table of contents"></nav>
-        <div class="mt-7 border-t border-mist pt-5">
-          <button type="button" id="recall-mode" class="recall-btn" aria-pressed="false">Test yourself</button>
-          <p class="mt-2 font-mono text-[0.65rem] leading-5 text-muted">Collapses every answer so you can recall before reading.</p>
-        </div>
-      </div>
-    </aside>
   </div>
 </article>

@@ -5,59 +5,107 @@ module: "Azure AI Architecture"
 style: editorial
 provenance: professional
 date: 2026-08-26
+updated: 2026-09-04
+reviewed_on: 2026-09-04
 reading_time: 7
-summary: "Model catalog, agent builder, and enterprise controls used to read like three separate Azure services with three separate learning curves. Microsoft Foundry's real pitch is that they were always meant to be one thing."
+level: foundation
+featured: false
+index_order: 3
+source_schema: 2
+takeaway: "Microsoft Foundry joins model, agent, tool, and evaluation work around shared project resources."
+summary: "The overview page carries its own migration table, and it shows the rebrand moved more than a name: the resource model, the developer libraries, the agent interface, and the vocabulary all changed with it. That makes one platform a claim you can check."
 sources:
-  - "Microsoft Learn, <em>What is Microsoft Foundry?</em> — the platform overview and rebrand from Azure AI Foundry."
-  - "Microsoft Learn, <em>What is Microsoft Foundry Agent Service?</em> — the managed agent runtime, tool catalog, and building approaches."
-  - "Microsoft Learn, <em>Choose how to build with Microsoft Foundry</em> — prompt agents, hosted agents, and the Responses API."
+  - id: foundry-overview
+    organisation: "Microsoft"
+    title: "What is Microsoft Foundry?"
+    publication: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/foundry/what-is-foundry"
+    supports: "The platform's stated scope — agents, models, and tools under a single management grouping with unified role-based access control, networking, and policies — the declarative-to-full-code build spectrum, the evolution table mapping previous concepts to current ones, and the preview status of parts of observability."
+  - id: foundry-agent-service
+    organisation: "Microsoft"
+    title: "What is Microsoft Foundry Agent Service?"
+    publication: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/foundry/agents/overview"
+    supports: "The two agent types (prompt agents and hosted agents), the third build path through the Responses API and its ephemeral agents, the built-in and custom tool surfaces, and the runtime, identity, and networking capabilities attached to each."
+  - id: foundry-toolbox
+    organisation: "Microsoft"
+    title: "What is Toolbox in Microsoft Foundry?"
+    publication: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/foundry/agents/concepts/toolbox-overview"
+    supports: "The problem Toolbox is documented to solve — per-agent tool wiring producing duplicated configuration, credentials, and governance — and the single MCP-compatible endpoint that replaces it."
+  - id: foundry-control-plane
+    organisation: "Microsoft"
+    title: "What is Microsoft Foundry Control Plane?"
+    publication: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/foundry/control-plane/overview"
+    supports: "Cross-project inventory, observability, compliance, and security in one interface, and the prerequisites that gate the advanced governance features."
 ---
 
-Ask a customer what Azure AI actually is and you get three different answers depending on who in the room you're asking. The data scientist says it's a model catalog. The developer says it's an SDK for calling GPT-4o without touching OpenAI's own billing. The security lead says it's whatever sits behind Entra ID before an agent gets near production data. All three are right, which used to be the problem: three mental models glued together under one Azure blade, each with its own quirks.
+The most useful page in the Microsoft Foundry documentation for testing the claim in this note's title is not a marketing page. It is a table near the end of the overview, in a section headed "Evolution of Foundry", that sets each previous concept beside its current equivalent [1](#source-foundry-overview){: .source-ref}. Read it as a diff rather than a glossary and the question answers itself.
 
-Microsoft Foundry — the platform formerly split across "Azure AI Foundry," "Azure AI Studio," and a handful of preview-labelled agent services — is the attempt to make that one thing rather than three. The rebrand earlier this year wasn't just a name change; it's the tell that Microsoft decided the three mental models above should converge into a single portal, a single SDK, and a single security boundary.
+The rows that matter are not the brand ones. The resource model moved from a hub plus an Azure OpenAI resource plus Azure AI Services to a single Foundry resource containing projects. The software development kit (SDK) surface moved from several separate packages addressing five or more endpoints to one project client against a single project endpoint. The agent application programming interface (API) moved from the Assistants API to the Responses API, and the vocabulary moved with it — threads, messages, runs, and assistants became conversations, items, responses, and agent versions [1](#source-foundry-overview){: .source-ref}.
 
-## What's actually inside it
+That is a consolidation. A rename does not change your resource topology or the number of endpoints your code has to know about.
 
-Strip away the marketing layer and Foundry is three components that now share plumbing instead of living in separate services:
+## The consolidation, row by row
 
-<div class="callout callout-note" markdown="1">
-<span class="callout-label">The model catalog</span>
-A single entry point for model inference across thousands of models — Azure OpenAI's GPT family sits alongside Llama, Mistral, and a long tail of open and industry-specific models. The point isn't the count, it's that swapping a model doesn't mean swapping SDKs.
-</div>
+Microsoft describes the current platform as unifying agents, models, and tools under a single management grouping, with tracing, monitoring, evaluations, and enterprise setup configuration built in, managed through one set of role-based access controls, networking rules, and policies under a single Azure resource provider namespace [1](#source-foundry-overview){: .source-ref}.
 
-<div class="callout callout-note" markdown="1">
-<span class="callout-label">Foundry Agent Service</span>
-A managed runtime for the agents themselves. It meets you wherever you are on the build spectrum: define a prompt agent and let Foundry run it, package your own code as a hosted agent, or call the Responses API from an agent that already runs somewhere else entirely. Agents reach the outside world through a built-in tool catalog — web search, file search, a code interpreter, memory — plus custom tools wired in through functions, OpenAPI specs, or MCP servers.
-</div>
+Role-based access control (RBAC) is worth expanding here because it carries most of the weight. Read the resource-model row again: the previous shape put a hub, an Azure OpenAI resource, and Azure AI Services side by side, so the question "who can call this, and with what data" had three places to be answered. The current shape has one resource to answer it against. The documentation states the consolidation; the consequence for access reviews is my reading of it.
 
 <div class="callout callout-note" markdown="1">
-<span class="callout-label">Enterprise controls</span>
-Entra ID identity, role-based access control, private networking, and content-safety filters, applied once at the platform layer rather than re-implemented per agent. This is the part that actually gets an architecture design session approved — not the model quality, the fact that the security team can answer "who can call this and with what data" in one sentence.
+<span class="callout-label">The consolidation is not finished, and the docs say so</span>
+Hub-based projects still exist and are reached through the Foundry (classic) portal, with new investment directed at Foundry projects in the new portal. Parts of observability — the built-in monitoring dashboards in particular — are still marked preview [1](#source-foundry-overview){: .source-ref}. "One platform" is the documented direction of travel and the current default, not a completed migration for everyone already running on the older shape.
 </div>
 
-> The customers who adopt fastest aren't the ones most excited about the models. They're the ones whose security review used to take six weeks and now takes one meeting.
+## The build spectrum, in Microsoft's own terms
 
-## Why the unification matters more than any single feature
+The documentation frames the build decision as a spectrum from declarative to full code rather than a menu of products [1](#source-foundry-overview){: .source-ref}[2](#source-foundry-agent-service){: .source-ref}. Three positions on it are documented, and the count is easy to get wrong.
 
-The old three-services version of this had a specific failure mode: a team would prototype fast in one tool, hit a wall on governance, and have to re-platform onto something else to ship. Every re-platform is a project delay you have to explain to a sponsor who already signed off on a timeline.
+A **prompt agent** is defined entirely by configuration: instructions, a model, and tools. You can author one interactively in the portal, or define it programmatically so that the definition sits in version control and moves through code review like anything else. Foundry hosts and runs it, and there is no application code or container to maintain [2](#source-foundry-agent-service){: .source-ref}.
 
-A single platform doesn't eliminate that risk, but it changes where the wall is. If the model catalog, the agent runtime, and the security boundary are the same product, "prototype fast" and "ship compliant" stop being two different journeys with a rewrite in between. That's the actual argument for Foundry over a pile of point solutions — not that any one component beats its rivals in isolation, but that the seams between components used to be where projects died.
+A **hosted agent** is code you wrote, using Agent Framework, LangGraph, the OpenAI Agents SDK, the Anthropic Agent SDK, the GitHub Copilot SDK, or your own code with no framework at all. You ship it as a container image or a zip archive of source, and Foundry runs it with a managed endpoint, automatic scaling, a dedicated Microsoft Entra identity per agent, session-level state persistence, and end-to-end tracing [2](#source-foundry-agent-service){: .source-ref}.
 
-## The honest caveat
+The third path is calling the **Responses API** directly from code that already runs elsewhere. Microsoft's term for what that produces is an *ephemeral agent*: the instructions, tools, and model live in your application rather than as a persisted Foundry resource, so there is nothing to create, update, or delete on the platform side. You still get catalog models, platform tools, project-scoped data, On-Behalf-Of authentication, and project-level observability [2](#source-foundry-agent-service){: .source-ref}.
 
-None of this makes the underlying decision — build an agent, buy one, or extend an existing Copilot — any easier. Foundry is infrastructure for whichever answer you land on, not the answer itself. That's the next note.
+So the precise statement is two agent types and three ways to build. Prompt agents and hosted agents are the agent types; the Responses API is a build path that creates no agent resource at all [2](#source-foundry-agent-service){: .source-ref}. Blur that in a design document and you invite an argument about whether something "is" an agent, when the real question is only where its definition is stored.
+
+## Where tools stopped being per-agent plumbing
+
+Agents act through tools. Foundry ships built-in ones — web search, file search, a code interpreter, memory — and takes custom ones through functions, OpenAPI specifications, and Model Context Protocol (MCP) servers [2](#source-foundry-agent-service){: .source-ref}.
+
+The more interesting move is what sits above them. A **toolbox** is a curated set of tools defined once and exposed through a single MCP-compatible endpoint that any agent or runtime can consume regardless of framework, with authentication, governance, and versioning handled centrally and tool implementations updatable without touching agent code [2](#source-foundry-agent-service){: .source-ref}[3](#source-foundry-toolbox){: .source-ref}.
+
+The Toolbox documentation is unusually direct about the failure it is answering. When every agent wires its own tools, APIs, and MCP servers, each connection needs its own configuration, authentication, and governance — which produces duplicated effort, inconsistent behaviour, fragile deployments, and operational overhead that grows with the number of agents [3](#source-foundry-toolbox){: .source-ref}.
+
+<div class="callout callout-key" markdown="1">
+<span class="callout-label">My reading of the pattern, not documented Microsoft guidance</span>
+If you want one piece of evidence for the "one platform, not three products" framing, I would pick Toolbox over the branding. Every row of the evolution table consolidates something that used to be duplicated per resource; Toolbox consolidates something that was duplicated per agent, which is the axis that actually scales badly. Treat that as one practitioner's emphasis — the documentation describes the capability, not this ranking of it.
+</div>
+
+## What the platform still doesn't decide
+
+Above individual projects sits Foundry Control Plane, a single interface for inventory, observability, compliance, and security across agents, models, and tools from multiple projects, integrating Microsoft Defender, Microsoft Purview, and Microsoft Entra. Without it, that work happens through individual portal blades and per-project views. Its advanced governance features have prerequisites of their own — an AI gateway configured for the purpose, and appropriate subscription-level RBAC [4](#source-foundry-control-plane){: .source-ref}.
+
+None of this answers the question that should come first. A consolidated platform removes seams between components; it does not tell you whether the use case justified an agent, or which of the three build paths its requirements actually point at. That decision is the subject of the note on [deciding whether to build an agent at all](/notes/before-you-build-an-agent-decide-whether-you-should/), and the boundary between calling a tool and delegating to another agent is the subject of the note on [multi-agent orchestration](/notes/copilot-studio-multi-agent-orchestration-a2a-mcp/).
 
 <details class="reveal reveal-recall">
-  <summary>What actually changed when "Azure AI Foundry" became "Microsoft Foundry"?<span class="reveal-tag">Recall</span></summary>
+  <summary>Beyond the brand, name three things the move to Microsoft Foundry changed.<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-Not much under the hood — same portal, same SDKs, same capabilities carried over. The name change reflects unifying the model catalog, Agent Service, and enterprise controls under one platform rather than three loosely-connected services.
+The resource model (a hub plus Azure OpenAI plus Azure AI Services became one Foundry resource containing projects), the SDK and endpoint surface (several packages against five or more endpoints became one project client against a single project endpoint), and the agent API with its vocabulary (the Assistants API became the Responses API; threads, messages, runs, and assistants became conversations, items, responses, and agent versions).
   </div>
 </details>
 
 <details class="reveal reveal-recall">
-  <summary>What are the three ways to build an agent in Foundry Agent Service?<span class="reveal-tag">Recall</span></summary>
+  <summary>How many agent types does Foundry Agent Service define, and what is the third build path?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-Define a prompt agent and let Foundry run it; package your own code as a hosted agent; or call the Responses API from an agent you already run outside Foundry entirely.
+Two agent types: prompt agents, defined by configuration and run for you, and hosted agents, your own code and framework run as a container with a managed endpoint and a dedicated Entra identity. The third build path is calling the Responses API directly from code you already run elsewhere, which produces an ephemeral agent whose definition lives in your application and creates no agent resource in Foundry.
+  </div>
+</details>
+
+<details class="reveal reveal-recall">
+  <summary>What does a toolbox solve that per-agent tool wiring does not?<span class="reveal-tag">Recall</span></summary>
+  <div class="reveal-body" markdown="1">
+Wiring tools per agent means each one carries its own configuration, credentials, and governance, which duplicates effort and drifts as the agent count grows. A toolbox curates the set once and exposes it through a single MCP-compatible endpoint that any agent or runtime can consume, centralising authentication, governance, and versioning, so tool implementations can change without editing agent code.
   </div>
 </details>

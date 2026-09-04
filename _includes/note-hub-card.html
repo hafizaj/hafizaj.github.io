@@ -1,20 +1,19 @@
 {% comment %}
-  A module with 3+ notes, presented as a "collection" tile in the band
-  above the index — the richer of the two tiers, since it's an entry
-  point to several notes rather than a single article. Pass
-  include.module, include.hub (note_hubs.yml entry), include.count.
+  A configured module hub rendered as a large collection field. Pass
+  include.module, include.hub, include.count, and include.start_title.
 {% endcomment %}
 {% assign mark = site.data.module_marks[include.module] %}
-<a href="{{ include.hub.url }}" class="group flex flex-col rounded-xl border border-mist bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-indigo hover:shadow-lg">
-  <div class="flex items-start justify-between gap-4">
-    {% if mark %}
-    <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="112" height="112" loading="lazy"
-         class="h-14 w-14 flex-none rounded-lg border border-mist object-cover transition-transform duration-300 group-hover:scale-105">
+<a href="{{ include.hub.url | relative_url }}" class="note-hub-card">
+  <span class="note-hub-card-body">
+    <span class="note-hub-card-kicker">{{ include.count }} notes · Collection</span>
+    <span class="note-hub-card-title">{{ include.module }}</span>
+    <span class="note-hub-card-teaser">{{ include.hub.teaser }}</span>
+    {% if include.start_title %}
+    <span class="note-hub-card-start">Start with “{{ include.start_title }}” <span aria-hidden="true">&rarr;</span></span>
     {% endif %}
-    <span class="flex-none font-mono text-xs text-muted">{{ include.count }} notes</span>
-  </div>
-  <span class="eyebrow mt-5 text-indigo">Collection</span>
-  <h3 class="mt-2 font-display text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-indigo">{{ include.module }}</h3>
-  <p class="mt-2 text-sm leading-6 text-muted">{{ include.hub.teaser }}</p>
-  <p class="mt-auto pt-5 font-mono text-xs text-indigo">Open the collection &rarr;</p>
+  </span>
+  {% if mark %}
+  <img src="{{ '/assets/images/module-marks/' | append: mark | append: '.png' | relative_url }}"
+       alt="" width="256" height="256" loading="lazy">
+  {% endif %}
 </a>

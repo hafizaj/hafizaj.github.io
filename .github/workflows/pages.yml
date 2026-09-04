@@ -31,6 +31,9 @@ jobs:
       # Builds with the Jekyll version pinned in the Gemfile, so production
       # matches local. GitHub Pages' own builder is Jekyll 3.x, which silently
       # skipped the notes collection.
+      - name: Validate notes
+        run: ruby scripts/validate-notes.rb
+
       - name: Build
         env:
           JEKYLL_ENV: production

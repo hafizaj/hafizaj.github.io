@@ -3,40 +3,60 @@ title: "How much of your privacy budget is left after ten queries?"
 topic: "Differential privacy"
 module: "Data Management & Ethics"
 date: 2026-08-26
+updated: 2026-09-03
 reading_time: 9
-summary: "A single differentially private query can be both accurate and private. Run many of them against a fixed privacy budget, and the noise needed per query grows with every question you ask — which is exactly the mistake that turns a well-designed privacy mechanism into a useless one."
+level: applied
+featured: true
+index_order: 1
+source_schema: 2
+takeaway: "A privacy guarantee applies to the whole sequence of queries, not to each query in isolation."
+summary: "A single differentially private query can be both accurate and private. Run many against a fixed privacy budget and the noise each one needs grows with every question asked — the mistake that turns a well-designed privacy mechanism into a useless one."
 prerequisites: "What a probability distribution's variance means, and roughly what the 'sensitivity' of a query is."
 sources:
-  - "Dwork, C., McSherry, F., Nissim, K. & Smith, A. (2006), 'Calibrating Noise to Sensitivity in Private Data Analysis' — the original Laplace mechanism."
-  - "Dwork, C. & Roth, A., <em>The Algorithmic Foundations of Differential Privacy</em> — the standard reference, including the composition theorems."
+  - id: dwork-2006
+    author: "Cynthia Dwork, Frank McSherry, Kobbi Nissim & Adam Smith"
+    title: "Calibrating Noise to Sensitivity in Private Data Analysis"
+    publication: "Theory of Cryptography Conference"
+    year: 2006
+    url: "https://doi.org/10.1007/11681878_14"
+    supports: "The Laplace mechanism and calibration of noise to global sensitivity."
+  - id: dwork-roth-2014
+    author: "Cynthia Dwork & Aaron Roth"
+    title: "The Algorithmic Foundations of Differential Privacy"
+    publication: "Foundations and Trends in Theoretical Computer Science"
+    year: 2014
+    url: "https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf"
+    supports: "Sequential composition, privacy budgets, and the limits of repeated queries."
 ---
 
 Run the same ε = 0.1 query against a dataset ten separate times, and every individual result looks comfortably private — 0.1 reads like a strong guarantee wherever it's quoted. Add those ten releases up under composition, though, and the system you've actually built provides ε = 1.0, ten times weaker than the number printed next to any one query. Differential privacy is usually explained as a single dial, $\varepsilon$: smaller means more noise and more privacy, larger means less noise and less privacy. That's true, and it's almost beside the point. **$\varepsilon$ is not a per-query dial — it's a budget, and it depletes with every question you ask.**
 
-## The setup
+## Answering one count query privately
 
-The Laplace mechanism answers a numeric query by adding noise drawn from a Laplace distribution scaled to the query's **sensitivity** $\Delta$ — the largest amount one person's presence or absence can change the true answer — divided by $\varepsilon$:
+A count query — "how many patients in this dataset have condition X?" — is answered privately by returning the true count plus random noise. How much noise? Exactly enough that adding or removing any one person would barely shift the distribution of answers you might see.
+
+Two quantities set that amount. **Sensitivity** $\Delta$ is the largest change one person's presence or absence can cause in the true answer; for a count, $\Delta = 1$, because one person changes a count by at most one. **Epsilon** $\varepsilon$ is the privacy parameter: the smaller it is, the harder it must be to tell those two worlds apart. The Laplace mechanism draws noise scaled to $\Delta/\varepsilon$ [1](#source-dwork-2006){: .source-ref}:
 
 $$\text{noise} \sim \text{Laplace}\!\left(0, \frac{\Delta}{\varepsilon}\right), \qquad \text{std. dev.} = \sqrt{2}\,\frac{\Delta}{\varepsilon}$$
 
 <div class="callout callout-key" markdown="1">
 <span class="callout-label">Privacy comes from noise, not secrecy</span>
-For a count query, $\Delta = 1$ — one person can change a count by at most one. Smaller $\varepsilon$ means a larger noise scale, which is the entire mechanism: privacy comes from making the true answer statistically hard to pin down against the noise, not from hiding it outright.
+Smaller $\varepsilon$ means a larger noise scale, which is the entire mechanism: privacy comes from making the true answer statistically hard to pin down against the noise, not from hiding it outright.
 </div>
 
 ## What happens to a count of 340 as ε shrinks
 
-A query returns a true count of 340. Watch the noise standard deviation as $\varepsilon$ shrinks:
+A query returns a true count of 340. Watch the noise standard deviation as $\varepsilon$ shrinks, with $\Delta = 1$:
 
 | ε | noise std. dev. |
 |---|---|
 | 1.0 | 1.41 — the count reads essentially cleanly |
 | 0.1 | 14.14 — noticeably noisy, still roughly informative |
-| 0.01 | 141.4 — the true value of 340 is swamped |
+| 0.01 | 141.42 — the true value of 340 is swamped |
 
 ## Why composition changes the picture
 
-Sequential composition says: if one query is $\varepsilon_1$-private and a second is $\varepsilon_2$-private, releasing both results together is $(\varepsilon_1+\varepsilon_2)$-private. Run $k$ queries, each spending $\varepsilon$, and the **total** privacy loss is $k\varepsilon$ — the budgets add.
+Sequential composition says: if one query is $\varepsilon_1$-private and a second is $\varepsilon_2$-private, releasing both results together is $(\varepsilon_1+\varepsilon_2)$-private. Run $k$ queries, each spending $\varepsilon$, and the **total** privacy loss is $k\varepsilon$ — the budgets add [2](#source-dwork-roth-2014){: .source-ref}.
 
 <details class="reveal">
   <summary>What this forces on a fixed total budget<span class="reveal-tag">algebra</span></summary>
@@ -45,7 +65,7 @@ Fix a total budget $\varepsilon_{\text{total}}$ and plan to run $k$ queries. To 
 
 $$\text{noise std. dev. per query} = \sqrt{2}\,\Delta \cdot \frac{k}{\varepsilon_{\text{total}}}$$
 
-Noise grows **linearly** in the number of queries you plan to run, for a fixed total budget. At $\varepsilon_{\text{total}}=1,\ \Delta=1$: $k=1$ gives 1.41, $k=10$ gives 14.14, $k=50$ gives 70.7 — the same numbers as the table above, now driven by query count instead of a single query's $\varepsilon$.
+Noise grows **linearly** in the number of queries you plan to run, for a fixed total budget. At $\varepsilon_{\text{total}}=1,\ \Delta=1$: $k=1$ gives 1.41, $k=10$ gives 14.14, $k=50$ gives 70.71 — the first two match the table above, now driven by query count instead of a single query's $\varepsilon$.
   </div>
 </details>
 
@@ -74,13 +94,6 @@ The most common real-world failure is applying the same ε to every query in an 
   <summary>Why does a smaller ε mean the Laplace mechanism adds more noise?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
 The noise scale is Δ/ε — sensitivity divided by epsilon. As ε shrinks toward zero, the denominator shrinks and the scale (and standard deviation) grows without bound, which is precisely how the mechanism buys stronger privacy: a larger noise scale makes the true value statistically harder to recover.
-  </div>
-</details>
-
-<details class="reveal reveal-recall">
-  <summary>Under sequential composition, what is the total privacy loss of running 10 queries each at ε = 0.1?<span class="reveal-tag">Recall</span></summary>
-  <div class="reveal-body" markdown="1">
-ε = 1.0 total. Sequential composition adds the individual budgets: 10 × 0.1 = 1.0, even though each individual query looks like a comfortably weak ε = 0.1 guarantee on its own.
   </div>
 </details>
 

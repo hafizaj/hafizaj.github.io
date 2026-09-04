@@ -3,47 +3,71 @@ title: "Ridge shrinks the directions your data trusts least"
 topic: "Regularisation"
 module: "Advanced Machine Learning"
 date: 2026-08-26
+updated: 2026-09-04
 reading_time: 9
+level: advanced
+featured: false
+index_order: 8
+source_schema: 2
+takeaway: "Ridge shrinks coefficients most along directions the observed data identifies least reliably."
 summary: "Ridge does not shrink every coefficient by the same amount. It shrinks hardest along the directions your data determines worst — which is exactly why correlated predictors get pulled toward each other."
 prerequisites: "Ordinary least squares in matrix form, and eigenvalues of a symmetric matrix."
 sources:
-  - "Hastie, Tibshirani & Friedman, <em>The Elements of Statistical Learning</em>, §3.4.1 — the SVD view of ridge."
-  - "James et al., <em>An Introduction to Statistical Learning</em>, §6.2 — the gentler treatment."
+  - id: hoerl-kennard-1970
+    author: "Arthur E. Hoerl & Robert W. Kennard"
+    title: "Ridge Regression: Biased Estimation for Nonorthogonal Problems"
+    publication: "Technometrics 12(1), 55–67"
+    year: 1970
+    url: "https://doi.org/10.1080/00401706.1970.10488634"
+    supports: "The original proposal to add a constant to the diagonal of the cross-product matrix before inverting it."
+  - id: esl-2009
+    author: "Trevor Hastie, Robert Tibshirani & Jerome Friedman"
+    title: "The Elements of Statistical Learning, 2nd edition, §3.4.1"
+    publication: "Springer; full text free from the authors"
+    year: 2009
+    url: "https://hastie.su.domains/ElemStatLearn/"
+    supports: "The singular-value view of ridge, the shrinkage factor applied to each direction, the cancellation behaviour of correlated predictors, non-equivariance under rescaling, and the unpenalised intercept."
+  - id: isl-2021
+    author: "Gareth James, Daniela Witten, Trevor Hastie & Robert Tibshirani"
+    title: "An Introduction to Statistical Learning, 2nd edition, §6.2.1"
+    publication: "Springer; full text free from statlearning.com"
+    year: 2021
+    url: "https://www.statlearning.com/"
+    supports: "The accessible statement that ridge estimates are not scale equivariant, the recommendation to standardise predictors first, and the bias–variance reading of the penalty."
 ---
 
-Fit ridge regression to two predictors correlated at 0.9, and something odd happens well before the penalty gets large: their coefficients don't drift toward zero independently, they collide, converging toward each other while both are still nowhere near zero. The textbook line — "ridge shrinks coefficients toward zero" — is true and almost beside the point. **Ridge does not shrink uniformly.** It shrinks some directions in predictor space almost not at all, and others into near-oblivion, and which is which is decided entirely by your design matrix rather than by you.
+The usual one-line summary of ridge regression — that it shrinks coefficients toward zero — describes the wrong motion. Fit two standardised predictors correlated at $0.9$ and least squares returns coefficients of $0.895$ and $-0.105$, one strongly positive and one negative, even though both predictors are positively associated with the response. Add a penalty of $\lambda = 10$ and the pair becomes $0.625$ and $0.125$. The **gap** between them has halved, while their **sum** has barely moved, from $0.789$ to $0.750$. What the penalty mostly did was pull the two coefficients toward each other, and that asymmetry is the behaviour the one-line summary hides.
 
-## The setup
+## What the penalty adds, and to what
 
-Ridge solves the penalised least-squares problem
+Ridge regression minimises the squared error plus a penalty on the squared size of the coefficient vector:
 
-$$\hat\beta_{\text{ridge}} = \arg\min_\beta \; \lVert y - X\beta \rVert_2^2 + \lambda \lVert \beta \rVert_2^2$$
+$$\hat\beta(\lambda) = \arg\min_\beta \; \lVert y - X\beta \rVert_2^2 + \lambda \lVert \beta \rVert_2^2$$
 
-which has the closed form
+Here $X$ is the $n \times p$ matrix of standardised predictors, $y$ the response, and $\lambda \ge 0$ the penalty strength you choose. Solving gives a closed form that differs from ordinary least squares by one term [2](#source-esl-2009){: .source-ref}:
 
 $$\hat\beta(\lambda) = (X^\top X + \lambda I)^{-1} X^\top y.$$
 
-<div class="callout callout-key" markdown="1">
-<span class="callout-label">Why "toward zero" is the wrong mental model</span>
-Adding $\lambda I$ does not nudge every coefficient equally. It adds a constant $\lambda$ to **every eigenvalue** of $X^\top X$ — and a constant is enormous relative to a small eigenvalue and negligible relative to a large one.
-</div>
+$X^\top X$ is the cross-product matrix of the predictors, sometimes called the Gram matrix; for standardised columns it is proportional to their sample correlation matrix. Adding $\lambda I$ puts a constant on its diagonal before inversion, which was exactly the point of the original proposal: it makes the inverse exist even when $X^\top X$ is singular or nearly so [1](#source-hoerl-kennard-1970){: .source-ref}[2](#source-esl-2009){: .source-ref}.
 
-## A 2×2 collinear system
+Adding a constant to a diagonal sounds neutral. It is not, because a fixed constant is enormous next to a small number and negligible next to a large one, and the numbers it lands next to are set by your data rather than by you.
 
-Take two standardised predictors with correlation $0.9$, so that
+## Where the fit is genuinely undetermined
+
+Take the 2×2 system behind the numbers above. Two standardised predictors correlated at $0.9$, measured on 100 observations, give
 
 $$X^\top X = \begin{pmatrix} 100 & 90 \\ 90 & 100 \end{pmatrix}, \qquad X^\top y = \begin{pmatrix} 80 \\ 70 \end{pmatrix}.$$
 
-Both predictors are positively associated with the response. Now solve at $\lambda = 0$ — plain OLS:
+An **eigenvector** of $X^\top X$ is a direction in predictor space that the matrix rescales without rotating, and its **eigenvalue** is the factor by which it is rescaled. For this matrix the two eigenvectors are the direction in which both coefficients move together and the direction in which they move apart:
 
-$$\hat\beta(0) = \begin{pmatrix} 0.895 \\ -0.105 \end{pmatrix}.$$
+$$q_1 = \tfrac{1}{\sqrt 2}\begin{pmatrix}1\\1\end{pmatrix},\ \ \gamma_1 = 190, \qquad q_2 = \tfrac{1}{\sqrt 2}\begin{pmatrix}1\\-1\end{pmatrix},\ \ \gamma_2 = 10.$$
 
-One coefficient is strongly positive and the other is **negative**, even though both predictors are positively correlated with $y$. Nothing has gone wrong with the arithmetic. This is what collinearity does: it leaves the *sum* of the coefficients well determined and the *difference* almost completely undetermined, so the fit is free to make one large and the other negative at almost no cost.
+Read that gap as information. The data constrains "how much of the two predictors together" nineteen times more tightly than it constrains "which of the two." The consequence is the negative coefficient we started with: a large positive weight on one predictor can be cancelled by a large negative weight on its correlated partner at almost no cost in fit, so least squares picks an arbitrary point along a direction it cannot resolve [2](#source-esl-2009){: .source-ref}.
 
 <div class="widget" data-widget="ridge-shrinkage">
   <div class="widget-head">
     <span class="widget-title">Coefficient paths · r = 0.9</span>
-    <span class="widget-readout" data-readout>λ = 0.0</span>
+    <span class="widget-readout" data-readout>λ = 0.0   β₁ = 0.895   β₂ = -0.105   gap = 1.000</span>
   </div>
   <div class="widget-canvas-wrap"><canvas role="img" aria-label="Two ridge coefficient paths converging as the penalty lambda increases"></canvas></div>
   <div class="widget-controls">
@@ -52,81 +76,65 @@ One coefficient is strongly positive and the other is **negative**, even though 
       <input type="range" id="ridge-lambda" min="0" max="1000" step="1" value="0">
     </div>
   </div>
-  <p class="widget-caption">Move λ away from zero and watch the two paths rush toward each other before either gets close to zero. The gap closes far faster than the magnitudes fall.</p>
-  <p class="widget-noscript">This figure needs JavaScript. The numbers in the surrounding text carry the same argument.</p>
+  <p class="widget-caption">The slider runs λ from 0 to 500 on a cubic scale, so most of its travel covers the small penalties where the paths move fastest. Both coefficients are on the same scale because the predictors are standardised — each reads as the change in the response per standard deviation of its own predictor, so the two are directly comparable, and they carry the response's units unless the response is standardised too. Watch the gap between the paths close long before either curve approaches zero.</p>
+  <p class="widget-noscript">This figure needs JavaScript. The tables and numbers in the surrounding text carry the same argument.</p>
 </div>
 
-## Why they converge
+## One shrinkage factor per direction
 
-The answer is visible the moment you stop looking at $\beta_1$ and $\beta_2$ and start looking at the eigenvectors of $X^\top X$.
-
-For our matrix those eigenvectors are the **sum** direction and the **difference** direction:
-
-$$u_1 = \tfrac{1}{\sqrt 2}\begin{pmatrix}1\\1\end{pmatrix}, \quad d_1 = 190, \qquad u_2 = \tfrac{1}{\sqrt 2}\begin{pmatrix}1\\-1\end{pmatrix}, \quad d_2 = 10.$$
-
-That eigenvalue gap *is* the collinearity. The data pins down "how much of the two predictors together" nineteen times more sharply than it pins down "which of the two."
+Rewriting the estimator in the eigenbasis turns a matrix inverse into a list of independent scalars, one per direction.
 
 <details class="reveal">
-  <summary>Show the derivation<span class="reveal-tag">3 lines</span></summary>
+  <summary>Three lines from the closed form to the shrinkage factor<span class="reveal-tag">derivation</span></summary>
   <div class="reveal-body" markdown="1">
-Write the eigendecomposition $X^\top X = U D U^\top$. Because $U$ is orthogonal, $U U^\top = I$, so
+Write the eigendecomposition $X^\top X = Q \Gamma Q^\top$, with $Q$ orthogonal, its columns the eigenvectors $q_j$, and $\Gamma$ diagonal holding the eigenvalues $\gamma_j$. Because $Q Q^\top = I$,
 
-$$X^\top X + \lambda I = U(D + \lambda I)U^\top \quad\Longrightarrow\quad (X^\top X + \lambda I)^{-1} = U(D+\lambda I)^{-1}U^\top.$$
+$$X^\top X + \lambda I = Q(\Gamma + \lambda I)Q^\top \quad\Longrightarrow\quad (X^\top X + \lambda I)^{-1} = Q(\Gamma+\lambda I)^{-1}Q^\top.$$
 
-Projecting $X^\top y$ onto the eigenbasis and writing $c_j = u_j^\top X^\top y$ gives
+Writing $c_j = q_j^\top X^\top y$ for the projection of $X^\top y$ onto the $j$-th eigenvector,
 
-$$\hat\beta(\lambda) = \sum_j \frac{c_j}{d_j + \lambda}\, u_j.$$
+$$\hat\beta(\lambda) = \sum_j \frac{c_j}{\gamma_j + \lambda}\, q_j = \sum_j \frac{\gamma_j}{\gamma_j + \lambda} \cdot \frac{c_j}{\gamma_j}\, q_j.$$
 
-So the coefficient along direction $j$ is the OLS coefficient $c_j/d_j$ multiplied by the shrinkage factor $d_j/(d_j+\lambda)$.
+The second form separates the least-squares coefficient $c_j/\gamma_j$ from a multiplier $\gamma_j/(\gamma_j+\lambda)$ that depends only on $\lambda$ and on how large $\gamma_j$ already was.
+
+*The Elements of Statistical Learning* reaches the same result through the singular value decomposition $X = UDV^\top$ and writes the multiplier as $d_j^2/(d_j^2+\lambda)$, where $d_j$ is the $j$-th singular value of $X$. The two agree because $X^\top X = VD^2V^\top$: the columns of $V$ are the $q_j$ above, and the eigenvalues of $X^\top X$ are the squared singular values, $\gamma_j = d_j^2$ [2](#source-esl-2009){: .source-ref}.
   </div>
 </details>
 
-The shrinkage factor is the whole story. For our two directions:
+In words: ridge leaves the least-squares answer alone along each direction and then multiplies it by a number between 0 and 1. That number is close to 1 when the eigenvalue is large relative to $\lambda$ and close to 0 when it is small. Greater shrinkage falls on the directions with the smaller eigenvalues, which are the directions along which the predictors vary least and the fit is therefore least well determined [2](#source-esl-2009){: .source-ref}.
 
-| λ | sum direction $\frac{190}{190+\lambda}$ | difference direction $\frac{10}{10+\lambda}$ |
-|---|---|---|
-| 0 | 1.00 | 1.00 |
-| 10 | 0.95 | **0.50** |
-| 50 | 0.79 | **0.17** |
-| 190 | 0.50 | **0.05** |
+For the two directions in this example, the multipliers diverge almost immediately:
 
-At $\lambda = 10$ — a penalty small enough to barely touch the sum — the difference has already been halved. That is the convergence you can see in the figure. Ridge is not pulling the coefficients toward each other because it "likes" similar coefficients. It is destroying the one direction the data never determined in the first place, and what survives is their common component.
+| λ | joint direction, $\frac{190}{190+\lambda}$ | contrast direction, $\frac{10}{10+\lambda}$ | resulting $(\hat\beta_1, \hat\beta_2)$ |
+|---|---|---|---|
+| 0 | 1.00 | 1.00 | (0.895, −0.105) |
+| 10 | 0.95 | 0.50 | (0.625, 0.125) |
+| 50 | 0.79 | 0.17 | (0.396, 0.229) |
+| 190 | 0.50 | 0.05 | (0.222, 0.172) |
+
+At $\lambda = 10$ the joint direction has lost 5% of its length and the contrast direction has lost half of its own. By $\lambda = 190$ the contrast has been cut to a twentieth while the joint direction retains half. The convergence you can watch in the figure is not ridge preferring similar coefficients. It is the contrast direction being dismantled first, leaving the shared component as most of what survives.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">The scale-invariance trap</span>
-Because the shrinkage factor depends on $d_j$, **ridge is not scale invariant**. Change the units of one predictor and you change its eigenvalues, and therefore change which directions get destroyed. Standardise your predictors before fitting, or you are letting your choice of units pick the penalty. This is also why the intercept is conventionally left unpenalised — shrinking it would make the fit depend on where you put the origin of $y$.
+<span class="callout-label">Rescale a column and you have changed the penalty</span>
+Least squares is scale equivariant: multiply a predictor by $c$ and its coefficient divides by $c$, leaving the fitted values untouched. Ridge estimates do not behave that way, and the fitted contribution of one predictor can shift when a *different* predictor is rescaled [3](#source-isl-2021){: .source-ref}. The reason is visible in the table above, since rescaling a column changes the eigenvalues and therefore changes every multiplier. Standardise the predictors before fitting, or the units you happened to record become an undeclared part of the penalty [2](#source-esl-2009){: .source-ref}[3](#source-isl-2021){: .source-ref}. For the same family of reasons the intercept is conventionally left unpenalised: shrinking it would make the fit depend on where the origin of $y$ sits [2](#source-esl-2009){: .source-ref}[3](#source-isl-2021){: .source-ref}.
 </div>
 
-## Reading ridge coefficients under collinearity
+## Reading a ridge coefficient under collinearity
 
-The practical reading is that **ridge coefficients are not individually interpretable under collinearity, but their aggregate is.** If two predictors are strongly correlated, ridge will hand you two similar middling coefficients rather than one large and one negative. Neither answer is more "true" than the other; OLS picked an arbitrary point along a direction the data could not resolve, and ridge picked a different, more stable one.
+The practical consequence is a limit on interpretation. Under strong collinearity a single ridge coefficient carries little information on its own, while the group total carries most of what the data actually determined. Ridge returns two similar middling numbers where least squares returned one large and one negative. Neither pair is more correct than the other; least squares chose an arbitrary point along an unresolved direction, and ridge chose a more stable one, buying lower variance at the cost of some bias [3](#source-isl-2021){: .source-ref}.
 
-If you actually need to know *which* of two correlated predictors matters, ridge is the wrong tool and no amount of tuning $\lambda$ will fix it. That question needs either better data — something that breaks the correlation — or a method that is willing to make a discrete choice, like the lasso, which will typically keep one and zero the other.
-
-<details class="reveal reveal-recall">
-  <summary>Why does ridge shrink some directions more than others?<span class="reveal-tag">Recall</span></summary>
-  <div class="reveal-body" markdown="1">
-Because the penalty adds a constant $\lambda$ to every eigenvalue of $X^\top X$, and the resulting shrinkage factor $d_j/(d_j+\lambda)$ depends on how large $d_j$ already was. A constant is large relative to a small eigenvalue and negligible relative to a large one, so poorly-determined directions collapse first.
-  </div>
-</details>
+If the question is *which* of two correlated predictors matters, no value of $\lambda$ will answer it. Ridge distributes weight across a correlated group by construction. Answering that question needs either data that breaks the correlation or a method willing to make a discrete choice, such as the lasso.
 
 <details class="reveal reveal-recall">
   <summary>Two predictors have correlation 0.95. What happens to their coefficients as λ grows?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-They converge toward each other much faster than they approach zero. High correlation makes the difference direction's eigenvalue small, so that direction is shrunk aggressively, while the shared component survives to much larger $\lambda$.
-  </div>
-</details>
-
-<details class="reveal reveal-recall">
-  <summary>Why must predictors be standardised before a ridge fit?<span class="reveal-tag">Recall</span></summary>
-  <div class="reveal-body" markdown="1">
-Ridge is not scale invariant. Rescaling a predictor changes the eigenvalues of $X^\top X$, which changes the shrinkage factors, which changes the fitted coefficients. Without standardisation the units you happened to measure in silently determine how hard each direction is penalised.
+They converge on each other faster than either approaches zero. Higher correlation makes the contrast direction's eigenvalue smaller, so the multiplier $\gamma/(\gamma+\lambda)$ collapses for that direction at a penalty small enough to leave the joint direction almost intact.
   </div>
 </details>
 
 <details class="reveal reveal-recall">
   <summary>When is ridge the wrong tool for correlated predictors?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-When you need to identify *which* of the correlated predictors is responsible. Ridge deliberately refuses to choose — it distributes weight across the correlated group. Use the lasso or elastic net if selection is the goal, or get data that breaks the correlation.
+When you need to identify which predictor in a correlated group is responsible. Ridge spreads weight across the group rather than selecting within it. Use the lasso or elastic net if selection is the goal, or collect data that breaks the correlation.
   </div>
 </details>

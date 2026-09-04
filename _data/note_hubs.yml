@@ -6,9 +6,30 @@
 "Energy Analytics":
   url: "/notes/energy-analytics/"
   teaser: "Price formation, capacity, and storage economics in real electricity markets."
+  start: "why-nameplate-capacity-overstates-what-a-plant-delivers"
+  order:
+    - "why-nameplate-capacity-overstates-what-a-plant-delivers"
+    - "why-solar-can-collapse-the-electricity-price-to-zero"
+    - "why-battery-arbitrage-needs-a-price-spread-not-just-a-gap"
+  related:
+    - "what-a-shadow-price-actually-tells-you"
 "Retail Analytics":
   url: "/notes/retail-analytics/"
   teaser: "Pricing, basket analysis, and targeting — where retail intuition and the numbers disagree."
+  start: "why-confidence-lies-and-lift-tells-the-truth"
+  order:
+    - "why-confidence-lies-and-lift-tells-the-truth"
+    - "why-price-sensitivity-sets-your-optimal-markup"
+    - "why-targeting-likely-buyers-wastes-your-promo-budget"
+  related:
+    - "aggregating-across-groups-can-flip-treatments"
 "Azure AI Architecture":
   url: "/notes/azure-ai-architecture/"
   teaser: "Field notes from my Microsoft role: Foundry, agent design, and Copilot Studio orchestration."
+  start: "before-you-build-an-agent-decide-whether-you-should"
+  order:
+    - "before-you-build-an-agent-decide-whether-you-should"
+    - "microsoft-foundry-one-platform-not-three-products"
+    - "copilot-studio-multi-agent-orchestration-a2a-mcp"
+  related:
+    - "why-your-privacy-budget-shrinks-with-every-query"

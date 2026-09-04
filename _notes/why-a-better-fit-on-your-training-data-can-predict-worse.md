@@ -3,44 +3,62 @@ title: "A better fit on your training data can predict worse"
 topic: "Bias-variance tradeoff"
 module: "Machine Learning"
 date: 2026-08-26
+updated: 2026-09-04
 reading_time: 9
+level: foundation
+featured: false
+index_order: 7
+source_schema: 2
+takeaway: "Lower training error can mean worse unseen predictions when extra flexibility starts fitting noise."
 summary: "A model that fits every wiggle in your training data almost always predicts worse on new data than one that fits it a little worse. Pushing training error toward zero doesn't buy you a better model — past a point, it buys you a model that has memorised your noise."
 prerequisites: "What least-squares regression fits, and what a training/test split is."
 sources:
-  - "Hastie, T., Tibshirani, R., Friedman, J., <em>The Elements of Statistical Learning</em>, 2nd ed., §2.9 and §7.3 — the formal bias-variance decomposition."
-  - "James, G., Witten, D., Hastie, T., Tibshirani, R., <em>An Introduction to Statistical Learning</em>, ch. 2 — the practitioner-level version of the same argument."
+  - id: geman-1992
+    author: "Stuart Geman, Elie Bienenstock & René Doursat"
+    title: "Neural Networks and the Bias/Variance Dilemma"
+    publication: "Neural Computation 4(1), 1–58"
+    year: 1992
+    url: "https://doi.org/10.1162/neco.1992.4.1.1"
+    supports: "The paper that named the bias/variance dilemma and framed it as a constraint on flexible estimators rather than a defect of a particular model."
+  - id: esl-2009
+    author: "Trevor Hastie, Robert Tibshirani & Jerome Friedman"
+    title: "The Elements of Statistical Learning, 2nd edition, §7.2–§7.3"
+    publication: "Springer; full text free from the authors"
+    year: 2009
+    url: "https://hastie.su.domains/ElemStatLearn/"
+    supports: "The formal decomposition into irreducible error, squared bias and variance, the distinction between test error for one fixed training set and expected test error, and the behaviour of training error as complexity rises."
+  - id: isl-2021
+    author: "Gareth James, Daniela Witten, Trevor Hastie & Robert Tibshirani"
+    title: "An Introduction to Statistical Learning, 2nd edition, §2.2.2"
+    publication: "Springer; full text free from statlearning.com"
+    year: 2021
+    url: "https://www.statlearning.com/"
+    supports: "The definition of expected test MSE as an average over repeated training sets, the plain-language definitions of bias and variance, and the statement that flexibility raises variance and lowers bias only as a general rule."
 ---
 
-Fit a degree-2 polynomial to nine noisy points and it leaves real error on the table: a training MSE of 2.9. Push to degree 7 and that error nearly disappears, down to 1.3 — the curve threads through almost every point. On new data, though, the ranking flips: the degree-2 fit scores 2.3, the degree-7 fit 4.1. **The model with the better training fit is the one you should throw away.** "Fitting the data you have" and "fitting the relationship that generated it" are different goals, and past a certain point every extra bit of training accuracy is bought entirely from the first at the expense of the second.
+Which of two fitted curves should you trust: the one that misses many of your data points, or the one that passes almost exactly through them all? The second answer is the intuitive one, and here it is wrong. A degree-2 polynomial through nine noisy points of discount percentage against conversion lift leaves a training mean squared error of 2.88; pushing to degree 7 threads the curve through nearly every point and drops that to 1.34. On eight held-out points the ranking reverses: degree 2 scores 2.29 and degree 7 scores 4.13. The fit that looks better on the data it was given is the one to discard.
 
-## The setup
+## Seven polynomial fits to the same nine points
 
-Split prediction error at a point $x$ into three pieces. If $y = f(x) + \varepsilon$ with $\mathbb{E}[\varepsilon] = 0$ and $\mathrm{Var}(\varepsilon) = \sigma^2$, and $\hat f$ is a model fitted on a random training set:
-
-$$\mathbb{E}\big[(y - \hat f(x))^2\big] = \underbrace{\big(f(x) - \mathbb{E}[\hat f(x)]\big)^2}_{\text{bias}^2} + \underbrace{\mathrm{Var}\big[\hat f(x)\big]}_{\text{variance}} + \sigma^2$$
-
-**Bias** is how wrong the model's average prediction is — a model too simple to represent the true relationship will be systematically off no matter how much data you give it. **Variance** is how much the fitted model would change if you retrained it on a different sample of the same underlying data — a model flexible enough to chase individual data points will swing wildly from one training set to the next. Training error only ever sees bias. Test error sees both, plus the noise floor $\sigma^2$ that no model can remove.
-
-<div class="callout callout-key" markdown="1">
-<span class="callout-label">Bias always falls; variance is the price</span>
-Adding flexibility to a model always <strong>reduces bias, or leaves it unchanged</strong> — a more flexible family can always fit the training data at least as well. But added flexibility also <strong>increases variance</strong>, because the model now has more freedom to fit whatever noise happens to be in this particular sample. Training error only tracks the first effect. Test error tracks both, which is why the two curves part ways.
-</div>
-
-## The discount curve, fit at degrees 1 through 7
-
-Suppose the true relationship between a discount percentage and conversion lift is a gentle, single-peaked curve — lift rises with the discount, then falls as heavy discounts start reading as a signal of low quality:
+The data here is synthetic, which is what makes the comparison legible: the relationship the points were generated from is
 
 $$f(x) = 20 + 1.4x - 0.03x^2$$
 
-Nine training points are sampled at $x = 0, 5, 10, \dots, 40$ with fixed, deliberately-chosen noise added (synthetic data — the true curve above is known here only because it was constructed for the example). An independent set of eight test points, at the midpoints between them, is drawn the same way. Fitting a polynomial of degree $d$ by least squares and increasing $d$ from 1 to 7 traces out exactly the story the decomposition predicts:
+a single-peaked curve where lift rises with the discount and then falls as heavy discounts start reading as a signal of low quality. Nine training points sit at $x = 0, 5, 10, \dots, 40$ with fixed, deliberately chosen noise added. Eight test points sit at the midpoints between them, $x = 2.5, 7.5, \dots, 37.5$, with their own fixed noise. Both sets are held constant so that the only thing changing between rows below is the degree of the fitted polynomial. Errors are mean squared errors in the units of lift, squared.
 
 | Degree | Train MSE | Test MSE |
 |---|---|---|
-| 1 (straight line) | 23.5 | 15.3 |
-| 2 (matches the true order) | **2.9** | **2.3** |
-| 7 (near-interpolating) | 1.3 | 4.1 |
+| 1 | 23.47 | 15.33 |
+| 2 | **2.88** | **2.29** |
+| 3 | 2.83 | 2.57 |
+| 4 | 1.85 | 2.94 |
+| 5 | 1.82 | 3.18 |
+| 6 | 1.34 | 4.29 |
+| 7 | 1.34 | 4.13 |
 
-Train error falls every step of the way — a degree-7 polynomial has strictly more freedom than a degree-2 one, so it can always match or beat it on the nine points it was fit to. Test error does the opposite past degree 2: it bottoms out exactly at the true polynomial order, then climbs as the extra degrees start fitting noise instead of signal. The degree-2 fit recovers coefficients of roughly $19.6,\ 1.45,\ -0.03$ — close to the true $20,\ 1.4,\ -0.03$ — not because degree 2 was picked to match, but because it's the first degree with enough flexibility to represent the true curve and no more.
+Training error never rises as the degree increases, and that is guaranteed rather than lucky: every degree-$d$ polynomial is also a degree-$(d{+}1)$ polynomial with a zero leading coefficient, so the larger family can match the smaller family's fit and then look for something better. Test error behaves differently. It reaches its minimum at degree 2, the order of the curve that generated the data, and by degree 7 it is about 80% higher.
+
+The degree-2 fit recovers coefficients of $19.55$, $1.448$ and $-0.0310$ against the true $20$, $1.4$ and $-0.03$. Degree 2 was not chosen to flatter the example. It is the smallest degree with enough freedom to represent the generating curve, and nothing above it has any signal left to find.
 
 <div class="widget" data-widget="bias-variance-fit">
   <div class="widget-head">
@@ -54,62 +72,73 @@ Train error falls every step of the way — a degree-7 polynomial has strictly m
       <input type="range" id="bv-degree" min="1" max="7" step="1" value="1">
     </div>
   </div>
-  <p class="widget-caption">The dashed grey line is the true relationship — visible here because the data is synthetic. Drag the slider up: the fitted curve first straightens out the true bend (bias falling), then starts weaving through individual points that are really just noise (variance rising).</p>
+  <p class="widget-caption">Horizontal axis is the discount in per cent; vertical axis is conversion lift. Filled circles are the nine training points, hollow diamonds the eight test points, and the dashed grey line is the generating curve, visible only because the data is synthetic. The readout reproduces the two error columns in the table above.</p>
   <p class="widget-noscript">This figure needs JavaScript. The table above carries the same argument.</p>
 </div>
 
+## Three sources of error, one of which you cannot touch
+
+Suppose the response is $y = f(x) + \varepsilon$ with $\mathbb{E}[\varepsilon] = 0$ and $\mathrm{Var}(\varepsilon) = \sigma^2$, and that $\hat f$ has been fitted to a training set drawn at random. At a single input $x$, the expected squared prediction error splits into three non-negative pieces [2](#source-esl-2009){: .source-ref}[3](#source-isl-2021){: .source-ref}:
+
+$$\mathbb{E}\big[(y - \hat f(x))^2\big] = \underbrace{\big(f(x) - \mathbb{E}[\hat f(x)]\big)^2}_{\text{bias}^2} + \underbrace{\mathrm{Var}\big[\hat f(x)\big]}_{\text{variance}} + \sigma^2$$
+
+**Bias** measures how far the model's *average* prediction sits from the truth, averaging over training sets. A model too rigid to represent the real relationship stays wrong there no matter how much data arrives. **Variance** measures how much the prediction at that same point would move if the model were refitted on a different sample from the same process [3](#source-isl-2021){: .source-ref}. It says nothing about how spread out the data is. The last term, $\sigma^2$, is the variance of the noise in the outcome itself, and no fitting procedure removes it, so the expected test error cannot fall below it [3](#source-isl-2021){: .source-ref}.
+
+Training error only responds to the first of the three. That is why it kept falling in the table while test error turned around.
+
 <details class="reveal">
-  <summary>Where the bias-variance formula actually comes from<span class="reveal-tag">derivation</span></summary>
+  <summary>Where the three terms come from<span class="reveal-tag">derivation</span></summary>
   <div class="reveal-body" markdown="1">
-Write $y = f(x) + \varepsilon$ with $\mathbb{E}[\varepsilon] = 0$, $\mathrm{Var}(\varepsilon) = \sigma^2$, and $\varepsilon$ independent of the training set $D$ that $\hat f$ was fitted on. Let $\bar f(x) = \mathbb{E}_D[\hat f(x)]$ denote the average prediction over all possible training sets.
+Write $y = f(x) + \varepsilon$ with $\mathbb{E}[\varepsilon] = 0$, $\mathrm{Var}(\varepsilon) = \sigma^2$, and $\varepsilon$ independent of the training set $D$ that $\hat f$ was fitted on. Let $\bar f(x) = \mathbb{E}_D[\hat f(x)]$ be the average prediction over all possible training sets. Then
 
-$$\mathbb{E}\big[(y-\hat f(x))^2\big] = \mathbb{E}\big[(f(x)+\varepsilon-\hat f(x))^2\big]$$
+$$\mathbb{E}\big[(y-\hat f(x))^2\big] = \mathbb{E}\big[(f(x)+\varepsilon-\hat f(x))^2\big].$$
 
-Add and subtract $\bar f(x)$ inside the square, then expand:
+Add and subtract $\bar f(x)$ inside the square:
 
-$$= \mathbb{E}\Big[\big((f(x)-\bar f(x)) + (\bar f(x)-\hat f(x)) + \varepsilon\big)^2\Big]$$
+$$= \mathbb{E}\Big[\big((f(x)-\bar f(x)) + (\bar f(x)-\hat f(x)) + \varepsilon\big)^2\Big].$$
 
-$f(x)-\bar f(x)$ is a constant (no randomness left once you've averaged over $D$). Expanding the square gives three squared terms and three cross terms. Every cross term vanishes: $\varepsilon$ is independent of $D$ and mean zero, so it has zero covariance with anything built from $\hat f$; and $\mathbb{E}_D[\bar f(x)-\hat f(x)] = 0$ by the definition of $\bar f$, so its cross term with the constant $f(x)-\bar f(x)$ is also zero. What survives is
+$f(x)-\bar f(x)$ is a constant once the average over $D$ has been taken. Expanding gives three squared terms and three cross terms. Each cross term is zero: $\varepsilon$ is mean-zero and independent of $D$, so it has zero covariance with anything built from $\hat f$, and $\mathbb{E}_D[\bar f(x)-\hat f(x)] = 0$ by the definition of $\bar f$. What remains is
 
-$$\big(f(x)-\bar f(x)\big)^2 + \mathbb{E}\big[(\bar f(x)-\hat f(x))^2\big] + \mathbb{E}[\varepsilon^2] = \text{bias}^2 + \text{variance} + \sigma^2$$
+$$\big(f(x)-\bar f(x)\big)^2 + \mathbb{E}\big[(\bar f(x)-\hat f(x))^2\big] + \mathbb{E}[\varepsilon^2] = \text{bias}^2 + \text{variance} + \sigma^2.$$
 
-which is the decomposition above. Nothing here required $\hat f$ to be linear or the noise to be Gaussian — it holds for any fitting procedure.
+Nothing in that argument required $\hat f$ to be linear or $\varepsilon$ to be Gaussian, which is why the same three terms appear for any fitting procedure under squared-error loss. Geman, Bienenstock and Doursat used exactly this structure to argue that the trade-off constrains flexible estimators in general rather than any one model family [1](#source-geman-1992){: .source-ref}.
   </div>
 </details>
 
-## Two different knobs on variance
+## One split is not an expectation
 
-This is a different knob from the one in the <a href="/notes/ridge-shrinks-correlated-predictors/" class="font-semibold text-royal hover:text-midnight">ridge regression note</a>. There, the model family was fixed and a penalty $\lambda$ shrank the coefficients within it. Here, the model family itself is growing — degree 7 can represent every function degree 2 can, plus far more. Shrinkage and model selection are two different ways of buying back variance; a production pipeline typically uses both, not one instead of the other.
+The decomposition describes an average over training sets. The table describes one training set and one test set, and the difference shows up in the numbers. Test error rises from degree 2 to degree 6 and then falls slightly at degree 7, from 4.29 to 4.13. A decomposition that held pointwise for every fitted model would not permit that wobble; an average over many training sets would smooth it away.
+
+The vocabulary for this is worth keeping straight. *The Elements of Statistical Learning* writes $\mathrm{Err}_{\mathcal{T}}$ for the test error of a model fitted on one specific training set $\mathcal{T}$, and plain $\mathrm{Err}$ for the expected test error, which averages that quantity over the randomness in the training set as well [2](#source-esl-2009){: .source-ref}. What a single held-out split reports is an estimate of the first quantity. The claim that more flexibility raises variance and lowers bias is a statement about the second, and both textbooks phrase it as a general tendency rather than a guarantee [2](#source-esl-2009){: .source-ref}[3](#source-isl-2021){: .source-ref}.
+
+Two things here are exact rather than tendencies: training error is non-increasing in degree for nested families, and expected test error is bounded below by $\sigma^2$. Everything else in the shape of that curve is a strong regularity, not a law, and one split will show you a noisy version of it.
+
+## A different knob from the ridge penalty
+
+The <a href="/notes/ridge-shrinks-correlated-predictors/" class="font-semibold text-royal hover:text-midnight">ridge regression note</a> turns a different dial. There the model family is fixed and a penalty pulls the coefficients within it toward zero, buying lower variance for a little bias. Here the family itself grows, because degree 7 can represent everything degree 2 can and a great deal more. Shrinkage and model selection are separate mechanisms for the same purchase, and a production pipeline usually uses both.
 
 <div class="callout callout-warn" markdown="1">
-<span class="callout-label">The training-only evaluation trap</span>
-The floor is $\sigma^2$, the irreducible noise in the outcome itself — no amount of model selection removes it, and mistaking a low training error for a low <em>total</em> error is the single most common way overfitting reaches production. A model evaluated only on the data it was trained on has no way to see variance at all; it needs a held-out test set, or resampling such as cross-validation, before "how well does this fit" can be trusted as "how well will this predict."
+<span class="callout-label">Evaluating on the training set cannot see variance at all</span>
+A model scored only on the data it was fitted to has no way to detect variance, because variance is defined by what would happen on data it has not seen. *The Elements of Statistical Learning* puts the consequence bluntly: training error drops toward zero as complexity rises, and a model with zero training error is typically overfitted and generalises poorly [2](#source-esl-2009){: .source-ref}. Held-out data or resampling such as cross-validation is what converts "this fits well" into evidence about "this will predict well."
 </div>
 
 <details class="reveal reveal-recall">
-  <summary>Why does training error keep falling as model complexity increases, even past the point where the model is clearly overfitting?<span class="reveal-tag">Recall</span></summary>
+  <summary>Why does training error keep falling as complexity increases, even well past the point of overfitting?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-A more flexible model family always contains everything a less flexible one could fit, plus more — so by construction it can match or beat the simpler model's training error. Training error only measures how well the model fits the data it has already seen, which is exactly what added flexibility is designed to improve.
+Because each more flexible family contains every function the less flexible one could fit. The larger family can reproduce the smaller family's solution and then search further, so its training error can only match or beat it. Training error measures fit to data already seen, which is precisely what added flexibility improves.
   </div>
 </details>
 
 <details class="reveal reveal-recall">
-  <summary>What, precisely, is "variance" measuring in the bias-variance decomposition?<span class="reveal-tag">Recall</span></summary>
+  <summary>What exactly is "variance" measuring in the decomposition?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-How much the fitted model's prediction at a point would change if you retrained it on a different random sample from the same underlying data-generating process — not how spread out the data itself is.
+How much the fitted model's prediction at a given point would change if the model were refitted on a different random sample from the same data-generating process. It is not a measure of how spread out the observed data is.
   </div>
 </details>
 
 <details class="reveal reveal-recall">
-  <summary>Why can't test error ever be driven to exactly zero, no matter how well the model is chosen?<span class="reveal-tag">Recall</span></summary>
+  <summary>Why can a single held-out split show test error falling when the model got more flexible?<span class="reveal-tag">Recall</span></summary>
   <div class="reveal-body" markdown="1">
-The decomposition has an irreducible term, $\sigma^2$ — the variance of the noise in the outcome itself. Even a model that recovered the true $f(x)$ exactly, with zero bias and zero variance, would still miss individual observations by however much noise perturbed them.
-  </div>
-</details>
-
-<details class="reveal reveal-recall">
-  <summary>Why is comparing models by training error alone unreliable for choosing which one to ship?<span class="reveal-tag">Recall</span></summary>
-  <div class="reveal-body" markdown="1">
-Training error only ever reflects bias — it improves monotonically as flexibility increases and cannot see the variance a more flexible model is accumulating on data it hasn't seen. Two models can have the same training error while one generalises far worse, and the only way to tell them apart is to evaluate on held-out data the model didn't fit.
+Because one split estimates the test error of one fitted model, not the expectation over training sets that the decomposition describes. The rise in expected test error with excess flexibility is a tendency; on any particular pair of samples, individual degrees can swap places, as degrees 6 and 7 do here.
   </div>
 </details>

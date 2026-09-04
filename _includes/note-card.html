@@ -1,29 +1,34 @@
 {% comment %}
-  One note as an editorial index row. Pass include.note. Shared by the
-  notes index and the per-module hub pages. Typographic hierarchy does
-  the work here rather than a card: eyebrow topic, display-weight title,
-  a clamped summary, and mono metadata — the marks live in the
-  collections band and on the note pages themselves.
+  One note as an editorial index row. Pass include.note. The landing page
+  passes heading_level=3; module hubs use the default h2.
 {% endcomment %}
 {% assign note = include.note %}
-{% comment %} On a module hub page the mark and module name are already in
-   the page header, so they're suppressed per-row via include.in_module.
-   Deliberately named row_mark, not mark: note-hub.html assigns `mark` for
-   its own header banner and that value leaks into this include, so reusing
-   the name would show the module mark on every row regardless. {% endcomment %}
-{% assign row_mark = null %}
-{% unless include.in_module %}{% assign row_mark = site.data.module_marks[note.module] %}{% endunless %}
-<a href="{{ note.url }}" class="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 gap-y-1 border-b border-mist py-5 transition-colors hover:border-royal sm:gap-x-6">
-  {% if row_mark %}
-  <img src="/assets/images/module-marks/{{ row_mark }}.png" alt="" width="96" height="96" loading="lazy"
-       class="col-start-1 row-span-3 hidden h-11 w-11 translate-y-1.5 rounded border border-mist bg-white object-cover transition-transform duration-300 group-hover:scale-110 sm:block">
-  {% endif %}
-  <span class="eyebrow col-start-2 text-royal">{{ note.topic }}</span>
-  <span class="col-start-3 row-start-1 justify-self-end whitespace-nowrap font-mono text-xs text-muted">{{ note.date | date: "%b %Y" }}</span>
-  <h2 class="col-start-2 col-end-4 font-display text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-royal sm:text-[1.35rem]">{{ note.title }}</h2>
-  <p class="col-start-2 col-end-4 line-clamp-1 text-sm leading-6 text-muted">{{ note.summary }}</p>
-  <p class="col-start-2 col-end-4 font-mono text-[0.7rem] uppercase tracking-widest text-muted">
-    {% if note.reading_time %}{{ note.reading_time }} min{% endif %}
-    {% unless include.in_module %}{% if note.module %} &middot; {{ note.module }}{% endif %}{% endunless %}
-  </p>
-</a>
+{% assign note_is_interactive = false %}
+{% if note.content contains 'data-widget=' %}{% assign note_is_interactive = true %}{% endif %}
+<article class="note-index-row"
+         data-note-row
+         data-module="{{ note.module | escape }}"
+         data-provenance="{% if note.provenance == 'professional' %}professional{% else %}academic{% endif %}"
+         data-interactive="{% if note_is_interactive %}true{% else %}false{% endif %}">
+  <a href="{{ note.url | relative_url }}">
+    <span class="note-index-topic">{{ note.topic }}</span>
+    {% if note_is_interactive %}
+    <span class="note-index-interactive">Interactive</span>
+    {% endif %}
+
+    {% if include.heading_level == 3 %}
+    <h3>{{ note.title }}</h3>
+    {% else %}
+    <h2>{{ note.title }}</h2>
+    {% endif %}
+
+    <p class="note-index-takeaway">{{ note.takeaway }}</p>
+
+    <p class="note-index-meta">
+      {% if note.reading_time %}<span>{{ note.reading_time }} min read</span>{% endif %}
+      {% if note.level %}<span>{{ note.level | capitalize }}</span>{% endif %}
+      <span>{% if note.provenance == 'professional' %}Professional{% else %}Academic{% endif %}</span>
+      {% unless include.in_module %}{% if note.module %}<span>{{ note.module }}</span>{% endif %}{% endunless %}
+    </p>
+  </a>
+</article>

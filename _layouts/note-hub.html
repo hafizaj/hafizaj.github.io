@@ -2,33 +2,86 @@
 layout: default
 ---
 
-<section class="border-b border-mist bg-white">
-  <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-    <p class="text-sm font-semibold text-muted"><a href="/notes/" class="text-royal hover:text-midnight">Notes</a> / {{ page.title }}</p>
-    <div class="mt-6 grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
-      <div>
-        <span class="label-pill bg-royal/10 text-royal">Module</span>
-        <h1 class="mt-6 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">{{ page.title }}</h1>
-        <p class="mt-6 max-w-xl text-lg leading-8 text-muted">{{ page.description }}</p>
-      </div>
-      {% assign mark = site.data.module_marks[page.title] %}
-      {% if mark %}
-      <img src="/assets/images/module-marks/{{ mark }}.png" alt="" width="1100" height="550"
-           class="aspect-[2/1] w-full rounded-xl border border-mist object-cover lg:justify-self-end">
-      {% endif %}
-    </div>
-  </div>
-</section>
+{% assign hub = site.data.note_hubs[page.title] %}
+{% assign notes = site.notes | where_exp: "n", "n.draft != true" | where_exp: "n", "n.published != false" %}
+{% assign slug = hub.start %}
+{% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+{% assign start_note = notes | where: "url", expected_url | first %}
+{% assign mark = site.data.module_marks[page.title] %}
 
-<section class="py-14 sm:py-16">
-  <div class="mx-auto max-w-4xl px-6">
-    {% assign notes = site.notes | where_exp: "n", "n.draft != true" | where: "module", page.title | sort: 'date' | reverse %}
-    <div class="border-t border-ink/80">
-      {% for note in notes %}
-        {% include note-card.html note=note in_module=true %}
+<header class="guided-hub-hero on-midnight">
+  <div class="guided-hub-hero-inner">
+    <div class="guided-hub-copy">
+      <p class="guided-hub-breadcrumb"><a href="{{ '/notes/' | relative_url }}">&larr; Notes index</a></p>
+      <p class="eyebrow">Guided collection · {{ hub.order.size }} notes</p>
+      <h1>{{ page.title }}</h1>
+      <p class="guided-hub-description">{{ page.description }}</p>
+    </div>
+    {% if mark %}
+    <div class="guided-hub-art" aria-hidden="true">
+      <img src="{{ '/assets/images/module-marks/' | append: mark | append: '.png' | relative_url }}" alt="" width="1100" height="550">
+    </div>
+    {% endif %}
+  </div>
+</header>
+
+<div class="guided-hub-shelf">
+  <section aria-labelledby="guided-start-heading">
+    <p class="eyebrow text-royal">Your starting point</p>
+    <a href="{{ start_note.url | relative_url }}" class="guided-hub-start">
+      <span class="guided-hub-step">01</span>
+      <span class="guided-hub-start-copy">
+        <span class="eyebrow text-royal">Start here</span>
+        <h2 id="guided-start-heading" class="guided-hub-start-title">{{ start_note.title }}</h2>
+        <span class="guided-hub-start-takeaway">{{ start_note.takeaway }}</span>
+        <span class="guided-hub-meta">
+          {% if start_note.reading_time %}{{ start_note.reading_time }} min read{% endif %}
+          {% if start_note.level %} · {{ start_note.level | capitalize }}{% endif %}
+        </span>
+        <span class="guided-hub-action">Read the first note <span aria-hidden="true">&rarr;</span></span>
+      </span>
+    </a>
+  </section>
+
+  <section class="guided-hub-sequence" aria-labelledby="guided-sequence-heading">
+    <div>
+      <p class="eyebrow text-muted">Then keep going</p>
+      <h2 id="guided-sequence-heading">The reading order</h2>
+      <p>Each note builds on the question before it, without hiding the rest of the route.</p>
+    </div>
+    <ol>
+      {% for slug in hub.order %}
+        {% unless slug == hub.start %}
+          {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+          {% assign ordered_note = notes | where: "url", expected_url | first %}
+          <li>
+            <a href="{{ ordered_note.url | relative_url }}" class="guided-hub-row">
+              <span class="guided-hub-row-number">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              <span class="guided-hub-row-copy">
+                <span class="guided-hub-row-title">{{ ordered_note.title }}</span>
+                <span class="guided-hub-row-takeaway">{{ ordered_note.takeaway }}</span>
+              </span>
+              <span class="guided-hub-row-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        {% endunless %}
       {% endfor %}
-    </div>
-  </div>
-</section>
+    </ol>
+  </section>
 
-<p class="mx-auto max-w-6xl px-6 pb-16"><a href="/notes/" class="text-sm font-semibold text-royal transition-colors hover:text-midnight">&larr; All notes</a></p>
+  {% assign slug = hub.related | first %}
+  {% capture expected_url %}/notes/{{ slug }}/{% endcapture %}
+  {% assign related_note = notes | where: "url", expected_url | first %}
+  <aside class="guided-hub-bridge" aria-labelledby="guided-bridge-heading">
+    <div>
+      <p class="eyebrow">A useful side path</p>
+      <h2 id="guided-bridge-heading">Carry the idea into another collection</h2>
+    </div>
+    <a href="{{ related_note.url | relative_url }}">
+      <span>{{ related_note.title }}</span>
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+  </aside>
+
+  <p class="guided-hub-back"><a href="{{ '/notes/' | relative_url }}">&larr; Browse every note</a></p>
+</div>

@@ -9,7 +9,7 @@
 
   // Step function as [time, S(t) just after this time] pairs, starting
   // implicitly from (0, 1.0). Drawn as a right-continuous step curve.
-  var KM = [[0, 1], [2, 0.875], [3, 0.75], [4, 0.625], [6, 0.46875], [8, 0.234375], [10, 0.234375]];
+  var KM = [[0, 1], [2, 0.875], [3, 0.75], [4, 0.625], [6, 0.46875], [8, 0.234375]];
   var NAIVE = [[0, 1], [2, 0.875], [3, 0.75], [4, 0.5], [6, 0.25], [8, 0.125], [9, 0]];
 
   function mount(el) {
@@ -23,7 +23,7 @@
 
     var ctx = canvas.getContext('2d');
     var pad = { l: 46, r: 14, t: 14, b: 30 };
-    var xMax = 10;
+    var xMax = 9;
     var curve = 'km';
 
     function size() {
@@ -83,7 +83,7 @@
 
       if (readout) {
         readout.textContent = curve === 'km'
-          ? 'Correct: S(8) = 0.234, flat afterward'
+          ? 'Correct: S(8) = 0.234, held to month 9'
           : 'Naive: S(9) = 0.000 (claims certainty the data doesn\'t support)';
       }
     }
